@@ -1,0 +1,661 @@
+fileFormatVersion: 2
+guid: 5a9f656f87e66d4438199c7688f1bec7
+timeCreated: 1497644408
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Campaign Normal
+    21300002: Main Buttons PSD_1
+    21300004: Campaign Hovered
+    21300006: Missions Normal
+    21300008: Multiplayer Normal
+    21300010: Armory Normal
+    21300012: Armory Hovered
+    21300014: Multiplayer Hovered
+    21300016: Missions Hovered
+    21300018: Power Normal
+    21300020: Power Hovered
+    21300022: Settings Normal
+    21300024: Settings Hovered
+    21300026: Friends Normal
+    21300028: Friends Hovered
+    21300030: About Normal
+    21300032: About Hovered
+    21300034: Add Normal
+    21300036: Add Hovered
+    21300038: Back Normal
+    21300040: Back Hovered
+    21300042: Yes Normal
+    21300044: Yes Hovered
+    21300046: No Normal
+    21300048: No Hovered
+    21300050: Dropdown BG
+    21300052: Dropdown BG Filled
+    21300054: Change Normal
+    21300056: Change Hovered
+    21300058: Bullet Normal
+    21300060: Bullet Hovered
+    21300062: Armor Normal
+    21300064: Armor Hovered
+    21300066: Wheel Normal
+    21300068: Wheel Hovered
+    21300070: Click Normal
+    21300072: Click Hovered
+    21300074: Loading Circle
+    21300076: Smooth White Gradient
+    21300078: Back (Inverted) Normal
+    21300080: Back (Inverted) Hovered
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 8192
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 8192
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Windows Store Apps
+    maxTextureSize: 1024
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: WebGL
+    maxTextureSize: 8192
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Campaign Normal
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1698
+        width: 502
+        height: 802
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Campaign Hovered
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 886
+        width: 502
+        height: 802
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Missions Normal
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1698
+        width: 502
+        height: 802
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Multiplayer Normal
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1698
+        width: 502
+        height: 802
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Armory Normal
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1698
+        width: 502
+        height: 802
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Armory Hovered
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 886
+        width: 502
+        height: 802
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Multiplayer Hovered
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 886
+        width: 502
+        height: 802
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Missions Hovered
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 886
+        width: 502
+        height: 802
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Power Normal
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 776
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Power Hovered
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 776
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Settings Normal
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 776
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Settings Hovered
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 776
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Friends Normal
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 666
+        width: 360
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Friends Hovered
+      rect:
+        serializedVersion: 2
+        x: 369
+        y: 666
+        width: 361
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: About Normal
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 776
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: About Hovered
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 776
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Add Normal
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 776
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Add Hovered
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 776
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Back Normal
+      rect:
+        serializedVersion: 2
+        x: 740
+        y: 666
+        width: 316
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Back Hovered
+      rect:
+        serializedVersion: 2
+        x: 1066
+        y: 666
+        width: 316
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Yes Normal
+      rect:
+        serializedVersion: 2
+        x: 1392
+        y: 666
+        width: 316
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Yes Hovered
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 666
+        width: 316
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: No Normal
+      rect:
+        serializedVersion: 2
+        x: 2044
+        y: 666
+        width: 252
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: No Hovered
+      rect:
+        serializedVersion: 2
+        x: 2306
+        y: 666
+        width: 252
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Dropdown BG
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 156
+        width: 1000
+        height: 500
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Dropdown BG Filled
+      rect:
+        serializedVersion: 2
+        x: 1010
+        y: 531
+        width: 800
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Change Normal
+      rect:
+        serializedVersion: 2
+        x: 2568
+        y: 666
+        width: 370
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 10, y: 10, z: 10, w: 10}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Change Hovered
+      rect:
+        serializedVersion: 2
+        x: 2948
+        y: 666
+        width: 370
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 10, y: 10, z: 10, w: 10}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Bullet Normal
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 776
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Bullet Hovered
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 776
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Armor Normal
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 776
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Armor Hovered
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 776
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Wheel Normal
+      rect:
+        serializedVersion: 2
+        x: 1320
+        y: 776
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Wheel Hovered
+      rect:
+        serializedVersion: 2
+        x: 1430
+        y: 776
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Click Normal
+      rect:
+        serializedVersion: 2
+        x: 3328
+        y: 666
+        width: 272
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Click Hovered
+      rect:
+        serializedVersion: 2
+        x: 3610
+        y: 666
+        width: 272
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Circle
+      rect:
+        serializedVersion: 2
+        x: 4500
+        y: 2000
+        width: 500
+        height: 500
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Smooth White Gradient
+      rect:
+        serializedVersion: 2
+        x: 3076
+        y: 4
+        width: 1920
+        height: 497
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Back (Inverted) Normal
+      rect:
+        serializedVersion: 2
+        x: 3892
+        y: 666
+        width: 316
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Back (Inverted) Hovered
+      rect:
+        serializedVersion: 2
+        x: 4218
+        y: 666
+        width: 316
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

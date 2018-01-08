@@ -1,0 +1,104 @@
+[
+	{//Materials
+		"id": 0,
+		"name": "Wood",
+		"slug": "Wood",
+		"stackable": true,
+		"description": "You can get Wood from trees!",
+		"type": "material",
+		"durability": -1,
+		"damage": -1
+	},
+	{
+		"id": 1,
+		"name": "Stone",
+		"slug": "Stone",
+		"stackable": true,
+		"description": "You can get stones from rocks!",
+		"type": "material",
+		"durability": -1,
+		"damage": -1
+	},
+	{
+		"id": 2,
+		"name": "Stick",
+		"slug": "Stick",
+		"stackable": true,
+		"description": "You can get sticks from trees!",
+		"type": "material",
+		"durability": -1,
+		"damage": -1
+	},
+	{
+		"id": 3,
+		"name": "Iron",
+		"slug": "Iron",
+		"stackable": true,
+		"description": "You can get iron from ???!",
+		"type": "material",
+		"durability": -1,
+		"damage": -1
+	},
+	
+	{//Tools
+		"id": 10,
+		"name": "Stone Pick",
+		"slug": "Stone_Pick",
+		"stackable": false,
+		"description": "Pickaxe crafted by stone!",
+		"type": "tool",
+		"durability": 20,
+		"damage": 5
+	},
+	{
+		"id": 11,
+		"name": "Stone_ Axe",
+		"slug": "Stone_Axe",
+		"stackable": false,
+		"description": "Axe crafted by wood!",
+		"type": "tool",
+		"durability": 20,
+		"damage": 5
+	},
+	{
+		"id": 12,
+		"name": "Iron Pick",
+		"slug": "Iron_Pick",
+		"stackable": false,
+		"description": "Pickaxe crafted by iron!",
+		"type": "tool",
+		"durability": 25,
+		"damage": 7
+	},
+	{
+		"id": 13,
+		"name": "Iron Axe",
+		"slug": "Iron_Axe",
+		"stackable": false,
+		"description": "Axe crafted by iron!",
+		"type": "tool",
+		"durability": 25,
+		"damage": 7
+	},
+	{
+		"id": 14,
+		"name": "Hammer",
+		"slug": "Hammer",
+		"stackable": false,
+		"description": "With a hammer you can build structures!",
+		"type": "hammer",		
+		"durability": -1,
+		"damage": -1
+	},
+
+	{//Structures
+		"id": 20,
+		"name": "Wooden Wall",
+		"slug": "Wooden_Wall",
+		"stackable": true,
+		"description": "Use this wooden wall to defent your base!",
+		"type": "structure",
+		"durability": 50,
+		"damage": -1
+	}
+]
