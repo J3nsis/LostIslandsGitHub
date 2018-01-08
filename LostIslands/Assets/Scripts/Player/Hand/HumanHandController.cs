@@ -15,7 +15,7 @@ public class HumanHandController : MonoBehaviour {
 
     void OnAnimatorIK()
     {
-        if (HumanAnimator)
+        if (HumanAnimator && (RightHandObj != null))
         {
             // Set the right hand target position and rotation, if one has been assigned
             if (RightHandObj != null)

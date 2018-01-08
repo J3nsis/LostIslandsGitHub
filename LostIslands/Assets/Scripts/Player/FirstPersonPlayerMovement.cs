@@ -18,6 +18,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private float m_JumpSpeed;
         [SerializeField] private float m_StickToGroundForce;
         [SerializeField] private float m_GravityMultiplier;
+        public Transform HeadBone;
+        public Vector3 HeadBoneOffset;
         [SerializeField] private MouseLook m_MouseLook;
         [SerializeField] private bool m_UseFovKick;
         [SerializeField] private FOVKick m_FovKick = new FOVKick();
@@ -265,6 +267,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void UpdateCameraPosition(float speed)
         {
             Vector3 newCameraPosition;
+
+            if (HeadBone)
+            {
+                //m_Camera.transform.position = HeadBone.transform.position + HeadBoneOffset;
+                //Vector3 offset2 = m_Camera.transform.position - (HeadBone.transform.position + m_Camera.transform.transform.forward * HeadBoneOffset.z);
+                m_Camera.transform.position = HeadBone.transform.position + m_Camera.transform.forward * HeadBoneOffset.z +
+                m_Camera.transform.right * HeadBoneOffset.x + m_Camera.transform.up * HeadBoneOffset.y;
+            }
+
+            return;
+
             if (!m_UseHeadBob)
             {
                 return;
@@ -283,6 +296,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 newCameraPosition.y = m_OriginalCameraPosition.y - m_JumpBob.Offset();
             }
             m_Camera.transform.localPosition = newCameraPosition;
+
         }
 
 
@@ -339,10 +353,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void RotateView()
         {
             m_MouseLook.LookRotation (transform, m_Camera.transform);
+            if (HeadBone)
+            {
+                Vector3 relativePos = HeadBone.transform.position + HeadBone.transform.up;
+                Quaternion rotation = Quaternion.LookRotation(HeadBone.transform.right);
+                m_Camera.transform.rotation = Quaternion.Lerp(m_Camera.transform.rotation, rotation, 0.6f); // Lerps between curren rotation and headbone
+                //m_Camera.transform.rotation = rotation;
+            }
         }
 
+        
         /*
-
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
             Rigidbody body = hit.collider.attachedRigidbody;
@@ -357,6 +378,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 return;
             }
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
-        }*/
+            */
+        
     }
 }

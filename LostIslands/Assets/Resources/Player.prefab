@@ -3540,7 +3540,7 @@ Animator:
   m_GameObject: {fileID: 1560637713975214}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c8b9cd3fdcf7f0748a8a683c620fe1fb, type: 2}
+  m_Controller: {fileID: 9100000, guid: fe2053e00702fd646a002982adfeef4b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3557,7 +3557,7 @@ Animator:
   m_GameObject: {fileID: 1151070231677010}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c8b9cd3fdcf7f0748a8a683c620fe1fb, type: 2}
+  m_Controller: {fileID: 9100000, guid: fe2053e00702fd646a002982adfeef4b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3574,7 +3574,7 @@ Animator:
   m_GameObject: {fileID: 1277798643824260}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c8b9cd3fdcf7f0748a8a683c620fe1fb, type: 2}
+  m_Controller: {fileID: 9100000, guid: fe2053e00702fd646a002982adfeef4b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3608,7 +3608,7 @@ Animator:
   m_GameObject: {fileID: 1553140881748706}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c8b9cd3fdcf7f0748a8a683c620fe1fb, type: 2}
+  m_Controller: {fileID: 9100000, guid: fe2053e00702fd646a002982adfeef4b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3780,12 +3780,14 @@ MonoBehaviour:
   m_JumpSpeed: 10
   m_StickToGroundForce: 10
   m_GravityMultiplier: 2
+  HeadBone: {fileID: 4186828922584810}
+  HeadBoneOffset: {x: 0, y: 0, z: 0}
   m_MouseLook:
     XSensitivity: 2
-    YSensitivity: -2
+    YSensitivity: 2
     clampVerticalRotation: 1
-    MinimumX: -80
-    MaximumX: 75
+    MinimumX: -65
+    MaximumX: 65
     smooth: 0
     smoothTime: 5
     lockCursor: 0
@@ -3949,7 +3951,8 @@ MonoBehaviour:
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1

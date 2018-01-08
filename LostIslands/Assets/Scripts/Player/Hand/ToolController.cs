@@ -17,6 +17,7 @@ public class ToolController : MonoBehaviour {
     private Rigidbody m_Rigidbody;
     private Vector3 impact = Vector3.zero;
     protected Animator animator;
+    protected Animator playerAnimator;
 
     Tool tool;
 
@@ -24,6 +25,7 @@ public class ToolController : MonoBehaviour {
     void Start () {
         fppm = Net_Manager.instance.GetLocalPlayer().GetComponent<FirstPersonPlayerMovement>();
         animator = GetComponent<Animator>();
+        playerAnimator = fppm.gameObject.GetComponentInChildren<Animator>(); // Assume 1st animator is the player's animator 
         m_Rigidbody = GetComponent<Rigidbody>();
         m_Character = fppm.gameObject.GetComponent<CharacterController>();
 
@@ -34,7 +36,8 @@ public class ToolController : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0) && PlayerStats.instance.ps.Ausdauer >= 10 && PlayerController.instance.Pause == false && tool.Swinging == false)
         {
-            animator.SetTrigger("slay");
+            if (animator) animator.SetTrigger("slay");
+            playerAnimator.SetTrigger("slay");
             PlayerStats.instance.ps.Ausdauer -= 10;
             tool.data.currentdurability -= 1;
         }
@@ -73,10 +76,15 @@ public class ToolController : MonoBehaviour {
 
     void OnCollisionEnter(UnityEngine.Collision collision)
     {
-        animator.SetTrigger("hitSomething");
+        if (animator) animator.SetTrigger("hitSomething");
+        playerAnimator.SetTrigger("hitSomething");
         fppm.lockMoving = true;
         ContactPoint contact = collision.contacts[0];
         AddImpact(contact.normal, impactForce);
+
+        // Check if the collision target has a Rigidbody
+        Rigidbody collisionRB = collision.gameObject.GetComponent<Rigidbody>();
+        if (collisionRB) collisionRB.AddForceAtPosition(-contact.normal * 15f, contact.point, ForceMode.Impulse);
     }
 
 

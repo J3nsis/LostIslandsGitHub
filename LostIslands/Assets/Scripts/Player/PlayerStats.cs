@@ -101,17 +101,17 @@ public class PlayerStats : MonoBehaviour {
         ps.Essen = Mathf.Clamp(ps.Essen, 0, 100);
         ps.Trinken = Mathf.Clamp(ps.Trinken, 0, 100);
 
-        
+        /*
         GesundheitProgress.GetComponent<Image>().fillAmount = ps.Gesundheit / 100;
         AusdauerProgress.GetComponent<Image>().fillAmount = ps.Ausdauer / 100;
         EssenProgress.GetComponent<Image>().fillAmount = ps.Essen / 100;
         TrinkenProgress.GetComponent<Image>().fillAmount = ps.Trinken / 100;
-        
+
         GesundheitText.text = Mathf.Round(ps.Gesundheit) + "%";
         AusdauerText.text = Mathf.Round(ps.Ausdauer) + "%";
         EssenText.text = Mathf.Round(ps.Essen) + "%";
         TrinkenText.text = Mathf.Round(ps.Trinken) + "%";
-        
+        */
 
     }
 

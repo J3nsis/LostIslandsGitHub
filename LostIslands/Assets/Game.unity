@@ -22456,6 +22456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InventoryPanel: {fileID: 467306108}
   slotPanel: {fileID: 367648684}
+  hotbarSlotPanel: {fileID: 322590905}
   InventorySlot: {fileID: 1308807523518628, guid: 9c98aa88bff882d40bdf18b0f6922431,
     type: 2}
   InventoryItem: {fileID: 1869504349772810, guid: 832904973a86c1143a6e80c82798d90e,

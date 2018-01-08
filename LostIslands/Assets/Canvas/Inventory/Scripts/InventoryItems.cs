@@ -20,7 +20,7 @@ public class InventoryItems : MonoBehaviour {
     }
     #endregion
     public GameObject InventoryPanel;
-    public GameObject slotPanel;
+    [SerializeField] GameObject slotPanel, hotbarSlotPanel;
     public GameObject InventorySlot;
     public GameObject InventoryItem;
     public ItemDatabase database;
@@ -48,24 +48,21 @@ public class InventoryItems : MonoBehaviour {
 	{
         database = GetComponent<ItemDatabase>();
 
-        GameObject SlotsPanel = GameObject.Find("Slots");
-        for (int i = 0; i < SlotsPanel.transform.childCount; i++)
+        InventoryPanel.SetActive(true);
+
+        for (int i = 0; i < slotPanel.transform.childCount; i++)
         {
-            slots.Add(SlotsPanel.transform.GetChild(i).gameObject);//Liste mit Slots füllen 
+            slots.Add(slotPanel.transform.GetChild(i).gameObject);//Liste mit Slots füllen 
             items.Add(new Item());//Liste mit leeren Items füllen
         }
 
-        GameObject HotbarPanel = GameObject.Find("HotbarSlots");
-        for (int i = 0; i < HotbarPanel.transform.childCount; i++)
+        for (int i = 0; i < hotbarSlotPanel.transform.childCount; i++)
         {
-            if (HotbarPanel.transform.GetChild(i).gameObject.transform.name == "Slot" + i)
+            if (hotbarSlotPanel.transform.GetChild(i).gameObject.transform.name == "Slot" + i)
             {
-                HotbarPanel.transform.GetChild(i).gameObject.GetComponent<Slot>().HotbarSlot = true;
-                HotbarSlots.Add(HotbarPanel.transform.GetChild(i).gameObject);//Liste mit Slots füllen 
+                hotbarSlotPanel.transform.GetChild(i).gameObject.GetComponent<Slot>().HotbarSlot = true;
+                HotbarSlots.Add(hotbarSlotPanel.transform.GetChild(i).gameObject);//Liste mit Slots füllen 
                 HotbarItems.Add(new Item());//Liste mit leeren Items füllen
-            }
-            else {
-                return;
             }          
         }
     }
