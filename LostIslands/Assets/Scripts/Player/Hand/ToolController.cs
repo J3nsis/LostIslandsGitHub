@@ -16,33 +16,47 @@ public class ToolController : MonoBehaviour {
     private CharacterController m_Character;
     private Rigidbody m_Rigidbody;
     private Vector3 impact = Vector3.zero;
-    protected Animator animator;
-    protected Animator playerAnimator;
+    protected Animator m_Animator;
+    protected Animator m_PlayerAnimator;
+    private AudioSource m_AudioSource;
+    private bool m_isSlaying;
+    private float m_SlayingTime;
 
     Tool tool;
 
     // Use this for initialization
     void Start () {
         fppm = Net_Manager.instance.GetLocalPlayer().GetComponent<FirstPersonPlayerMovement>();
-        animator = GetComponent<Animator>();
-        playerAnimator = fppm.gameObject.GetComponentInChildren<Animator>(); // Assume 1st animator is the player's animator 
+        m_Animator = GetComponent<Animator>();
+        m_PlayerAnimator = fppm.gameObject.GetComponentInChildren<Animator>(); // Assume 1st animator is the player's animator 
         m_Rigidbody = GetComponent<Rigidbody>();
         m_Character = fppm.gameObject.GetComponent<CharacterController>();
+        m_AudioSource = GetComponent<AudioSource>();
 
         tool = GetComponent<Tool>();
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && PlayerStats.instance.ps.Ausdauer >= 10 && PlayerController.instance.Pause == false && tool.Swinging == false)
-        {
-            if (animator) animator.SetTrigger("slay");
-            playerAnimator.SetTrigger("slay");
-            PlayerStats.instance.ps.Ausdauer -= 10;
-            tool.data.currentdurability -= 1;
+        if (Input.GetMouseButtonDown(0) && PlayerStats.instance.ps.Ausdauer >= 10 && PlayerController.instance.Pause == false)// && tool.Swinging == false)
+        {           
+
+            if (!m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.axe") &&
+                !m_PlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.standing melee attack downward")) // Check if the player is in idle state
+            {
+                if (m_Animator) m_Animator.SetTrigger("slay");
+                m_PlayerAnimator.SetTrigger("slay");
+                m_isSlaying = true;
+                m_SlayingTime = Time.time;
+
+                PlayerStats.instance.ps.Ausdauer -= 10;
+                tool.data.currentdurability -= 1;
+            }
         }
 
-        if (!(animator.GetCurrentAnimatorStateInfo(0).IsName("tool animation")))//wenn nicht am Swingen
+        
+
+        if (!(m_Animator.GetCurrentAnimatorStateInfo(0).IsName("tool animation")))//wenn nicht am Swingen
         {
             tool.Swinging = false;
         }
@@ -76,8 +90,14 @@ public class ToolController : MonoBehaviour {
 
     void OnCollisionEnter(UnityEngine.Collision collision)
     {
-        if (animator) animator.SetTrigger("hitSomething");
-        playerAnimator.SetTrigger("hitSomething");
+        if (m_AudioSource)
+        {
+            float currentSlayingTime = Time.time - m_SlayingTime;
+            if (currentSlayingTime > 0.4f) m_isSlaying = false;
+            if (m_isSlaying) m_AudioSource.Play();
+        }
+        if (m_Animator) m_Animator.SetTrigger("hitSomething");
+        m_PlayerAnimator.SetTrigger("hitSomething");
         fppm.lockMoving = true;
         ContactPoint contact = collision.contacts[0];
         AddImpact(contact.normal, impactForce);
@@ -87,12 +107,23 @@ public class ToolController : MonoBehaviour {
         if (collisionRB) collisionRB.AddForceAtPosition(-contact.normal * 15f, contact.point, ForceMode.Impulse);
     }
 
-
     void OnCollisionStay(UnityEngine.Collision collision)
     {
         fppm.lockMoving = true;
         ContactPoint contact = collision.contacts[0];
         AddImpact(contact.normal, impactForce);
+    }
+
+    bool AnimatorIsPlaying()
+    {
+        return m_Animator.GetCurrentAnimatorStateInfo(0).length >
+               m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+    }
+
+    bool AnimatorIsPlaying(string stateName)
+    {
+        //return AnimatorIsPlaying() && m_Animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
+        return m_Animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
     }
 
 }

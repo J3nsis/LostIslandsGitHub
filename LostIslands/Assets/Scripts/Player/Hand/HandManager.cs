@@ -42,7 +42,7 @@ public class HandManager : MonoBehaviour {
         go.GetComponent<Tool>().data = itemData.data;
         go.GetComponent<Tool>().slot = itemData.data.slot;
 
-        humanHandController.RightHandObj = currentToolObj.transform.GetChild(0).transform;
+        humanHandController.m_RightHandObj = currentToolObj.transform.GetChild(0).transform;
         
     }
 
@@ -88,7 +88,7 @@ public class HandManager : MonoBehaviour {
         Iron_Axe.SetActive(false);
         Iron_Pick.SetActive(false);
 
-        humanHandController.RightHandObj = null;
+        humanHandController.m_RightHandObj = null;
         currentToolObj = null;
         currentToolSlug = "";
     }

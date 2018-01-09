@@ -43,6 +43,8 @@ public class Net_Player : MonoBehaviour {
             {
                 child.gameObject.layer = 8;
             }
+
+            GetComponentInChildren<TextMesh>().text = "";
         }
         else
         {
