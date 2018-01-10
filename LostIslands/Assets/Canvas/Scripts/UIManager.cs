@@ -63,13 +63,13 @@ public class UIManager : MonoBehaviour {
 
     public void HideHealthbar()
     {
-        HealthbarPanel.transform.localPosition = new Vector2(0, 500);
+        HealthbarPanel.transform.localPosition = new Vector2(0, 700);
     }
 
 
     public void ShowHealthbar()
     {
-        HealthbarPanel.transform.localPosition = new Vector2(0, 250);
+        HealthbarPanel.transform.localPosition = new Vector2(0, 465);
     }
 
     public void HideMiddleinfo()

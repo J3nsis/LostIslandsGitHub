@@ -41,8 +41,6 @@ public class Net_Manager : MonoBehaviour {
 
     private void SpawnPlayer()
     {
-        
-        print("spawning player");
         GameObject Player = PhotonNetwork.Instantiate(PlayerPrefab.name, Spawn.position, Spawn.rotation, 0);
         Player.SetActive(true);
         Player.name = "NetworkPlayer";

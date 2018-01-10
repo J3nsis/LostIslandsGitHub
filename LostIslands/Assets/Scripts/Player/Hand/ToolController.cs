@@ -22,10 +22,13 @@ public class ToolController : MonoBehaviour {
     private bool m_isSlaying;
     private float m_SlayingTime;
 
+    [SerializeField]
+    bool curretlySlaying;
+
     Tool tool;
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         fppm = Net_Manager.instance.GetLocalPlayer().GetComponent<FirstPersonPlayerMovement>();
         m_Animator = GetComponent<Animator>();
         m_PlayerAnimator = fppm.gameObject.GetComponentInChildren<Animator>(); // Assume 1st animator is the player's animator 
@@ -38,31 +41,29 @@ public class ToolController : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && PlayerStats.instance.ps.Ausdauer >= 10 && PlayerController.instance.Pause == false)// && tool.Swinging == false)
-        {           
-
-            if (!m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.axe") &&
+        if (!m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.axe") &&
                 !m_PlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.standing melee attack downward")) // Check if the player is in idle state
-            {
-                if (m_Animator) m_Animator.SetTrigger("slay");
-                m_PlayerAnimator.SetTrigger("slay");
-                m_isSlaying = true;
-                m_SlayingTime = Time.time;
-
-                PlayerStats.instance.ps.Ausdauer -= 10;
-                tool.data.currentdurability -= 1;
-            }
-        }
-
-        
-
-        if (!(m_Animator.GetCurrentAnimatorStateInfo(0).IsName("tool animation")))//wenn nicht am Swingen
         {
+            curretlySlaying = false;
             tool.Swinging = false;
         }
         else
         {
+            curretlySlaying = true;
             tool.Swinging = true;
+        }
+
+
+        if (Input.GetMouseButtonDown(0) && PlayerStats.instance.ps.Ausdauer >= 10 && PlayerController.instance.Pause == false && curretlySlaying == false)
+        {
+            if (m_Animator) m_Animator.SetTrigger("slay");
+            m_PlayerAnimator.SetTrigger("slay");
+            m_isSlaying = true;
+            m_SlayingTime = Time.time;
+
+            PlayerStats.instance.ps.Ausdauer -= 10;
+            tool.data.currentdurability -= 1;
+            curretlySlaying = true;
         }
     }
 
@@ -90,7 +91,7 @@ public class ToolController : MonoBehaviour {
 
     void OnCollisionEnter(UnityEngine.Collision collision)
     {
-        if (m_AudioSource)
+        if (m_AudioSource && collision.gameObject.GetComponent<DamageController>())
         {
             float currentSlayingTime = Time.time - m_SlayingTime;
             if (currentSlayingTime > 0.4f) m_isSlaying = false;

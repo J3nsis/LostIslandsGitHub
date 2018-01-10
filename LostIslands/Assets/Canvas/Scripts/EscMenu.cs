@@ -15,11 +15,7 @@ public class EscMenu : MonoBehaviour {
     public bool inEsc;
 
 	void Start () {
-        EscPanel.SetActive(false);
-        NormalEsc.SetActive(true);
-        SettingsEsc.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        PlayerController.instance.Pause = false;
+        CloseEsc();
     }
 
     void Update()
@@ -67,11 +63,16 @@ public class EscMenu : MonoBehaviour {
         SettingsEsc.SetActive(false);
     }
 
-    public void Close()
+    public void Close()//Close Game
     {
         PhotonNetwork.Disconnect();
         PhotonNetwork.offlineMode = false;
         Application.Quit();
+    }
+
+    public void Continue()//back to game
+    {
+        CloseEsc();
     }
 
     public void OpenEsc()
@@ -94,33 +95,20 @@ public class EscMenu : MonoBehaviour {
 
     public void CloseEsc()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         UIManager.instance.ShowHealthbar();
         UIManager.instance.ShowChat();
         UIManager.instance.ShowCrosshair();
         UIManager.instance.ShowMiddleinfo();
 
-        
         PlayerController.instance.Pause = false;
         inEsc = false;
 
         EscPanel.SetActive(false);
         NormalEsc.SetActive(true);
         SettingsEsc.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-    }
-
-    public void Continue()
-    {
-        EscPanel.SetActive(false);
-        NormalEsc.SetActive(true);
-        SettingsEsc.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        PlayerController.instance.Pause = false;
-
-        UIManager.instance.ShowChat();
-        UIManager.instance.ShowCrosshair();
-        UIManager.instance.ShowHealthbar();
-        UIManager.instance.ShowMiddleinfo();
         
     }
+
+    
 }

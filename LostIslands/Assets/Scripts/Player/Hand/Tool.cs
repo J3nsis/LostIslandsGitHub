@@ -42,23 +42,7 @@ public class Tool : MonoBehaviour {
             {
                 other.gameObject.GetComponent<DamageController>().DamageMe(item.Damage);
             }
-
-
-
-            /*foreach (AnimationState state in anim)
-            {
-                state.speed = 0.5F;
-            }*/
-
-            
-
-            //animator.speed = -1;
-            /*Amimator.["Swing"].speed = -1;
-            hand.animation["bridge"].time = hand.animation["bridge"].length;
-            hand.animation.Play("bridge");*/
         }
-
-
     }
 
 }

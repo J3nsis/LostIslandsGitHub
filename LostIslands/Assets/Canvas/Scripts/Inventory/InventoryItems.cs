@@ -278,8 +278,6 @@ public class InventoryItems : MonoBehaviour {
     public ItemData GetItemDatabySlot(int slotId)//wird z.B. in Tooltip für Infos benötigt wie currentDurability
     {
         return slots[slotId].transform.GetChild(0).GetComponent<ItemData>();
-
-        throw new InvalidOperationException("No ItemData found!");
     }
 
     public int GetSlotWhereItemisInInventory(int id)

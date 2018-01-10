@@ -47,7 +47,7 @@
 		"stackable": false,
 		"description": "Pickaxe crafted by stone!",
 		"type": "tool",
-		"durability": 20,
+		"durability": 30,
 		"damage": 5
 	},
 	{
@@ -57,7 +57,7 @@
 		"stackable": false,
 		"description": "Axe crafted by wood!",
 		"type": "tool",
-		"durability": 20,
+		"durability": 30,
 		"damage": 5
 	},
 	{
@@ -67,7 +67,7 @@
 		"stackable": false,
 		"description": "Pickaxe crafted by iron!",
 		"type": "tool",
-		"durability": 25,
+		"durability": 40,
 		"damage": 7
 	},
 	{
@@ -77,7 +77,7 @@
 		"stackable": false,
 		"description": "Axe crafted by iron!",
 		"type": "tool",
-		"durability": 25,
+		"durability": 40,
 		"damage": 7
 	},
 	{
