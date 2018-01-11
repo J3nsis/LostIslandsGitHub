@@ -56,13 +56,8 @@ public class OnlineSelectionManager : MonoBehaviour {
 
     public void OnSlotChosed(int slot)//wird von Load button in Menu aufgerufen
     {
-
         SaveLoadManager.instance.currentSlot = slot;
         MainMenuManager.instance.ShowRoomCreate();
-        
-        //später!
-        //SaveLoadManager.instance.OpenGameScene(); //schon drin
-        //SaveLoadManager.instance.currentSlot = slot;
     }
 
     public void OnClearSlotPressed(int slot)

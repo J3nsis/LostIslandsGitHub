@@ -35,7 +35,7 @@ public class Build : MonoBehaviour {
 
     void Start () 
 	{
-        Player = FindObjectOfType<Net_Player>().gameObject;
+        Player = Net_Manager.instance.GetLocalPlayer();
 
         BuildState = State.none;
     }

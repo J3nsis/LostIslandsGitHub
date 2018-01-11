@@ -100,12 +100,12 @@ public class MainMenuManager : MonoBehaviour {
     }
 
     public void Quit()
-    {
-        Application.Quit();
+    {        
         if (PhotonNetwork.connected)
         {
             PhotonNetwork.Disconnect();
         }
+        Application.Quit();
     }
 
     //### Username input etc.
@@ -131,7 +131,7 @@ public class MainMenuManager : MonoBehaviour {
             acceptButton.interactable = true;
         }
 
-        if (Input.GetKey(KeyCode.R) && MainSelection.active == true)
+        if (Input.GetKey(KeyCode.R) && MainSelection.activeSelf == true)
         {
             PlayerPrefs.SetString("Username", "");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

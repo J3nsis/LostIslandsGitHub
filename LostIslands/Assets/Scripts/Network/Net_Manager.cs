@@ -49,12 +49,6 @@ public class Net_Manager : MonoBehaviour {
         Players.Add(Player, PhotonNetwork.player);        
     }
 
-
-    private void Update()
-    {
-
-    }
-
     void OnMasterClientSwitched()
     {
         SceneManager.LoadScene(0);
@@ -79,6 +73,10 @@ public class Net_Manager : MonoBehaviour {
 
     public GameObject GetLocalPlayer()
     {
+        if (localPlayer == null)
+        {
+            print("[Net_Manager] local player == null");
+        }
         return localPlayer;
     }
 }

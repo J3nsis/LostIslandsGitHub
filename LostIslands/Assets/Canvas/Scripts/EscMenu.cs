@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -14,8 +15,12 @@ public class EscMenu : MonoBehaviour {
 
     public bool inEsc;
 
+    public AudioMixer audioMixer;
+    public GameObject directionalLight;
+
 	void Start () {
         CloseEsc();
+        LoadSettings();
     }
 
     void Update()
@@ -42,7 +47,6 @@ public class EscMenu : MonoBehaviour {
         {
             PhotonNetwork.Disconnect();
         }
-        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
         SceneManager.LoadScene(0);
     }
         
@@ -81,13 +85,10 @@ public class EscMenu : MonoBehaviour {
         UIManager.instance.HideHealthbar();
         UIManager.instance.HideChat();
         UIManager.instance.HideCrosshair();
-        UIManager.instance.HideMiddleinfo();
-        
-        
+        UIManager.instance.HideMiddleinfo();      
         Cursor.lockState = CursorLockMode.None;
         PlayerController.instance.Pause = true;
         inEsc = true;
-
         EscPanel.SetActive(true);
         NormalEsc.SetActive(true);
         SettingsEsc.SetActive(false);
@@ -100,14 +101,47 @@ public class EscMenu : MonoBehaviour {
         UIManager.instance.ShowChat();
         UIManager.instance.ShowCrosshair();
         UIManager.instance.ShowMiddleinfo();
-
         PlayerController.instance.Pause = false;
         inEsc = false;
-
         EscPanel.SetActive(false);
         NormalEsc.SetActive(true);
-        SettingsEsc.SetActive(false);
-        
+        SettingsEsc.SetActive(false);       
+    }
+
+    //### Settings:
+
+    public void SetVolume(float volume)
+    {
+        audioMixer.SetFloat("volume", volume);
+        PlayerPrefs.SetFloat("Volume", volume);
+    }
+
+    public void SetQuality(int qualityIndex)
+    {
+        QualitySettings.SetQualityLevel(qualityIndex);
+        PlayerPrefs.SetInt("QualityLevel", qualityIndex);
+    }
+
+    public void SetFullscreen(bool isFullscreen)
+    {
+        Screen.fullScreen = isFullscreen;
+        PlayerPrefsX.SetBool("Fullscreen", isFullscreen);
+    }
+
+    public void SetBrightness(float brightness)
+    {
+        directionalLight.GetComponent<Light>().intensity = brightness;
+        PlayerPrefs.SetFloat("Brightness", brightness);
+    }
+
+    void LoadSettings()
+    {
+        audioMixer.SetFloat("volume", PlayerPrefs.GetFloat("Volume"));
+        QualitySettings.SetQualityLevel(PlayerPrefs.GetInt("QualityLevel"));
+        Screen.fullScreen = PlayerPrefsX.GetBool("Fullscreen");
+        directionalLight.GetComponent<Light>().intensity = PlayerPrefs.GetFloat("Brightness");
+
+        //jetzt noch Slider ändern!
     }
 
     

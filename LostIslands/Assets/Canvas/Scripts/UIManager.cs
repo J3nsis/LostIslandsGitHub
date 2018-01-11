@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour {
 	{
         ShowChat();
         ShowHealthbar();
+        ClearInfo();
     }
 
     public void NewInfo(string info)

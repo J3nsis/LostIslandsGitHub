@@ -16,11 +16,6 @@ public class  DamageController : MonoBehaviour {
     {
         Player = Net_Manager.instance.GetLocalPlayer();
 
-        if (Player == null)
-        {
-            print("Player null");
-        }
-
         Object = (Name)System.Enum.Parse(typeof(Name), this.transform.tag); //an Hand von Tag wird Enum ausgewählt
 
         if (Object == Name.Tree)
@@ -62,7 +57,7 @@ public class  DamageController : MonoBehaviour {
 
     }
 
-    public void DamageMe(int damage)//wird von Axt ausgeführt wenn Axt erkennt das anderes Object dieses Script hat (int damage = Stärke von Axt)
+    public void DamageMe(int damage)//wird von Tool ausgeführt wenn Tool erkennt das anderes Object dieses Script hat (int damage = Stärke von Tool)
     {
         if (Object == Name.Tree && dead == false) 
         {

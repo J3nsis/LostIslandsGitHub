@@ -1,0 +1,27 @@
+{
+    "SzeneObjectList": [
+        {
+            "id": 27018,
+            "name": "StartBox",
+            "savePosition": true,
+            "saveRotation": true,
+            "position": {
+                "x": 92.41032409667969,
+                "y": 0.14649343490600587,
+                "z": -24.43067169189453
+            },
+            "rotation": {
+                "x": 270.0,
+                "y": -7.225277158795507e-7,
+                "z": 0.0
+            }
+        }
+    ],
+    "DestroyedObjectsName": [
+        "StartAxe",
+        "Backpack",
+        "bush03 (26)"
+    ],
+    "InitPrefabNames": [],
+    "InitNames": []
+}

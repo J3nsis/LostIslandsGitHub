@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 114324156186620428}
   m_Layer: 0
   m_Name: bush02
-  m_TagString: Untagged
+  m_TagString: Bush
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -27,9 +27,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 199470}
-  m_LocalRotation: {x: 0, y: 0.23405239, z: 0, w: 0.97222406}
-  m_LocalPosition: {x: -66.1, y: -1.6099997, z: -56.3}
-  m_LocalScale: {x: 3.230206, y: 2.2384782, z: 2.4828362}
+  m_LocalRotation: {x: 0, y: 0.43998933, z: 0, w: 0.898003}
+  m_LocalPosition: {x: 28.709942, y: -2.9428, z: -1.098987}
+  m_LocalScale: {x: 4.788374, y: 3.3182623, z: 3.6804924}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -144,7 +144,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89

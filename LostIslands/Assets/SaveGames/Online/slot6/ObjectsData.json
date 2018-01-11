@@ -1,23 +1,23 @@
 {
     "SzeneObjectList": [
         {
-            "id": -139538,
+            "id": -103498,
             "name": "J3nsis",
             "savePosition": true,
             "saveRotation": true,
             "position": {
-                "x": 110.74285888671875,
-                "y": 3.1001503467559816,
-                "z": -29.52374267578125
+                "x": 97.81551361083985,
+                "y": 2.0997400283813478,
+                "z": -23.862796783447267
             },
             "rotation": {
                 "x": 0.0,
-                "y": 335.29998779296877,
+                "y": 253.3000030517578,
                 "z": 0.0
             }
         },
         {
-            "id": 45118,
+            "id": 31342,
             "name": "StartBox",
             "savePosition": true,
             "saveRotation": true,

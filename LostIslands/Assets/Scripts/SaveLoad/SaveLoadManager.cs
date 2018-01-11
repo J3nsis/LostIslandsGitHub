@@ -230,7 +230,7 @@ public class SaveLoadManager : MonoBehaviour {
        
         if (File.Exists(Application.dataPath + "/SaveGames/" + OnlineOffline + "/slot" + slot + "/SlotData.json"))
         {
-            return JsonUtility.FromJson<SlotData>(File.ReadAllText(Application.dataPath + "/SaveGames/Offline/slot" + slot + "/SlotData.json"));
+            return JsonUtility.FromJson<SlotData>(File.ReadAllText(Application.dataPath + "/SaveGames/" + OnlineOffline + "slot" + slot + "/SlotData.json"));
         }
 
         return null;        
