@@ -9,33 +9,32 @@ public class CreateRoom : MonoBehaviour {
     [SerializeField]
     InputField maxplayers, roomname;
 
+    [SerializeField]
+    Button CreateButton;
+
+
     int MaxPlayers = 2;
     string RoomName = "DevTestRoom";
 
-    void OnEnable()
+    private void Update()
     {
-        PhotonNetwork.ConnectUsingSettings("GameVersion");
-    }
-
-    public void OnConnectedToMaster()
-    {
-        PhotonNetwork.JoinLobby(new TypedLobby("MyLobby", LobbyType.SqlLobby));
-        PhotonNetwork.playerName = PlayerPrefs.GetString("Username");
-    }
-
-    void OnJoinedLobby()
-    {
-        //print("connected to lobby");
+        if (maxplayers.text == "" || roomname.text == "" || maxplayers.text == "1")
+        {
+            CreateButton.interactable = false;
+        }
+        else
+        {
+            CreateButton.interactable = true;
+        }
     }
 
     public void OnCreateRoomButton()
     {
-        if (PhotonNetwork.connectionState == ConnectionState.Connecting)
+        if (PhotonNetwork.connectionState != ConnectionState.Connected)
         {
-            //return;
+            return;
         }
-        
-        
+               
         if (maxplayers.text != "" && roomname.text != "")
         {
             MaxPlayers = Convert.ToInt32(maxplayers.text);
@@ -46,18 +45,23 @@ public class CreateRoom : MonoBehaviour {
         {
             return;
         }
-        
+
+        foreach (Room room in PhotonNetwork.GetRoomList())//wenn raumname vergeben
+        {
+            if (room.Name == RoomName)
+            {
+                print("Room with this name already taken");
+                roomname.text = "";
+            }
+        }
+
 
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = (byte)MaxPlayers; 
         roomOptions.IsVisible = true;
-        if (PhotonNetwork.CreateRoom(RoomName, roomOptions, null))
+        if (!PhotonNetwork.CreateRoom(RoomName, roomOptions, null))//wenn fehler beim raum erstellen
         {
-            print("room created");
-        }
-        else
-        {
-            print("create room fail");
+            MainMenuManager.instance.ToMainSelection();
         }
     }
 

@@ -66,6 +66,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [HideInInspector]
         public Vector3 m_CurrentCameraLookDirection;
 
+        [SerializeField]
         Animator anim;
 
         public bool StateRun;
@@ -86,8 +87,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
             m_MouseLook.Init(transform, m_Camera.transform);
-
-            anim = GetComponentInChildren<Animator>();
         }
 
         private void Update()

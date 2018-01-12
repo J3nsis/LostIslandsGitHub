@@ -55,41 +55,33 @@ public class MainMenuManager : MonoBehaviour {
             MainSelection.SetActive(false);
         }
         else
-        {
-            SetUsername.SetActive(false);
+        {          
             MainSelection.SetActive(true);
             Username.text = PlayerPrefs.GetString("Username");
-        }
+        }   
     }
 
     public void OnOffline()
     {
-        MainSelection.SetActive(false);
+        HideAll();
         OfflineSelection.SetActive(true);
-        LoadingScreen.SetActive(false);
-        OnlineHostSaveGameSelection.SetActive(false);
-        OnlineCreateRoom.SetActive(false);
-        OnlineRoomView.SetActive(false);
-        OnlineJoin.SetActive(false);
     }
 
     public void ToMainSelection()
     {
-        HideAll();
-        MainSelection.SetActive(true);
-
-        PhotonNetwork.offlineMode = false;
-        if (PhotonNetwork.connected)
+        if (PhotonNetwork.inRoom)
         {
             PhotonNetwork.Disconnect();
         }
+
+        HideAll();
+        MainSelection.SetActive(true);
     }
 
     public void OnOnlineHost()
     {
         HideAll();
         OnlineHostSaveGameSelection.SetActive(true);
-
     }
 
     public void OnOnlineJoin()
@@ -139,7 +131,6 @@ public class MainMenuManager : MonoBehaviour {
 
         ConnectionState.text = PhotonNetwork.connectionStateDetailed.ToString();
     }
-
     //### 
 
     public void ShowLoadingScreen()
@@ -166,9 +157,6 @@ public class MainMenuManager : MonoBehaviour {
     public void Dev_QuickJoin()
     {
         DevQuickJoin = true;
-        PhotonNetwork.ConnectUsingSettings("GameVersion");
-
-        PhotonNetwork.JoinLobby(new TypedLobby("MyLobby", LobbyType.SqlLobby));
         PhotonNetwork.playerName = PlayerPrefs.GetString("Username");
     }
 
@@ -185,7 +173,7 @@ public class MainMenuManager : MonoBehaviour {
         if (DevQuickJoin)
         {
             SaveLoadManager.instance.OpenGameScene();
-            SaveLoadManager.instance.currentSlot = 6;
+            SaveLoadManager.instance.currentSlot = 7;
         }
     }
 

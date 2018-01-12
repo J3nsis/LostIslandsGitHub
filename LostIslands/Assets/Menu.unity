@@ -1082,6 +1082,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxplayers: {fileID: 872438510}
   roomname: {fileID: 947346027}
+  CreateButton: {fileID: 754686967}
 --- !u!1 &287364725
 GameObject:
   m_ObjectHideFlags: 0
@@ -1444,7 +1445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2857,6 +2858,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 924038449}
+  - component: {fileID: 924038450}
   m_Layer: 0
   m_Name: Main selection
   m_TagString: Untagged
@@ -2883,6 +2885,20 @@ Transform:
   m_Father: {fileID: 654634557}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &924038450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 924038448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d002fe5c5b2ad5408e87a081eb603ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  JoinButton: {fileID: 2009969471}
+  HostButton: {fileID: 118124686}
+  OfflineButton: {fileID: 1550059986}
 --- !u!1 &947346025
 GameObject:
   m_ObjectHideFlags: 0

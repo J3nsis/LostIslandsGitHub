@@ -22,6 +22,7 @@ public class OfflineSelectionManager : MonoBehaviour {
 
     public GameObject LoadButtonsParent;
 
+    bool Load;
 
     void OnEnable()
     {
@@ -33,6 +34,14 @@ public class OfflineSelectionManager : MonoBehaviour {
         PhotonNetwork.CreateRoom("OfflineRoomName");
 
         FillLoadButtons();
+    }
+
+    private void OnDisable()
+    {
+        if (!Load)
+        {
+            PhotonNetwork.offlineMode = false;
+        }
     }
 
     public void FillLoadButtons()
@@ -65,6 +74,7 @@ public class OfflineSelectionManager : MonoBehaviour {
 
     public void OpenGameSceneAndLoad(int slot)//wird von Load button in Menu aufgerufen
     {
+        Load = true;
         SaveLoadManager.instance.OpenGameScene();
         SaveLoadManager.instance.currentSlot = slot;
     }

@@ -1450,6 +1450,8 @@ GameObject:
   - component: {fileID: 95188697883138602}
   - component: {fileID: 136468168080924076}
   - component: {fileID: 114822886933068912}
+  - component: {fileID: 114340351324443932}
+  - component: {fileID: 114108829449063646}
   m_Layer: 9
   m_Name: Human
   m_TagString: Player
@@ -2790,7 +2792,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1466962547619336}
-  m_LocalRotation: {x: 0.53267515, y: 0.07034045, z: 0.83613265, w: -0.11041513}
+  m_LocalRotation: {x: 0.5326752, y: 0.070340455, z: 0.83613276, w: -0.110415146}
   m_LocalPosition: {x: 0.000022271464, y: -0.00006150465, z: 0.026027026}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3941,6 +3943,7 @@ MonoBehaviour:
   m_JumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
   m_LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
   m_CurrentCameraLookDirection: {x: 0, y: 0, z: 0}
+  anim: {fileID: 95188697883138602}
   StateRun: 0
   StateWalk: 0
   StateStand: 0
@@ -3972,6 +3975,38 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114108829449063646
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1914200480614060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 2
+    Name: stateJump
+  - Type: 4
+    SynchronizeType: 2
+    Name: stateWalk
+  - Type: 4
+    SynchronizeType: 2
+    Name: stateRun
+  - Type: 9
+    SynchronizeType: 2
+    Name: slay
+  - Type: 9
+    SynchronizeType: 2
+    Name: hitSomething
+  m_SynchronizeLayers:
+  - SynchronizeType: 2
+    LayerIndex: 0
 --- !u!114 &114135680420829562
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4452,6 +4487,32 @@ MonoBehaviour:
     currentdurability: 0
   slot: 0
   Swinging: 0
+--- !u!114 &114340351324443932
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1914200480614060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!114 &114397896163386650
 MonoBehaviour:
   m_ObjectHideFlags: 1

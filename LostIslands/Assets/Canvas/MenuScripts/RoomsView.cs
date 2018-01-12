@@ -25,22 +25,6 @@ public class RoomsView : MonoBehaviour {
     [SerializeField]
     Transform RoomParent;
 
-    void OnEnable()
-    {
-        PhotonNetwork.ConnectUsingSettings("GameVersion");
-    }
-
-    public void OnConnectedToMaster()
-    {
-        PhotonNetwork.JoinLobby(new TypedLobby("MyLobby", LobbyType.SqlLobby));
-        PhotonNetwork.playerName = PlayerPrefs.GetString("Username");
-    }
-
-    void OnJoinedLobby()
-    {
-        //print("connected to lobby");
-    }
-
     public void JoinRoom(string roomName)//per Liste und Button Room joinen
     {        
         PhotonNetwork.JoinRoom(roomName);
