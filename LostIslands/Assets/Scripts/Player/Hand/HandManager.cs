@@ -41,9 +41,9 @@ public class HandManager : MonoBehaviour {
         go.GetComponent<Tool>().item = item;
         go.GetComponent<Tool>().data = itemData.data;
         go.GetComponent<Tool>().slot = itemData.data.slot;
+        go.GetComponent<Tool>().inHotbar = itemData.data.inHotbar;
 
-        humanHandController.m_RightHandObj = currentToolObj.transform.GetChild(0).transform;
-        
+        humanHandController.m_RightHandObj = currentToolObj.transform.GetChild(0).transform;        
     }
 
 

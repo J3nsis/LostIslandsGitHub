@@ -6,11 +6,12 @@ using UnityEngine.UI;
 public class MainSelection : MonoBehaviour {
 
     [SerializeField]
-    Button JoinButton, HostButton, OfflineButton;
+    Button JoinButton, HostButton, OfflineButton, DevQuickJoin;
 
     private void OnEnable()
     {
         JoinButton.interactable = false;
+        DevQuickJoin.interactable = false;
         HostButton.interactable = false;
     }
 
@@ -21,13 +22,13 @@ public class MainSelection : MonoBehaviour {
         {
             PhotonNetwork.ConnectUsingSettings("GameVersion");
             PhotonNetwork.JoinLobby(new TypedLobby("MyLobby", LobbyType.SqlLobby));
-
         }
 
         if (PhotonNetwork.connectionStateDetailed == ClientState.ConnectedToMaster)
         {
             JoinButton.interactable = true;
             HostButton.interactable = true;
+            DevQuickJoin.interactable = true;
         }
     }
 

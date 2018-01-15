@@ -7,8 +7,8 @@ using UnityEngine;
 public class RecipeDatabase : MonoBehaviour
 {
 
-    private List<Recipe> database = new List<Recipe>();
-    public JsonData RecipeData;
+    public List<Recipe> database = new List<Recipe>();
+    private JsonData RecipeData;
 
     void Awake()
     {

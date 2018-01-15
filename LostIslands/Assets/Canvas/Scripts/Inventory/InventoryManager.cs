@@ -33,7 +33,8 @@ public class InventoryManager : MonoBehaviour {
         CloseInventory();
 
         ChestTabButton.SetActive(false);
-        OpenTabPlayer();
+        OpenTabCrafting();
+        OpenTabCrafting();//muss zweimal! Damit es sich richtig sortiert!
     }
 
 

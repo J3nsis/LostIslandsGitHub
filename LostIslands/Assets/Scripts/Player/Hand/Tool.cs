@@ -7,6 +7,7 @@ public class Tool : MonoBehaviour {
     public ItemData.ThisItemData data;//current dura etc.
     public Item item;
     public int slot;
+    public bool inHotbar;
    
     public bool Swinging = false; //wird von ToolManager geändert
 
@@ -24,11 +25,7 @@ public class Tool : MonoBehaviour {
 
     private void Update()
     {
-        if (InventoryItems.instance.GetItembySlot(slot) == null)
-        {
-            HandManager.instance.DisableAll();
-        }
-        else if (InventoryItems.instance.GetItembySlot(slot).ID != data.ItemID)//erkennt ob Slot von dem aus dieses Item benutzt wird sich veändert/leer wird
+        if (InventoryItems.instance.GetItembySlot(slot, inHotbar) == null || InventoryItems.instance.GetItembySlot(slot, inHotbar).ID != data.ItemID)//erkennt ob Slot von dem aus dieses Item benutzt wird sich veändert/leer wird
         {
             HandManager.instance.DisableAll();
         }

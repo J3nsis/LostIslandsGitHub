@@ -70,8 +70,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnClick()
     {
-
-        if (item.Type == "tool" || item.Type == "hammer")//nur zum testen
+        if (item.Type == "tool" || item.Type == "hammer")//Item benutzen
         {
             HandManager.instance.UseTool(item.Slug, data.slot, item, this);
         }   

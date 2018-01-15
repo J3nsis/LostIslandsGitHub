@@ -157,15 +157,7 @@ public class MainMenuManager : MonoBehaviour {
     public void Dev_QuickJoin()
     {
         DevQuickJoin = true;
-        PhotonNetwork.playerName = PlayerPrefs.GetString("Username");
-    }
-
-    void OnConnectedToMaster()
-    {
-        if (DevQuickJoin)
-        {
-            PhotonNetwork.CreateRoom("DevRoom");
-        }
+        PhotonNetwork.CreateRoom("DevRoom");
     }
 
     void OnJoinedRoom()

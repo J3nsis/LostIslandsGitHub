@@ -2,18 +2,33 @@
 
 public class CraftingRecipeManager : MonoBehaviour {
 
-    public GameObject RecipesParent;
-    public GameObject RecipeSlotPrefab;
 
-    RecipeDatabase rb;
+    [SerializeField]
+    GameObject SlotPrefab, LevelColumPrefab, RecipeinSlotPrefab, AllParent;
+
+    RecipeDatabase rdb;
 
 	void Start () 
 	{
-        rb = this.GetComponent<RecipeDatabase>();
-        for (int i = 0; i < rb.RecipeData.Count; i++)//jedes Rezept durchgehen
+        rdb = this.GetComponent<RecipeDatabase>();
+
+        foreach(Recipe recipe in rdb.database)
         {
-            GameObject newRecipeSlot = Instantiate(RecipeSlotPrefab, RecipesParent.transform);
-            newRecipeSlot.GetComponent<RecipeData>().recipeData = rb.GetRecipeByID(i);
+            if (AllParent.transform.Find("Level"+recipe.NeedLevel) == null)
+            {
+                GameObject levelColumPrefab = Instantiate(LevelColumPrefab);
+                levelColumPrefab.transform.SetParent(AllParent.transform);
+                levelColumPrefab.name = "Level" + recipe.NeedLevel;
+            }
+            GameObject levelColum = AllParent.transform.Find("Level" + recipe.NeedLevel).gameObject;
+
+            GameObject newSlot = Instantiate(SlotPrefab);
+            newSlot.transform.SetParent(levelColum.transform);
+
+
+            GameObject newRecipe = Instantiate(RecipeinSlotPrefab);
+            newRecipe.transform.SetParent(newSlot.transform);
+            newRecipe.GetComponent<RecipeData>().recipeData = recipe;
         }
 	}
 	

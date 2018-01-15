@@ -2792,7 +2792,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1466962547619336}
-  m_LocalRotation: {x: 0.5326752, y: 0.070340455, z: 0.83613276, w: -0.110415146}
+  m_LocalRotation: {x: 0.53267515, y: 0.07034045, z: 0.83613265, w: -0.11041513}
   m_LocalPosition: {x: 0.000022271464, y: -0.00006150465, z: 0.026027026}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3830,6 +3830,7 @@ MonoBehaviour:
     inHotbar: 0
     currentdurability: 0
   slot: 0
+  inHotbar: 0
   Swinging: 0
 --- !u!114 &114086335312556526
 MonoBehaviour:
@@ -4053,6 +4054,7 @@ MonoBehaviour:
     inHotbar: 0
     currentdurability: 0
   slot: 0
+  inHotbar: 0
   Swinging: 0
 --- !u!114 &114184614844177406
 MonoBehaviour:
@@ -4357,6 +4359,7 @@ MonoBehaviour:
     inHotbar: 0
     currentdurability: 0
   slot: 0
+  inHotbar: 0
   Swinging: 0
 --- !u!114 &114262558401052968
 MonoBehaviour:
@@ -4467,6 +4470,7 @@ MonoBehaviour:
     inHotbar: 0
     currentdurability: 0
   slot: 0
+  inHotbar: 0
   Swinging: 0
 --- !u!114 &114329499659814048
 MonoBehaviour:
@@ -4486,6 +4490,7 @@ MonoBehaviour:
     inHotbar: 0
     currentdurability: 0
   slot: 0
+  inHotbar: 0
   Swinging: 0
 --- !u!114 &114340351324443932
 MonoBehaviour:
@@ -4613,6 +4618,7 @@ MonoBehaviour:
     inHotbar: 0
     currentdurability: 0
   slot: 0
+  inHotbar: 0
   Swinging: 0
 --- !u!114 &114614354204754206
 MonoBehaviour:
@@ -4784,6 +4790,7 @@ MonoBehaviour:
     inHotbar: 0
     currentdurability: 0
   slot: 0
+  inHotbar: 0
   Swinging: 0
 --- !u!114 &114740408899397010
 MonoBehaviour:

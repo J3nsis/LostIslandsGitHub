@@ -263,16 +263,31 @@ public class InventoryItems : MonoBehaviour {
         throw new InvalidOperationException("No ItemData found!");
     }
 
-    public Item GetItembySlot(int slotId)//wird z.B. in Tooltip für Infos benötigt wie currentDurability
+    public Item GetItembySlot(int slotId, bool Hotbar = false)//wird z.B. in Tooltip für Infos benötigt wie currentDurability
     {
-        if (slots[slotId].transform.childCount == 1)
+        if (!Hotbar)
         {
-            return slots[slotId].transform.GetChild(0).GetComponent<ItemData>().item;
+            if (slots[slotId].transform.childCount == 1)
+            {
+                return slots[slotId].transform.GetChild(0).GetComponent<ItemData>().item;
+            }
+            else
+            {
+                return null;
+            }
         }
         else
         {
-            return null;
+            if (HotbarSlots[slotId].transform.childCount == 1)
+            {
+                return HotbarSlots[slotId].transform.GetChild(0).GetComponent<ItemData>().item;
+            }
+            else
+            {
+                return null;
+            }
         }
+        
     }
 
     public ItemData GetItemDatabySlot(int slotId)//wird z.B. in Tooltip für Infos benötigt wie currentDurability
@@ -373,9 +388,38 @@ public class InventoryItems : MonoBehaviour {
         }
     }
 
- 
+    private void Update()
+    {
 
-    
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            UseToolFromHotbar(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            UseToolFromHotbar(1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            UseToolFromHotbar(2);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            UseToolFromHotbar(3);
+        }
+    }
+
+    private void UseToolFromHotbar(int slot)
+    {
+        if (HotbarSlots[slot].GetComponentInChildren<ItemData>() != null)
+        {
+            HotbarSlots[slot].GetComponentInChildren<ItemData>().OnClick();
+        }
+    }
+
+
+
+
 
 
 }

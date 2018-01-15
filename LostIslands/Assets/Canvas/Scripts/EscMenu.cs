@@ -92,6 +92,9 @@ public class EscMenu : MonoBehaviour {
         EscPanel.SetActive(true);
         NormalEsc.SetActive(true);
         SettingsEsc.SetActive(false);
+        this.GetComponent<RectTransform>().localPosition = Vector3.zero;
+        EscPanel.GetComponent<RectTransform>().localPosition = Vector3.zero;
+        this.GetComponent<Image>().enabled = true;
     }
 
     public void CloseEsc()
@@ -105,7 +108,8 @@ public class EscMenu : MonoBehaviour {
         inEsc = false;
         EscPanel.SetActive(false);
         NormalEsc.SetActive(true);
-        SettingsEsc.SetActive(false);       
+        SettingsEsc.SetActive(false);
+        this.GetComponent<Image>().enabled = false;
     }
 
     //### Settings:

@@ -60,7 +60,7 @@ public class CraftingsTooltip : MonoBehaviour {
     public void ConstructDataString()
     {
 
-        data = "<b>" + recipeData.GetItem_Slug + "</b>" + "\n\nYou need: " + recipeData.NeedItem1_Amount.ToString() + "x " + recipeData.NeedItem1_Slug;
+        data = "<b>" + ItemDatabase.instance.GetItemBySlug(recipeData.GetItem_Slug).Name + "</b>" + "\n\nYou need: " + recipeData.NeedItem1_Amount.ToString() + "x " + recipeData.NeedItem1_Slug;
 
         if (recipeData.NeedItem2_Amount >= 1)
         {
