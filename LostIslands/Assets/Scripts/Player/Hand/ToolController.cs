@@ -56,14 +56,13 @@ public class ToolController : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0) && PlayerStats.instance.ps.Ausdauer >= 10 && PlayerController.instance.Pause == false && curretlySlaying == false)
         {
+            curretlySlaying = true;
             if (m_Animator) m_Animator.SetTrigger("slay");
             m_PlayerAnimator.SetTrigger("slay");
             m_isSlaying = true;
             m_SlayingTime = Time.time;
-
-            PlayerStats.instance.ps.Ausdauer -= 10;
-            tool.data.currentdurability -= 1;
-            curretlySlaying = true;
+            //current Durability wird nur bei Treffer eins abgezogen
+            PlayerStats.instance.OnSwing();//darin wird dann ausdauer abgezogen
         }
     }
 

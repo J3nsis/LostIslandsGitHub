@@ -13,7 +13,7 @@ public class Net_Host : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.O))
         {
-            Save();
+            SaveAll();
         }
 
         if (Input.GetKeyDown(KeyCode.L))
@@ -24,13 +24,16 @@ public class Net_Host : MonoBehaviour {
 
 
 
-    public void Save()
+    public void SaveAll()
     {
-        GetComponent<PhotonView>().RPC("SaveAll", PhotonTargets.All);
+        if (PhotonNetwork.connected)
+        {
+            GetComponent<PhotonView>().RPC("SaveAllRPC", PhotonTargets.All);
+        }      
     }
 
     [PunRPC]
-    void SaveAll()
+    void SaveAllRPC()
     {
         SaveLoadManager.instance.Save(PhotonNetwork.offlineMode);
     }

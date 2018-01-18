@@ -34,15 +34,15 @@ public class InventoryManager : MonoBehaviour {
 
         ChestTabButton.SetActive(false);
         OpenTabCrafting();
-        OpenTabCrafting();//muss zweimal! Damit es sich richtig sortiert!
+        OpenTabPlayer();
     }
 
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I) && ChatInputField.GetComponent<InputField>().isFocused == false)
+        if (Input.GetKeyDown(KeyCode.I) && !ChatInputField.GetComponent<InputField>().isFocused)
         {
-            if (PlayerStats.instance.ps.hasBackpack == true) //nur wenn Rucksack vorhanden
+            if (PlayerStats.instance.ps.hasBackpack) //nur wenn Rucksack vorhanden
             {
                 if (inInventory == false) //rein
                 {
@@ -57,15 +57,6 @@ public class InventoryManager : MonoBehaviour {
             {
                 Chat.instance.NewWarning("Get a backpack!");
             }
-        }
-
-        if (PlayerPrefs.GetString("currentTab") == "Chest")
-        {
-            ChestTabButton.SetActive(true);
-        }
-        else
-        {
-            ChestTabButton.SetActive(false);
         }
     }
 
@@ -95,7 +86,8 @@ public class InventoryManager : MonoBehaviour {
 
     public void OpenTabPlayer()
     {
-        PlayerPrefs.SetString("currentTab", "Player");
+        ChestTabButton.SetActive(false);
+
         PlayerTab.SetActive(true);
         CraftingTab.SetActive(false);
         ChestTab.SetActive(false);
@@ -103,7 +95,8 @@ public class InventoryManager : MonoBehaviour {
 
     public void OpenTabCrafting()
     {
-        PlayerPrefs.SetString("currentTab", "Crafting");
+        ChestTabButton.SetActive(false);
+
         PlayerTab.SetActive(false);
         CraftingTab.SetActive(true);
         ChestTab.SetActive(false);
@@ -111,10 +104,10 @@ public class InventoryManager : MonoBehaviour {
 
     void OpenTabChest()
     {
-        PlayerPrefs.SetString("currentTab", "Chest");
+        ChestTabButton.SetActive(true);
+
         ChestTab.SetActive(true);
         PlayerTab.SetActive(false);
         CraftingTab.SetActive(false);
-
     }
 }

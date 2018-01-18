@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 114238441726754494}
   - component: {fileID: 114295804944093632}
   - component: {fileID: 114324156186620428}
+  - component: {fileID: 64668925504779108}
   m_Layer: 0
   m_Name: bush02
   m_TagString: Bush
@@ -27,9 +28,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 199470}
-  m_LocalRotation: {x: 0, y: 0.43998933, z: 0, w: 0.898003}
-  m_LocalPosition: {x: 28.709942, y: -2.9428, z: -1.098987}
-  m_LocalScale: {x: 4.788374, y: 3.3182623, z: 3.6804924}
+  m_LocalRotation: {x: 0, y: -0.5017089, z: 0, w: 0.86503655}
+  m_LocalPosition: {x: 31.32, y: -1.1312, z: -30.34}
+  m_LocalScale: {x: 1.7526152, y: 1.2145327, z: 1.3471143}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -2828,6 +2829,20 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 199470}
   m_IsPrefabParent: 1
+--- !u!64 &64668925504779108
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199470}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4310090}
 --- !u!114 &114238441726754494
 MonoBehaviour:
   m_ObjectHideFlags: 1

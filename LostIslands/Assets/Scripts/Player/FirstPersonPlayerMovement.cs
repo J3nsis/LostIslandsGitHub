@@ -143,6 +143,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 StateStand = false;
                 StateWalk = true;
                 StateRun = false;
+                PlayerStats.instance.isRunning = false;
             }
 
 
@@ -151,6 +152,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 StateStand = true;
                 StateWalk = false;
                 StateRun = false;
+                PlayerStats.instance.isRunning = false;
             }
 
 
@@ -291,7 +293,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 Vector3 targetPosition = HeadBone.transform.position + m_Camera.transform.forward * HeadBoneOffset.z +
                 m_Camera.transform.right * HeadBoneOffset.x + m_Camera.transform.up * HeadBoneOffset.y;
 
-                Vector3 lerpedPosition = Vector3.Lerp(m_Camera.transform.position, targetPosition, Time.deltaTime * 15f); // Camera Damping
+                //Vector3 lerpedPosition = Vector3.Lerp(m_Camera.transform.position, targetPosition, Time.deltaTime * 40f); // Camera Damping
                 //m_Camera.transform.position = lerpedPosition;
                 m_Camera.transform.position = targetPosition;
 

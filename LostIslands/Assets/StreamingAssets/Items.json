@@ -96,9 +96,19 @@
 		"name": "Wooden Wall",
 		"slug": "Wooden_Wall",
 		"stackable": true,
-		"description": "Use this wooden wall to defent your base!",
+		"description": "Use this wooden wall to build your base!",
 		"type": "structure",
 		"durability": 50,
+		"damage": -1
+	},
+	{
+		"id": 21,
+		"name": "Wooden Foundation",
+		"slug": "Wooden_Foundation",
+		"stackable": true,
+		"description": "Wooden foundation for placing walls!",
+		"type": "structure",
+		"durability": 75,
 		"damage": -1
 	}
 ]

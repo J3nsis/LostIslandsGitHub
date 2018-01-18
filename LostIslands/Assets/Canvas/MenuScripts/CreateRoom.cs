@@ -30,8 +30,9 @@ public class CreateRoom : MonoBehaviour {
 
     public void OnCreateRoomButton()
     {
-        if (PhotonNetwork.connectionState != ConnectionState.Connected)
+        if (PhotonNetwork.connectionStateDetailed != ClientState.JoinedLobby)
         {
+            Debug.LogWarning("cant create room when not joined the lobby");
             return;
         }
                
@@ -46,22 +47,30 @@ public class CreateRoom : MonoBehaviour {
             return;
         }
 
-        foreach (Room room in PhotonNetwork.GetRoomList())//wenn raumname vergeben
+        foreach (RoomInfo roomInfo in PhotonNetwork.GetRoomList())//wenn raumname vergeben
         {
-            if (room.Name == RoomName)
+            if (roomInfo.Name == RoomName)
             {
                 print("Room with this name already taken");
                 roomname.text = "";
+                return;
             }
         }
 
 
-        RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = (byte)MaxPlayers; 
-        roomOptions.IsVisible = true;
-        if (!PhotonNetwork.CreateRoom(RoomName, roomOptions, null))//wenn fehler beim raum erstellen
+        RoomOptions roomOptions = new RoomOptions
+        {
+            MaxPlayers = (byte)MaxPlayers,
+            IsVisible = true,
+            IsOpen = true         
+        };
+        if (!PhotonNetwork.CreateRoom(RoomName, roomOptions, TypedLobby.Default))//wenn fehler beim raum erstellen
         {
             MainMenuManager.instance.ToMainSelection();
+        }
+        else
+        {
+            print("Room sucessfully created");
         }
     }
 

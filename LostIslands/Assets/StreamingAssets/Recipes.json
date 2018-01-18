@@ -52,7 +52,18 @@
 	"GetItem_Slug": "Wooden_Wall",
 		"GetItem_Amount": 1,
 	"NeedItem1_Slug": "Wood",
-		"NeedItem1_Amount": 10,
+		"NeedItem1_Amount": 15,
+	"NeedItem2_Slug": "",
+		"NeedItem2_Amount": 0
+	},
+	{
+	"ID": 5,
+	"NeedLevel": 3,
+	
+	"GetItem_Slug": "Wooden_Foundation",
+		"GetItem_Amount": 1,
+	"NeedItem1_Slug": "Wood",
+		"NeedItem1_Amount": 30,
 	"NeedItem2_Slug": "",
 		"NeedItem2_Amount": 0
 	}

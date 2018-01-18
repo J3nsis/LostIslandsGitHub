@@ -48,7 +48,7 @@ public class Chat : MonoBehaviour{
 
             if (!input.StartsWith("/"))//wenn kein Befehl
             {
-                NewMessage(input);
+                NewMessage(input, PhotonNetwork.player.NickName);
             }
             else if (input.StartsWith("/"))//wenn Befehl
             {
@@ -119,11 +119,7 @@ public class Chat : MonoBehaviour{
                 Cursor.lockState = CursorLockMode.Locked;
                 PlayerController.instance.Pause = false;
             }
-                
-            
-
             inputField.text = "";
-
         }
 
         if (Input.GetKey(KeyCode.UpArrow))//letzen Command wiederholen
@@ -138,11 +134,19 @@ public class Chat : MonoBehaviour{
         inputField.text = "";
     }
 
-    void NewMessage(string info)
+    void NewMessage(string info, string PlayerName = "")
     {
         GameObject Message = Instantiate(MessagePrefab);
         Message.transform.SetParent(ParentRect);
-        Message.GetComponent<Text>().text = info;
+        if (PlayerName == null)
+        {
+            Message.GetComponent<Text>().text = info;
+        }
+        else
+        {
+            Message.GetComponent<Text>().text = "[" + PlayerName + "]: " + info;
+        }
+        
 
         Message.GetComponent<DestroyMe>().Destroy(20f);
     }

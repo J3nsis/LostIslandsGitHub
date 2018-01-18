@@ -14,8 +14,14 @@ public class RecipeData : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             return;
         }
 
-        this.GetComponent<Image>().sprite = Resources.Load<Sprite>("ItemsSprites/" + recipeData.GetItem_Slug);
-
+        if (Resources.Load<Sprite>("ItemsSprites/" + recipeData.GetItem_Slug) != null)
+        {
+            this.GetComponent<Image>().sprite = Resources.Load<Sprite>("ItemsSprites/" + recipeData.GetItem_Slug);
+        }
+        else
+        {
+            Debug.LogWarning("No sprite found!");
+        }
         //alle sonstigen Infos in ToolTip
     }
 	
@@ -28,27 +34,23 @@ public class RecipeData : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         if (InventoryItems.instance.GetAmountofItem(ItemDatabase.instance.GetItemBySlug(recipeData.NeedItem1_Slug).ID) >= recipeData.NeedItem1_Amount)//wenn genug im Inventar
         {
-            if (recipeData.NeedItem2_Amount != 0)//wenn man zweites Item braucht
+            if (recipeData.NeedItem2_Amount != 0 || recipeData.NeedItem2_Slug != "")//wenn man zweites Item braucht
             {
-                if (InventoryItems.instance.GetAmountofItem(ItemDatabase.instance.GetItemBySlug(recipeData.NeedItem2_Slug).ID) >= recipeData.NeedItem2_Amount)//wenn man zweites Item hat
+                if (InventoryItems.instance.GetAmountofItem(ItemDatabase.instance.GetItemBySlug(recipeData.NeedItem2_Slug).ID) < recipeData.NeedItem2_Amount)//wenn man zweites Item hat
                 {
-
-                }
-                else
-                {
-                    Chat.instance.NewWarning("Not enough resources to craft " + recipeData.GetItem_Slug + "!");
+                    Chat.instance.NewWarning("Not enough resources to craft '" + ItemDatabase.instance.GetItemBySlug(recipeData.GetItem_Slug).Name + "'!");
                     return;
                 }
-                InventoryItems.instance.RemoveItembySlug(recipeData.NeedItem2_Slug, recipeData.NeedItem2_Amount);
+                InventoryItems.instance.RemoveItembySlug(recipeData.NeedItem2_Slug, recipeData.NeedItem2_Amount);//entferne 2.
             }
 
-            InventoryItems.instance.RemoveItembySlug(recipeData.NeedItem1_Slug, recipeData.NeedItem1_Amount);
+            InventoryItems.instance.RemoveItembySlug(recipeData.NeedItem1_Slug, recipeData.NeedItem1_Amount);//entferne 1.
 
-            InventoryItems.instance.AddItembySlug(recipeData.GetItem_Slug, recipeData.GetItem_Amount);
+            InventoryItems.instance.AddItembySlug(recipeData.GetItem_Slug, recipeData.GetItem_Amount);//füge neues hinzu
         }
         else
         {
-            Chat.instance.NewWarning("Not enough resources to craft " + recipeData.GetItem_Slug + "!");
+            Chat.instance.NewWarning("Not enough resources to craft '" + ItemDatabase.instance.GetItemBySlug(recipeData.GetItem_Slug).Name + "'!");
             return;
         }
     }

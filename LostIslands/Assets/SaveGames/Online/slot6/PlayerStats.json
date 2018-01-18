@@ -1,8 +1,8 @@
 {
-    "Gesundheit": 0.0,
-    "Ausdauer": 97.39988708496094,
-    "Essen": 76.36698913574219,
-    "Trinken": 0.0,
+    "Gesundheit": 100.0,
+    "Ausdauer": 100.0,
+    "Essen": 70.90599060058594,
+    "Trinken": 89.13587951660156,
     "Level": 1,
     "hasBackpack": true
 }

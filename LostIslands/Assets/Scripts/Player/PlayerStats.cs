@@ -55,6 +55,11 @@ public class PlayerStats : MonoBehaviour {
         Blood.SetActive(false);
     }
 
+    public void OnSwing()//wird von ToolController bei Swing ausgeführt
+    {
+        ps.Ausdauer -= 10f; //ca. -10
+    }
+
 
     void FixedUpdate ()
     {
@@ -67,12 +72,7 @@ public class PlayerStats : MonoBehaviour {
             ps.Ausdauer += 0.1f;
         }               
 
-        if (PlayerPrefs.GetInt("Swing") == 1) //Axt und Ausdauer
-        {
-            ps.Ausdauer -= 0.3f; //ca. -10
-        }
-
-        if (ps.Essen >= 85 && ps.Trinken >= 85) //Essen/Trinken hoch = Gesundheit hoch
+        if (ps.Essen >= 65 && ps.Trinken >= 65) //Essen/Trinken hoch = Gesundheit hoch
         {
             ps.Gesundheit += 0.075f;
               
@@ -101,7 +101,7 @@ public class PlayerStats : MonoBehaviour {
         ps.Essen = Mathf.Clamp(ps.Essen, 0, 100);
         ps.Trinken = Mathf.Clamp(ps.Trinken, 0, 100);
 
-        /*
+        
         GesundheitProgress.GetComponent<Image>().fillAmount = ps.Gesundheit / 100;
         AusdauerProgress.GetComponent<Image>().fillAmount = ps.Ausdauer / 100;
         EssenProgress.GetComponent<Image>().fillAmount = ps.Essen / 100;
@@ -111,7 +111,7 @@ public class PlayerStats : MonoBehaviour {
         AusdauerText.text = Mathf.Round(ps.Ausdauer) + "%";
         EssenText.text = Mathf.Round(ps.Essen) + "%";
         TrinkenText.text = Mathf.Round(ps.Trinken) + "%";
-        */
+        
 
     }
 

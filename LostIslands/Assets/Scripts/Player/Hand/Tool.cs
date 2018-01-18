@@ -40,6 +40,7 @@ public class Tool : MonoBehaviour {
                 other.gameObject.GetComponent<DamageController>().DamageMe(item.Damage);
             }
         }
+        data.currentdurability -= 1;
     }
 
 }

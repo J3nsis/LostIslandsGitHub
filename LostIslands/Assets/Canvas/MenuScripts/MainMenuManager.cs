@@ -21,7 +21,7 @@ public class MainMenuManager : MonoBehaviour {
     #endregion
 
     [SerializeField]
-    GameObject MainSelection, OfflineSelection, SetUsername, LoadingScreen, OnlineHostSaveGameSelection, OnlineCreateRoom, OnlineRoomView, OnlineJoin;
+    GameObject MainSelection, OfflineSelectSG, OnlineSelectSGHost, SetUsername, LoadingScreen,  OnlineCreateRoom, OnlineRoomsList, OnlineRoomPlayerList;
     [SerializeField]
     Text Username, ConnectionState;
     [SerializeField]
@@ -34,18 +34,7 @@ public class MainMenuManager : MonoBehaviour {
 
     bool DevQuickJoin = false;
 
-    public void HideAll()
-    {
-        LoadingScreen.SetActive(false);
-        MainSelection.SetActive(false);
-        OfflineSelection.SetActive(false);
-        OnlineHostSaveGameSelection.SetActive(false);
-        OnlineCreateRoom.SetActive(false);
-        OnlineRoomView.SetActive(false);
-        OnlineJoin.SetActive(false);
-        SetUsername.SetActive(false);
-    }
-
+   
     private void Start()
     {
         HideAll();
@@ -61,10 +50,22 @@ public class MainMenuManager : MonoBehaviour {
         }   
     }
 
+    public void HideAll()
+    {
+        LoadingScreen.SetActive(false);
+        MainSelection.SetActive(false);
+        OfflineSelectSG.SetActive(false);
+        OnlineSelectSGHost.SetActive(false);
+        OnlineCreateRoom.SetActive(false);
+        OnlineRoomsList.SetActive(false);
+        SetUsername.SetActive(false);
+        OnlineRoomPlayerList.SetActive(false);
+    }
+
     public void OnOffline()
     {
         HideAll();
-        OfflineSelection.SetActive(true);
+        OfflineSelectSG.SetActive(true);
     }
 
     public void ToMainSelection()
@@ -81,14 +82,14 @@ public class MainMenuManager : MonoBehaviour {
     public void OnOnlineHost()
     {
         HideAll();
-        OnlineHostSaveGameSelection.SetActive(true);
+        OnlineSelectSGHost.SetActive(true);
     }
 
-    public void OnOnlineJoin()
+    public void OnOnlineJoin()//view all rooms
     {
         HideAll();
-        OnlineJoin.SetActive(true);
-        RoomsView.instance.ShowAllRooms();
+        OnlineRoomsList.SetActive(true);
+        RoomsList.instance.ShowAllRooms();
     }
 
     public void Quit()
@@ -151,7 +152,7 @@ public class MainMenuManager : MonoBehaviour {
     public void ShowRoomView()
     {
         HideAll();
-        OnlineRoomView.SetActive(true);
+        OnlineRoomPlayerList.SetActive(true);
     }
 
     public void Dev_QuickJoin()
@@ -165,7 +166,7 @@ public class MainMenuManager : MonoBehaviour {
         if (DevQuickJoin)
         {
             SaveLoadManager.instance.OpenGameScene();
-            SaveLoadManager.instance.currentSlot = 7;
+            SaveLoadManager.instance.currentSlot = 6;
         }
     }
 

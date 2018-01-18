@@ -18,13 +18,18 @@ public class MainSelection : MonoBehaviour {
 
     private void Update()
     {
-        if (!PhotonNetwork.connected)
+        if (PhotonNetwork.connectionStateDetailed == ClientState.Disconnected || PhotonNetwork.connectionStateDetailed == ClientState.PeerCreated)
         {
             PhotonNetwork.ConnectUsingSettings("GameVersion");
-            PhotonNetwork.JoinLobby(new TypedLobby("MyLobby", LobbyType.SqlLobby));
         }
 
+
         if (PhotonNetwork.connectionStateDetailed == ClientState.ConnectedToMaster)
+        {
+            PhotonNetwork.JoinLobby(new TypedLobby("Lobby", LobbyType.Default));
+        }
+
+        if (PhotonNetwork.connectionStateDetailed == ClientState.JoinedLobby)
         {
             JoinButton.interactable = true;
             HostButton.interactable = true;

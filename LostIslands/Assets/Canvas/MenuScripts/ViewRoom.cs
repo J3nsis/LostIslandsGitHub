@@ -67,9 +67,14 @@ public class ViewRoom : MonoBehaviour {
         else
         {
             JoinGameButton.GetComponent<Button>().interactable = false;
-            JoinGameButton.GetComponentInChildren<Text>().text += "Only host can start game!";
-
+            JoinGameButton.GetComponentInChildren<Text>().text += " (Only host can start game!)";
         }
+    }
+
+    void OnMasterClientSwitched()
+    {
+        PhotonNetwork.Disconnect();
+        MainMenuManager.instance.ToMainSelection();
     }
 
     public void OnPhotonPlayerConnected(PhotonPlayer player)

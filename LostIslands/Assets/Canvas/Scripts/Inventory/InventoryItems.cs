@@ -390,7 +390,10 @@ public class InventoryItems : MonoBehaviour {
 
     private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            HandManager.instance.DisableAll();
+        }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             UseToolFromHotbar(0);
@@ -414,6 +417,10 @@ public class InventoryItems : MonoBehaviour {
         if (HotbarSlots[slot].GetComponentInChildren<ItemData>() != null)
         {
             HotbarSlots[slot].GetComponentInChildren<ItemData>().OnClick();
+        }
+        else
+        {
+            HandManager.instance.DisableAll();
         }
     }
 
