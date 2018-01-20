@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof (PhotonView))]
 public class ViewRoom : MonoBehaviour {
 
     #region Instance
@@ -41,24 +42,33 @@ public class ViewRoom : MonoBehaviour {
             Destroy(PlayerList.transform.GetChild(i).gameObject);
         }
 
-
         RoomName.text = "Roomname: " + PhotonNetwork.room.Name;
 
         foreach (PhotonPlayer pp in PhotonNetwork.playerList)
         {
             GameObject go = Instantiate(PlayerNamePrefab);
+            if (PhotonNetwork.isMasterClient)//wenn selber Host
+            {
+                go.GetComponentInChildren<Button>().interactable = true;
+                go.GetComponentInChildren<Button>().onClick.AddListener(delegate () { OnKickPlayer(pp.NickName); });
+            }
+            else go.GetComponentInChildren<Button>().interactable = false;
+
             if (pp.IsMasterClient)
             {
-                go.GetComponent<Text>().text = pp.NickName + " [Host]";
+                go.GetComponentInChildren<Text>().text = pp.NickName + " [Host]";
+                go.GetComponentInChildren<Button>().gameObject.SetActive(false);
             }
             else
             {
-                go.GetComponent<Text>().text = pp.NickName;
+                go.GetComponentInChildren<Text>().text = pp.NickName;               
             }
+
             
+
             go.transform.SetParent(PlayerList);
         }
-        Players.text = PhotonNetwork.room.PlayerCount + "/" + PhotonNetwork.room.MaxPlayers + " Player";
+        Players.text = PhotonNetwork.room.PlayerCount + "/" + PhotonNetwork.room.MaxPlayers + " Players";
 
         if (PhotonNetwork.isMasterClient)
         {
@@ -67,7 +77,7 @@ public class ViewRoom : MonoBehaviour {
         else
         {
             JoinGameButton.GetComponent<Button>().interactable = false;
-            JoinGameButton.GetComponentInChildren<Text>().text += " (Only host can start game!)";
+            JoinGameButton.GetComponentInChildren<Text>().text = "Start game (Only host can start game!)";
         }
     }
 
@@ -87,15 +97,26 @@ public class ViewRoom : MonoBehaviour {
         InitializeRoomView();
     }
 
-    public void JoinGame()
+    public void OnKickPlayer(string NickName)
+    {
+        /*foreach (PhotonPlayer pp in PhotonNetwork.playerList)
+        {
+            if (pp.NickName == NickName && pp.NickName != PhotonNetwork.player.NickName)
+            {
+                PhotonNetwork.CloseConnection(pp);
+            }
+        }*/ //noch viele Fehler!
+        print("Work in progress!");
+    }
+
+    public void StartGameforAll()
     {
         PhotonView photonView = PhotonView.Get(this);
-        photonView.RPC("JoinGameRPC", PhotonTargets.All);
-
+        photonView.RPC("StartGameforAllRPC", PhotonTargets.All);
     }
 
     [PunRPC]
-    void JoinGameRPC()
+    void StartGameforAllRPC()
     {
         SaveLoadManager.instance.OpenGameScene();
 	}

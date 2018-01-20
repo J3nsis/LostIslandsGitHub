@@ -26,7 +26,7 @@ public class Net_Manager : MonoBehaviour {
     [SerializeField]
     GameObject localPlayer;
 
-    public Dictionary<GameObject, PhotonPlayer> Players = new Dictionary<GameObject, PhotonPlayer>(); //onconnect/disconnect damit alle da sind
+    //public Dictionary<GameObject, PhotonPlayer> Players = new Dictionary<GameObject, PhotonPlayer>(); //onconnect/disconnect damit alle da sind
 
     void Start()
     {
@@ -46,7 +46,7 @@ public class Net_Manager : MonoBehaviour {
         Player.name = "NetworkPlayer";
         Player.GetComponentInChildren<Camera>().gameObject.tag = "MainCamera";
         localPlayer = Player;
-        Players.Add(Player, PhotonNetwork.player);        
+        //Players.Add(Player, PhotonNetwork.player);        
     }
 
     void OnMasterClientSwitched()

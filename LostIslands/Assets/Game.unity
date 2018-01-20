@@ -31766,6 +31766,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1716977277}
   - component: {fileID: 1716977278}
+  - component: {fileID: 1716977279}
   m_Layer: 5
   m_Name: Chat
   m_TagString: Untagged
@@ -31812,6 +31813,32 @@ MonoBehaviour:
   MessagePrefab: {fileID: 1032347623190894, guid: ab600ff3ff4e4ac4d89519855eb20d7b,
     type: 2}
   inputField: {fileID: 1685518548}
+--- !u!114 &1716977279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1716977276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 316
+  instantiationId: 316
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &1718272000
 GameObject:
   m_ObjectHideFlags: 0

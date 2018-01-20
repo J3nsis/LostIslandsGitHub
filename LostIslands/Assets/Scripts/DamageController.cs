@@ -6,7 +6,6 @@ public class  DamageController : MonoBehaviour {
 
     public int health; //später adden das health auch gespeuchert wird und nicht immer beim neuladen wiede voll ist
     public bool dead;
-    GameObject Player;
 
     public enum Name { Tree, Rock, Wall }; //Der Name hier drin muss auch Tag sein
     Name Object;
@@ -14,7 +13,6 @@ public class  DamageController : MonoBehaviour {
 
     void Start()
     {
-        Player = Net_Manager.instance.GetLocalPlayer();
 
         Object = (Name)System.Enum.Parse(typeof(Name), this.transform.tag); //an Hand von Tag wird Enum ausgewählt
 

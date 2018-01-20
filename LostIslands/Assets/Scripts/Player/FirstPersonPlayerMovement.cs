@@ -78,7 +78,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Start()
         {
             m_CharacterController = GetComponent<CharacterController>();
-            m_Camera = Camera.main;
+            m_Camera = Net_Manager.instance.GetLocalPlayer().GetComponentInChildren<Camera>();
             m_OriginalCameraPosition = m_Camera.transform.localPosition;
             m_FovKick.Setup(m_Camera);
             m_HeadBob.Setup(m_Camera, m_StepInterval);
@@ -379,7 +379,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             if (HeadBone)
             {
-                Vector3 relativePos = HeadBone.transform.position + HeadBone.transform.up;
+                //Vector3 relativePos = HeadBone.transform.position + HeadBone.transform.up;
                 Quaternion rotation = Quaternion.LookRotation(HeadBone.transform.right);
 
                 m_Camera.transform.rotation = Quaternion.Lerp(m_Camera.transform.rotation, rotation, 0.6f); // Lerps between current rotation and headbone

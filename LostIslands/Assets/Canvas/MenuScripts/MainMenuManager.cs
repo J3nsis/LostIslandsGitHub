@@ -21,7 +21,7 @@ public class MainMenuManager : MonoBehaviour {
     #endregion
 
     [SerializeField]
-    GameObject MainSelection, OfflineSelectSG, OnlineSelectSGHost, SetUsername, LoadingScreen,  OnlineCreateRoom, OnlineRoomsList, OnlineRoomPlayerList;
+    GameObject MainSelection, OfflineSelectSG, OnlineSelectSGHost, SetUsername, LoadingScreen,  OnlineCreateRoom, OnlineRoomsList, OnlineRoomPlayerList, About;
     [SerializeField]
     Text Username, ConnectionState;
     [SerializeField]
@@ -60,6 +60,7 @@ public class MainMenuManager : MonoBehaviour {
         OnlineRoomsList.SetActive(false);
         SetUsername.SetActive(false);
         OnlineRoomPlayerList.SetActive(false);
+        About.SetActive(false);
     }
 
     public void OnOffline()
@@ -168,6 +169,12 @@ public class MainMenuManager : MonoBehaviour {
             SaveLoadManager.instance.OpenGameScene();
             SaveLoadManager.instance.currentSlot = 6;
         }
+    }
+
+    public void OnAbout()
+    {
+        HideAll();
+        About.SetActive(true);
     }
 
 

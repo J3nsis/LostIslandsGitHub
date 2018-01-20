@@ -14,7 +14,7 @@ public class ToolController : MonoBehaviour {
     //public bool ikActive = true;
 
     private CharacterController m_Character;
-    private Rigidbody m_Rigidbody;
+    //private Rigidbody m_Rigidbody;
     private Vector3 impact = Vector3.zero;
     protected Animator m_Animator;
     protected Animator m_PlayerAnimator;
@@ -32,7 +32,7 @@ public class ToolController : MonoBehaviour {
         fppm = Net_Manager.instance.GetLocalPlayer().GetComponent<FirstPersonPlayerMovement>();
         m_Animator = GetComponent<Animator>();
         m_PlayerAnimator = fppm.gameObject.GetComponentInChildren<Animator>(); // Assume 1st animator is the player's animator 
-        m_Rigidbody = GetComponent<Rigidbody>();
+        //m_Rigidbody = GetComponent<Rigidbody>();
         m_Character = fppm.gameObject.GetComponent<CharacterController>();
         m_AudioSource = GetComponent<AudioSource>();
 
@@ -44,29 +44,43 @@ public class ToolController : MonoBehaviour {
         if (!m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.axe") &&
                 !m_PlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.standing melee attack downward")) // Check if the player is in idle state
         {
-            curretlySlaying = false;
-            tool.Swinging = false;
+          //  curretlySlaying = false;
         }
         else
         {
-            curretlySlaying = true;
-            tool.Swinging = true;
+           // curretlySlaying = true;
         }
+        if (AnimatorIsPlaying("Base Layer.axe zero position"))
+        {
+            print("zero");
+            curretlySlaying = false;
+        }
+
 
 
         if (Input.GetMouseButtonDown(0) && PlayerStats.instance.ps.Ausdauer >= 10 && PlayerController.instance.Pause == false && curretlySlaying == false)
         {
             curretlySlaying = true;
-            if (m_Animator) m_Animator.SetTrigger("slay");
-            m_PlayerAnimator.SetTrigger("slay");
+            print("buttonDown");
             m_isSlaying = true;
+            if (m_Animator) m_Animator.SetTrigger("slay");
+            m_PlayerAnimator.SetTrigger("slay");          
             m_SlayingTime = Time.time;
             //current Durability wird nur bei Treffer eins abgezogen
             PlayerStats.instance.OnSwing();//darin wird dann ausdauer abgezogen
+            return;
         }
+        
+
+    }
+
+    private void LateUpdate()
+    {
+        tool.Swinging = curretlySlaying;
     }
 
     void FixedUpdate () {
+       
         // apply the impact force:
         if (impact.magnitude > 0.1)
         {

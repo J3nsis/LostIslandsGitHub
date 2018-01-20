@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.IO;
 using System;
 
+
 public class Chat : MonoBehaviour{
     #region Instance
     public static Chat instance;
@@ -48,7 +49,15 @@ public class Chat : MonoBehaviour{
 
             if (!input.StartsWith("/"))//wenn kein Befehl
             {
-                NewMessage(input, PhotonNetwork.player.NickName);
+                if (PhotonNetwork.offlineMode)
+                {
+                    NewMessage(input, PhotonNetwork.player.NickName, false);
+                }
+                else
+                {
+                    NewMessage(input, PhotonNetwork.player.NickName, true);
+                }
+               
             }
             else if (input.StartsWith("/"))//wenn Befehl
             {
@@ -134,21 +143,40 @@ public class Chat : MonoBehaviour{
         inputField.text = "";
     }
 
-    void NewMessage(string info, string PlayerName = "")
+    void NewMessage(string info, string PlayerName = "", bool Online = false)
     {
-        GameObject Message = Instantiate(MessagePrefab);
-        Message.transform.SetParent(ParentRect);
-        if (PlayerName == null)
+        if (Online)
         {
-            Message.GetComponent<Text>().text = info;
+            GameObject Message = PhotonNetwork.Instantiate("ChatMessage", Vector3.zero, Quaternion.identity,0);
+            Message.transform.SetParent(ParentRect);
+            if (PlayerName == null)
+            {
+                Message.GetComponent<Text>().text = info;
+            }
+            else
+            {
+                Message.GetComponent<Text>().text = "[" + PlayerName + "]: " + info;
+            }
+
+            Message.GetComponent<DestroyMe>().Destroy(20f, true);
         }
         else
         {
-            Message.GetComponent<Text>().text = "[" + PlayerName + "]: " + info;
-        }
-        
+            GameObject Message = Instantiate(MessagePrefab);
+            Message.transform.SetParent(ParentRect);
+            if (PlayerName == null)
+            {
+                Message.GetComponent<Text>().text = info;
+            }
+            else
+            {
+                Message.GetComponent<Text>().text = "[" + PlayerName + "]: " + info;
+            }
 
-        Message.GetComponent<DestroyMe>().Destroy(20f);
+            Message.GetComponent<DestroyMe>().Destroy(20f, false);
+        }
+
+        
     }
 
     public void NewInfo(string info)
@@ -157,7 +185,7 @@ public class Chat : MonoBehaviour{
         Info.transform.SetParent(ParentRect);
         Info.GetComponent<Text>().text = info;
 
-        Info.GetComponent<DestroyMe>().Destroy(20f);
+        Info.GetComponent<DestroyMe>().Destroy(20f, false);
     }
 
     public void NewWarning(string info)
@@ -166,7 +194,7 @@ public class Chat : MonoBehaviour{
         InfoW.transform.SetParent(ParentRect);
         InfoW.GetComponent<Text>().text = info;
 
-        InfoW.GetComponent<DestroyMe>().Destroy(20f);
+        InfoW.GetComponent<DestroyMe>().Destroy(20f, false);
     }
 
 

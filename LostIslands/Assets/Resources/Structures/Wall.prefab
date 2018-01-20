@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33684835378021190}
   - component: {fileID: 65037789822080936}
   - component: {fileID: 23011437797883152}
-  - component: {fileID: 114030841065717254}
   - component: {fileID: 114092782958138994}
   - component: {fileID: 114180201769520944}
   - component: {fileID: 54890810478050992}
@@ -55,6 +54,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -70,6 +70,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -112,22 +113,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114030841065717254
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1582043763401848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc82c58753ba4c042b26d42b6050c27a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Exist: 0
-  Destroy: 0
-  Position: 0
-  Rotation: 0
-  ObjectPrefab: {fileID: 1582043763401848}
 --- !u!114 &114092782958138994
 MonoBehaviour:
   m_ObjectHideFlags: 1

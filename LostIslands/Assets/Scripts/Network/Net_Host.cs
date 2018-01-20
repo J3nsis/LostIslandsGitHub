@@ -4,25 +4,13 @@ using UnityEngine;
 
 public class Net_Host : MonoBehaviour {
 
+    private PhotonView photonView;
+
+
     private void Start()
     {
-        Load();
+        LoadAll();
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            SaveAll();
-        }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            Load();
-        }
-    }
-
-
 
     public void SaveAll()
     {
@@ -38,15 +26,19 @@ public class Net_Host : MonoBehaviour {
         SaveLoadManager.instance.Save(PhotonNetwork.offlineMode);
     }
 
-    public void Load()
+    public void LoadAll()
     {
-        GetComponent<PhotonView>().RPC("LoadAll", PhotonTargets.All);
+        GetComponent<PhotonView>().RPC("LoadAllRPC", PhotonTargets.All);
     }
 
     [PunRPC]
-    void LoadAll()
+    void LoadAllRPC()
     {
         SaveLoadManager.instance.Load(SaveLoadManager.instance.currentSlot, PhotonNetwork.offlineMode);
     }
+
+    //### Player Identity
+
+
     
 }

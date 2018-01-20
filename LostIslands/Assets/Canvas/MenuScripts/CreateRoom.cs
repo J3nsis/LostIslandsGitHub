@@ -30,6 +30,7 @@ public class CreateRoom : MonoBehaviour {
 
     public void OnCreateRoomButton()
     {
+        CreateButton.interactable = false;
         if (PhotonNetwork.connectionStateDetailed != ClientState.JoinedLobby)
         {
             Debug.LogWarning("cant create room when not joined the lobby");

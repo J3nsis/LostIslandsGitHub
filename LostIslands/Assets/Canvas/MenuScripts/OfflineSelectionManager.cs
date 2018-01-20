@@ -67,8 +67,10 @@ public class OfflineSelectionManager : MonoBehaviour {
                 LoadButton.transform.GetChild(2).GetComponent<Text>().text = "";
             }
 
+            LoadButton.GetComponent<Button>().onClick.RemoveAllListeners();
+            LoadButton.transform.Find("Clear").GetComponent<Button>().onClick.RemoveAllListeners();
             LoadButton.GetComponent<Button>().onClick.AddListener(delegate () { OpenGameSceneAndLoad(slot); });
-            LoadButton.GetComponentInChildren<Button>().onClick.AddListener(delegate () { OnClearSlotPressed(slot); });
+            LoadButton.transform.Find("Clear").GetComponent<Button>().onClick.AddListener(delegate () { OnClearSlotPressed(slot); });
         }
     }
 
@@ -79,9 +81,12 @@ public class OfflineSelectionManager : MonoBehaviour {
         SaveLoadManager.instance.currentSlot = slot;
     }
 
+    int clear = 0;
+
     public void OnClearSlotPressed(int slot)
     {
-        SaveLoadManager.instance.ClearSlot(slot, true);
+        clear += 1; //dann muss man zweimal zum löschen drücken
+        if (clear == 2) SaveLoadManager.instance.ClearSlot(slot, true); clear = 0; print("Slot " + slot + " cleared!");
     }
 }
 

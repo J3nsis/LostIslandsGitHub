@@ -24,6 +24,9 @@ public class RoomsList: MonoBehaviour
     GameObject RoomPrefab;
 
     [SerializeField]
+    Text NoRooms;
+
+    [SerializeField]
     Transform RoomParent;
 
     public void JoinRoom(string roomName)//per Liste und Button Room joinen
@@ -39,7 +42,6 @@ public class RoomsList: MonoBehaviour
 
     public void ShowAllRooms()
     {
-        print("ShowAllRooms");
         for (int i = 0; i < RoomParent.transform.childCount; i++)
         {
             if (RoomParent.transform.GetChild(i).gameObject != null)
@@ -51,22 +53,22 @@ public class RoomsList: MonoBehaviour
         if (PhotonNetwork.GetRoomList().Length == 0)
         {
             Debug.LogWarning("No rooms in this lobby!");
+            NoRooms.text = "There are no rooms in this lobby!";
             return;
         }
+        NoRooms.text = "";
 
         foreach (RoomInfo roomInfo in PhotonNetwork.GetRoomList())
         {
             GameObject roomPrefab = Instantiate(RoomPrefab);
             roomPrefab.transform.SetParent(RoomParent);
             roomPrefab.GetComponentInChildren<Button>().onClick.AddListener(delegate () { JoinRoom(roomInfo.Name); });
-            roomPrefab.GetComponent<Text>().text = roomInfo.Name + " | " + roomInfo.PlayerCount + "/" + roomInfo.MaxPlayers + " player";
+            roomPrefab.GetComponentInChildren<Text>().text = roomInfo.Name + " | " + roomInfo.PlayerCount + "/" + roomInfo.MaxPlayers + " player";
         }
-        print("ShowAllRoomsEND");
     }
 
-   void OnReceivedRoomListUpdate()
+    void OnReceivedRoomListUpdate()
     {
-        print("OnReceivedRoomListUpdate");
         ShowAllRooms();
     }
 }

@@ -9,17 +9,11 @@ public class Tool : MonoBehaviour {
     public int slot;
     public bool inHotbar;
    
-    public bool Swinging = false; //wird von ToolManager geändert
+    public bool Swinging = false; //wird von ToolController geändert
 
     void Start()
     {
         item = ItemDatabase.instance.FetchItemByID(data.ItemID);//wirlich bei start?
-
-        if (GameObject.Find(PhotonNetwork.player.NickName).GetComponentInChildren<Tool>() != this)//wenn nicht an lokalem Player
-        {
-            //Destroy(this);
-            //animator.enabled = false;
-        }
     }
 
 
@@ -32,7 +26,7 @@ public class Tool : MonoBehaviour {
     }
 
     void OnCollisionEnter(UnityEngine.Collision other)
-    {
+    {       
         if (Swinging == true)//nur wenn wirklich im Schwung und nicht wenn man dagegen läuft mit Axt
         {
             if (other.gameObject.GetComponent<DamageController>() != null)//Wenn Damage Controller hat

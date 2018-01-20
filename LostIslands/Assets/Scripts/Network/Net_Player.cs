@@ -53,6 +53,11 @@ public class Net_Player : MonoBehaviour {
                 go.SetActive(false);
                 continue;
             }
+            foreach (MonoBehaviour m in ScriptsToDisable)
+            {
+                m.enabled = false;
+                continue;
+            }
 
             GetComponent<AudioSource>().enabled = false;
             GetComponent<CharacterController>().enabled = false;
@@ -77,30 +82,32 @@ public class Net_Player : MonoBehaviour {
             {
                 toolController.enabled = false;
             }
+            foreach (Animator animator in Hand.transform.GetComponentsInChildren<Animator>())
+            {
+                animator.enabled = false;
+            }
 
             for (int i = 0; i < Hand.transform.childCount; i++)
             {
                 GameObject go = Hand.transform.GetChild(i).gameObject;
                 go.SetActive(false);
             }
-
-
-
-            foreach (MonoBehaviour m in ScriptsToDisable)
-            {
-                m.enabled = false;
-                continue;
-            }
         }
 
         
-        photonView.RPC("SetPlayerIdentityInScene", PhotonTargets.All);
+        photonView.RPC("SetPlayerIdentityInSceneRPC", PhotonTargets.All);
+        
+        
+
     }
 
     [PunRPC]
-    public void SetPlayerIdentityInScene()
+    void SetPlayerIdentityInSceneRPC()
     {
-        name = photonView.owner.NickName;
+        print("SetPlayerIdentityInSceneRPC" + photonView.owner.NickName);
+
+        gameObject.name = GetComponent<PhotonView>().owner.NickName;
+
 
         foreach (PhotonPlayer pp in PhotonNetwork.playerList)
         {
@@ -127,6 +134,7 @@ public class Net_Player : MonoBehaviour {
             GetComponent<Net_Host>().enabled = false;
         }
     }
+
 
     Vector3 screenPos;
 

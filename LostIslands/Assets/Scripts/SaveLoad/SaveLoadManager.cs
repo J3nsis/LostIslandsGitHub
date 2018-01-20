@@ -154,6 +154,7 @@ public class SaveLoadManager : MonoBehaviour {
 
     public void Load(int slot, bool Offline)
     {
+        alreadyLoaded = true;
         string OnlineOffline = "Online";
         if (Offline) { OnlineOffline = "Offline"; }
 
@@ -169,7 +170,7 @@ public class SaveLoadManager : MonoBehaviour {
             print("no saveGame to load in slot" + currentSlot);
             return;
         }
-        alreadyLoaded = true;
+        
 
         print("Loading...");
 
@@ -195,7 +196,7 @@ public class SaveLoadManager : MonoBehaviour {
     {
         if (inGame)
         {
-            print("cant open scene when in Game,return to menu!");
+            print("Cant open scene when in game, return to menu!");
             return;
         } 
         StartCoroutine(OpenGameSceneIE());

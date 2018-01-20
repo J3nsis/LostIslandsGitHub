@@ -56,4 +56,9 @@ MonoBehaviour:
   - LoadAll
   - SaveAll
   - SaveAllRPC
+  - LoadAllRPC
+  - DestroyRPC
+  - InstaniateMessageRPC
+  - StartGameforAllRPC
+  - SetPlayerIdentityInSceneRPC
   DisableAutoOpenWizard: 1
