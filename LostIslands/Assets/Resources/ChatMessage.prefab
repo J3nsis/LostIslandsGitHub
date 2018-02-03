@@ -21,9 +21,11 @@ GameObject:
   - component: {fileID: 224735541779563646}
   - component: {fileID: 222522243871221326}
   - component: {fileID: 114711319990575710}
-  - component: {fileID: 114893166665169184}
   - component: {fileID: 114305467630997832}
   - component: {fileID: 114443364430144760}
+  - component: {fileID: 114883175519396380}
+  - component: {fileID: 114927595607340502}
+  - component: {fileID: 114342647151867834}
   m_Layer: 5
   m_Name: ChatMessage
   m_TagString: Untagged
@@ -42,6 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7255496607b6679479756bd2b3bff705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114342647151867834
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1032347623190894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c0cd8bd040fe44586931c61446f650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114443364430144760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -57,12 +70,12 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 0
+  synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 114927595607340502}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -89,10 +102,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: c56b3d89cd065154b870015c08dde08c, type: 3}
-    m_FontSize: 30
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 3
     m_AlignByGeometry: 0
@@ -101,7 +114,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: TestText
---- !u!114 &114893166665169184
+--- !u!114 &114883175519396380
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -114,6 +127,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &114927595607340502
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1032347623190894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2424c98f38c37ef49bc7239587c636b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MessageText: 
+  MessageParent: {fileID: 0}
 --- !u!222 &222522243871221326
 CanvasRenderer:
   m_ObjectHideFlags: 1

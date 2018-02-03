@@ -34,14 +34,14 @@ public class OnlineSelectionManager : MonoBehaviour {
             GameObject LoadButton = LoadButtonsParent.transform.GetChild(i).gameObject;
             int slot = i + 1;
 
-            SaveLoadManager.SlotData slotData = SaveLoadManager.instance.GetSlotDatabySlot(slot, false);
+            SaveLoadManager.WorldData worldData = SaveLoadManager.instance.GetWorldbyJsonsPath(Application.dataPath + "/SaveGames/Online/Host/slot" + slot);
 
             LoadButton.transform.GetChild(0).GetComponent<Text>().text = "Slot: " + slot.ToString();//Slot Nr (Child 0)
 
-            if (slotData != null)
+            if (worldData != null)
             {
-                LoadButton.transform.GetChild(1).GetComponent<Text>().text = slotData.lastSave;//last Save (Child 1)
-                LoadButton.transform.GetChild(2).GetComponent<Text>().text = "Day: " + slotData.Day;
+                LoadButton.transform.GetChild(1).GetComponent<Text>().text = worldData.lastSave;//last Save (Child 1)
+                LoadButton.transform.GetChild(2).GetComponent<Text>().text = "Day: " + worldData.Day;
             }
             else
             {
@@ -58,6 +58,11 @@ public class OnlineSelectionManager : MonoBehaviour {
 
     public void OnSlotChosed(int slot)//wird von Load button in Menu aufgerufen
     {
+        if (slot == 0)
+        {
+            Debug.LogWarning("Slot == 0, loading stopped!");
+            return;
+        }
         SaveLoadManager.instance.currentSlot = slot;
         MainMenuManager.instance.ShowRoomCreate();
     }

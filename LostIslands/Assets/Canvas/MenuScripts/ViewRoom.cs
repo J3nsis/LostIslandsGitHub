@@ -109,15 +109,16 @@ public class ViewRoom : MonoBehaviour {
         print("Work in progress!");
     }
 
-    public void StartGameforAll()
+    public void StartGameforAll()//nur Host startet diese
     {
         PhotonView photonView = PhotonView.Get(this);
-        photonView.RPC("StartGameforAllRPC", PhotonTargets.All);
+        photonView.RPC("StartGameforAllRPC", PhotonTargets.All, SaveLoadManager.instance.currentSlot);
     }
 
     [PunRPC]
-    void StartGameforAllRPC()
+    void StartGameforAllRPC(int slot)
     {
         SaveLoadManager.instance.OpenGameScene();
-	}
+        SaveLoadManager.instance.currentSlot = slot;//slot bei allen Clients in SaveLoadManager syncronisieren (Wichtig wegen SaveLoad!)
+    }
 }

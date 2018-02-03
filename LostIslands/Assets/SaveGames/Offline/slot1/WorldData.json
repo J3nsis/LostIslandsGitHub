@@ -1,0 +1,27 @@
+{
+    "objectsData": {
+        "SzeneObjectList": [
+            {
+                "id": 103226,
+                "name": "StartBox",
+                "savePosition": true,
+                "saveRotation": true,
+                "position": {
+                    "x": 92.49040985107422,
+                    "y": 0.14649343490600587,
+                    "z": -22.11602783203125
+                },
+                "rotation": {
+                    "x": 270.0,
+                    "y": 320.4735107421875,
+                    "z": 0.0
+                }
+            }
+        ],
+        "DestroyedObjectsName": [],
+        "InitPrefabNames": [],
+        "InitNames": []
+    },
+    "lastSave": "1/24/2018 5:59:37 PM",
+    "Day": 0
+}

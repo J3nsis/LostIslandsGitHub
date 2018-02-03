@@ -47,7 +47,7 @@ public class MainMenuManager : MonoBehaviour {
         {          
             MainSelection.SetActive(true);
             Username.text = PlayerPrefs.GetString("Username");
-        }   
+        }
     }
 
     public void HideAll()

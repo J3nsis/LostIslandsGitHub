@@ -51,7 +51,7 @@ public class SaveLoadObjects : MonoBehaviour
     public List<string> InitPrefabNames = new List<string>();
     public List<string> InitNames = new List<string>();
 
-    public string Save() //wird von SaveLoadManager aufgerufen und gibt ObjectsData als String wieder
+    public ObjectsData GetObjectsData() //wird von SaveLoadManager aufgerufen und gibt ObjectsData als String wieder
     {      
         //print("saving objects...");
 
@@ -125,16 +125,16 @@ public class SaveLoadObjects : MonoBehaviour
         objectsData.InitNames = InitNames;
 
 
-        return(JsonUtility.ToJson(objectsData, true));//komplette ObjectData als string zurückgeben (wird dann im SaveLoadManager in File geschrieben)
+        return objectsData;//komplette ObjectData zurückgeben (wird dann im SaveLoadManager in File geschrieben)
     }
 
 
 
-    public void Load(string path)
+    public void Load(ObjectsData objectsDatatoLoad)
     {
         //print("loading objects...");
 
-        ObjectsData objectsData = JsonUtility.FromJson<ObjectsData>(File.ReadAllText(path));
+        ObjectsData objectsData = objectsDatatoLoad;
 
         //#######################################################Inits
         if (objectsData.InitPrefabNames.Count != objectsData.InitNames.Count)

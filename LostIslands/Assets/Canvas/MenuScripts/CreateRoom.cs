@@ -63,7 +63,7 @@ public class CreateRoom : MonoBehaviour {
         {
             MaxPlayers = (byte)MaxPlayers,
             IsVisible = true,
-            IsOpen = true         
+            IsOpen = true      
         };
         if (!PhotonNetwork.CreateRoom(RoomName, roomOptions, TypedLobby.Default))//wenn fehler beim raum erstellen
         {

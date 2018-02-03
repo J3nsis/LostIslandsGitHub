@@ -9,7 +9,7 @@ public class EscMenu : MonoBehaviour {
 
     public GameObject EscPanel;
 
-    public Text SaveButtonText;
+    public Button SaveButton;
     public GameObject NormalEsc;
     public GameObject SettingsEsc;
 
@@ -21,6 +21,11 @@ public class EscMenu : MonoBehaviour {
 	void Start () {
         CloseEsc();
         LoadSettings();
+
+        if (!PhotonNetwork.isMasterClient)
+        {
+            SaveButton.interactable = false;
+        }
     }
 
     void Update()
@@ -38,7 +43,7 @@ public class EscMenu : MonoBehaviour {
             }
 
         }
-        SaveButtonText.text = "SAVE (Slot:" + SaveLoadManager.instance.currentSlot + ")";
+        SaveButton.GetComponentInChildren<Text>().text = "SAVE (Slot:" + SaveLoadManager.instance.currentSlot + ")";
     }
 
     public void toMenu()
@@ -46,13 +51,14 @@ public class EscMenu : MonoBehaviour {
         if (PhotonNetwork.connected)
         {
             PhotonNetwork.Disconnect();
-        }
+        }       
         SceneManager.LoadScene(0);
+        SaveLoadManager.instance.currentSlot = 0;
     }
         
     public void Save()
     {
-        SaveLoadManager.instance.Save(PhotonNetwork.offlineMode);
+        Net_Manager.instance.GetLocalPlayer().GetComponentInChildren<Net_Host>().SaveAll();
     }
 
     public void ToSettings()

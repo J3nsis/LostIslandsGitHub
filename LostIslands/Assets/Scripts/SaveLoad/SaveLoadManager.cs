@@ -27,16 +27,18 @@ public class SaveLoadManager : MonoBehaviour {
     bool inGame;
     bool alreadyLoaded;
 
-    public int currentSlot;//wird von Button in Menu befüllt
+    public int currentSlot;//wird von Button in Menu gesetzt (bei Host), 
 
-    string pathToSlot;
+    //string pathToSlot;
 
     [SerializeField]
     Slider LoadingScreenProzessSlider;
 
     [Serializable]
-    public class SlotData
+    public class WorldData //Welt speichert nur Host
     {
+        public SaveLoadObjects.ObjectsData objectsData;
+
         public string lastSave;
         public int Day;
     }
@@ -48,8 +50,7 @@ public class SaveLoadManager : MonoBehaviour {
 
     void Update()
     {
-
-    switch (SceneManager.GetActiveScene().name)
+        switch (SceneManager.GetActiveScene().name)
         {
             case "Menu":
                 inGame = false;
@@ -60,34 +61,31 @@ public class SaveLoadManager : MonoBehaviour {
             case "Game":
                 inGame = true;
                 inMenu = false;
+                if (currentSlot == 0)
+                {
+                    Debug.LogError("[SaveLoadManager] Slot == 0!");
+                }
                 break;
 
             default:
                 break;
         }
 
-
-        if (inGame && alreadyLoaded == false)//wenn inGame und noch nicht geladen
-        {
-            if (currentSlot >= 1 || currentSlot <= 6)
-            {
-                Load(currentSlot, PhotonNetwork.offlineMode);
-            }
-        }
-
         if (LoadingScreenProzessSlider == null && inMenu)
         {
             LoadingScreenProzessSlider = MainMenuManager.instance.LoadingProzess;
         }
+        
     }
-	
-	public void Save(bool Offline)
+
+    private void LateUpdate()
     {
-        string OnlineOffline = "Online";
-        if (Offline) { OnlineOffline = "Offline"; }
+        print(currentSlot);
+    }
 
-        pathToSlot = Application.dataPath + "/SaveGames/" + OnlineOffline + "/slot" + currentSlot;
-
+    public void Save(string pathforJsons, bool SaveWorldData)//geladen und gespeichert wird über Net_Host, was am Host hängt
+    {
+        
         if (inMenu)
         {
             print("cannot save when in menu!"); 
@@ -98,97 +96,93 @@ public class SaveLoadManager : MonoBehaviour {
             print("no or wrong slot id, saving canceled");
             return;
         }
+        print("Saving... in "  + pathforJsons);
+        Chat.instance.NewInfo("Saving... to " + pathforJsons);
 
-        print("Saving...");
-
-        //### Ordner erstellen
-        if (!Directory.Exists(Application.dataPath + "/SaveGames"))
-        {
-            Directory.CreateDirectory(Application.dataPath + "/SaveGames");
-        }
-        if (!Directory.Exists(pathToSlot))
-        {
-            Directory.CreateDirectory(pathToSlot);
-        }
-        //###
-
-        //### SlotData in json speichern
-        if (!File.Exists(pathToSlot + "/SlotData.json"))
-        {
-            File.WriteAllText(pathToSlot + "/SlotData.json", "");//erstellt file
-        }
-
-        SlotData slotData = new SlotData
-        {
-            lastSave = DateTime.Now.ToString(),
-            Day = DayNightCircle.instance.Day //hier später mit Game verbinden
-        };
-
-        File.WriteAllText(pathToSlot + "/SlotData.json", JsonUtility.ToJson(slotData, true));
-        //###
+        //###Ordner erstellen
+        CreateDirectoryIfNotExists(Application.dataPath + "/SaveGames");
+        CreateDirectoryIfNotExists(Application.dataPath + "/SaveGames/Online");
+        CreateDirectoryIfNotExists(Application.dataPath + "/SaveGames/Online/Host");
+        CreateDirectoryIfNotExists(Application.dataPath + "/SaveGames/Online/Join");
+        CreateDirectoryIfNotExists(Application.dataPath + "/SaveGames/Offline");
         
-        //### ObjectsData in json speichern
-        if (!File.Exists(pathToSlot + "/ObjectsData.json"))
+        if (!Directory.Exists(pathforJsons))
         {
-            File.WriteAllText(pathToSlot + "/ObjectsData.json", "");//erstellt file
+            Directory.CreateDirectory(pathforJsons);//Slot Ordner erstellen
         }
-        File.WriteAllText(pathToSlot + "/ObjectsData.json", SaveLoadObjects.instance.Save());
+        //###
+
+        //### WorldData abspeichern (sollte nur Host)
+        if (SaveWorldData)
+        {
+            CreateFileIfNotExists(pathforJsons + "/WorldData.json");
+            WorldData worldData = new WorldData
+            {
+                objectsData = SaveLoadObjects.instance.GetObjectsData(),
+                lastSave = DateTime.Now.ToString(),
+                Day = DayNightCircle.instance.Day //hier später mit Game verbinden
+            };
+            File.WriteAllText(pathforJsons + "/WorldData.json", JsonUtility.ToJson(worldData, true));
+        }
         //###
 
         //### PlayerStats (Health etc.) abspeichern
-        if(!File.Exists(pathToSlot + "/PlayerStats.json"))
-        {
-            File.WriteAllText(pathToSlot + "/PlayerStats.json", "");//erstellt file
-        }
-        File.WriteAllText(pathToSlot + "/PlayerStats.json", JsonUtility.ToJson(PlayerStats.instance.ps, true));
+        CreateFileIfNotExists(pathforJsons + "/PlayerStats.json");
+        File.WriteAllText(pathforJsons + "/PlayerStats.json", JsonUtility.ToJson(PlayerStats.instance.ps, true));
         //###
 
         //### InventarSlots abspeichern
-        if (!File.Exists(pathToSlot + "/InventoryItems.json"))
-        {
-            File.WriteAllText(pathToSlot + "/InventoryItems.json", "");//erstellt file
-        }
-        File.WriteAllText(pathToSlot + "/InventoryItems.json", JsonUtility.ToJson(InventoryItems.instance.SaveInventory(), true));
+        CreateFileIfNotExists(pathforJsons + "/InventoryItems.json");
+        File.WriteAllText(pathforJsons + "/InventoryItems.json", InventoryItems.instance.GetInventoryItemsSaveAsString());
         //###
     }
 
-    public void Load(int slot, bool Offline)
+    public void Load(string pathforJsons, bool LoadWorldDataFromLocal, string WorldDataString = "")//geladen und gespeichert wird über Net_Host, was am Host hängt
     {
         alreadyLoaded = true;
-        string OnlineOffline = "Online";
-        if (Offline) { OnlineOffline = "Offline"; }
-
-        pathToSlot = Application.dataPath + "/SaveGames/" + OnlineOffline + "/slot" + currentSlot;
 
         if (inMenu)
         {
             print("cannot load in menu!");
             return;
         }
-        if (!File.Exists(pathToSlot + "/SlotData.json"))//Wenn nichts in slot ordner also wenn nichts gespeichert wurde
+        if (!File.Exists(pathforJsons + "/WorldData.json") && !File.Exists(pathforJsons + "/PlayerStats.json"))//Wenn noch nichts abgespeichert wurde
         {
-            print("no saveGame to load in slot" + currentSlot);
+            print("no saveGame to load in Directory: " + pathforJsons);
             return;
         }
+        print("Loading... from " + pathforJsons);
+        Chat.instance.NewInfo("Loading... from " + pathforJsons);
+
+        //### WorldData laden (sollte/kann nur Host, weil nur er WorldData abspeichert)
+        if (LoadWorldDataFromLocal)
+        {
+            if (WorldDataString != "")
+            {
+                Debug.LogWarning("WorldDataString != null but LoadWorldDataFromLocal == true. Now loaded from local!");
+            }
+            WorldData worldData = JsonUtility.FromJson<WorldData>(File.ReadAllText(pathforJsons + "/WorldData.json"));
+
+            SaveLoadObjects.instance.Load(worldData.objectsData);
+            DayNightCircle.instance.Day = worldData.Day;
+        }
         
+        if (WorldDataString != "")
+        {
+            WorldData worldData = JsonUtility.FromJson<WorldData>(WorldDataString);
 
-        print("Loading...");
+            SaveLoadObjects.instance.Load(worldData.objectsData);
+            DayNightCircle.instance.Day = worldData.Day;
+        }
 
-        //### SlotData laden
-        SlotData slotData = JsonUtility.FromJson<SlotData>(File.ReadAllText(pathToSlot + "/SlotData.json"));
-        DayNightCircle.instance.Day = slotData.Day;
-        //###
-
-        //### ObjectsData laden
-        SaveLoadObjects.instance.Load(pathToSlot + "/ObjectsData.json");
-        //###
 
         //### PlayerStats laden
-        PlayerStats.instance.ps = JsonUtility.FromJson<PlayerStats.PlayerStatsSave>(File.ReadAllText(pathToSlot + "/PlayerStats.json"));
+        if (File.Exists(pathforJsons + "/PlayerStats.json")) print("exists");
+        PlayerStats.instance.ps = JsonUtility.FromJson<PlayerStats.PlayerStatsSave>(File.ReadAllText(pathforJsons + "/PlayerStats.json"));
         //###
 
         //### InventarSlots laden
-        InventoryItems.instance.LoadInventory(JsonUtility.FromJson<InventoryItems.InventoryItemsSave>(File.ReadAllText(pathToSlot + "/InventoryItems.json")));
+        InventoryItems.instance.LoadInventory(JsonUtility.FromJson<InventoryItems.InventoryItemsSave>(File.ReadAllText(pathforJsons + "/InventoryItems.json")));
         //###
     }
 
@@ -211,11 +205,8 @@ public class SaveLoadManager : MonoBehaviour {
             PhotonNetwork.isMessageQueueRunning = false;
             MainMenuManager.instance.ShowLoadingScreen();
             
-
             float progress = Mathf.Clamp01(operation.progress / .9f);
-
             LoadingScreenProzessSlider.value = progress;
-
             yield return null;
         }
         if (operation.isDone)
@@ -224,27 +215,30 @@ public class SaveLoadManager : MonoBehaviour {
         }
     }
 
-    public SlotData GetSlotDatabySlot(int slot, bool Offline)//für loading buttons
-    {
-        string OnlineOffline = "Online";
-        if (Offline) { OnlineOffline = "Offline"; }
-       
-        if (File.Exists(Application.dataPath + "/SaveGames/" + OnlineOffline + "/slot" + slot + "/SlotData.json"))
+    public WorldData GetWorldbyJsonsPath(string pathforJsons)//für loading buttons
+    {       
+        if (File.Exists(pathforJsons + "/WorldData.json"))
         {
-            return JsonUtility.FromJson<SlotData>(File.ReadAllText(Application.dataPath + "/SaveGames/" + OnlineOffline + "/slot" + slot + "/SlotData.json"));
+            return JsonUtility.FromJson<WorldData>(File.ReadAllText(pathforJsons + "/WorldData.json"));
         }
-
-        return null;        
+        return null;      
     }
 
     public void ClearSlot(int slot, bool Offline)
     {
-        string OnlineOffline = "Online";
-        if (Offline) { OnlineOffline = "Offline"; }
-
-        if (Directory.Exists(Application.dataPath + "/SaveGames/" + OnlineOffline + "/slot" + slot))
+        string pathToSlot;
+        if (Offline)
         {
-            Directory.Delete(Application.dataPath + "/SaveGames/" + OnlineOffline + "/slot" + slot, true);
+            pathToSlot = Application.dataPath + "/SaveGames/Offline/slot" + slot;
+        }
+        else
+        {
+            pathToSlot = Application.dataPath + "/SaveGames/Online/Host/slot" + slot;
+        }
+         
+        if (Directory.Exists(pathToSlot))
+        {
+            Directory.Delete(pathToSlot, true);
             if (Offline)
             {
                 OfflineSelectionManager.instance.FillLoadButtons();
@@ -265,4 +259,40 @@ public class SaveLoadManager : MonoBehaviour {
         }
     }
 
+    void CreateDirectoryIfNotExists(string pathWithDirectoryName)
+    {
+        if (!Directory.Exists(pathWithDirectoryName))
+        {
+            Directory.CreateDirectory(pathWithDirectoryName);
+        }
+    }
+
+    void CreateFileIfNotExists(string pathWithFileName)
+    {
+        if (!File.Exists(pathWithFileName))
+        {
+            File.WriteAllText(pathWithFileName, "");//erstellt file
+        }
+    }
+
+    public string GetWorldDataStringFromLocal()
+    {
+        if (PhotonNetwork.isMasterClient)
+        {
+            string pathToWorldData = Application.dataPath + "/SaveGames/Online/Host/slot" + currentSlot + "/WorldData.json";
+            if (File.Exists(pathToWorldData))
+            {
+                return JsonUtility.ToJson(JsonUtility.FromJson<WorldData>((File.ReadAllText(pathToWorldData))));
+            }
+            Debug.LogWarning("Cannot get Json of WorldData because the file does not exist: " + pathToWorldData);
+            return null;
+
+            
+        }
+        else
+        {
+            Debug.LogWarning("Cannot get WorldDataString because you are not the Host/MasterClient!");            
+        }
+        return null;
+    }
 }

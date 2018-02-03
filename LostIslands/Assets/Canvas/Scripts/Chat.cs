@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System.IO;
 using System;
 
-
+[RequireComponent(typeof(PhotonView))]
 public class Chat : MonoBehaviour{
     #region Instance
     public static Chat instance;
@@ -147,8 +147,10 @@ public class Chat : MonoBehaviour{
     {
         if (Online)
         {
-            GameObject Message = PhotonNetwork.Instantiate("ChatMessage", Vector3.zero, Quaternion.identity,0);
+            GameObject Message = PhotonNetwork.Instantiate("ChatMessage", Vector3.zero, Quaternion.identity,0);//geht noch nicht Online, weil Nachricht Parent und Text nicht sync werden!!!
             Message.transform.SetParent(ParentRect);
+            Message.GetComponent<Net_SyncMessage>().MessageParent = ParentRect;
+            
             if (PlayerName == null)
             {
                 Message.GetComponent<Text>().text = info;
@@ -157,7 +159,7 @@ public class Chat : MonoBehaviour{
             {
                 Message.GetComponent<Text>().text = "[" + PlayerName + "]: " + info;
             }
-
+            Message.GetComponent<Net_SyncMessage>().MessageText = Message.GetComponent<Text>().text;
             Message.GetComponent<DestroyMe>().Destroy(20f, true);
         }
         else
@@ -177,6 +179,12 @@ public class Chat : MonoBehaviour{
         }
 
         
+    }
+
+    [PunRPC]
+    void InstantiateMessageRPC()
+    {
+
     }
 
     public void NewInfo(string info)

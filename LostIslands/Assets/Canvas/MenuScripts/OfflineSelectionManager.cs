@@ -46,20 +46,19 @@ public class OfflineSelectionManager : MonoBehaviour {
 
     public void FillLoadButtons()
     {
-
         for (int i = 0; i < LoadButtonsParent.transform.childCount; i++)
         {
             GameObject LoadButton = LoadButtonsParent.transform.GetChild(i).gameObject;
             int slot = i + 1;
 
-            SaveLoadManager.SlotData slotData = SaveLoadManager.instance.GetSlotDatabySlot(slot, true);
+            SaveLoadManager.WorldData worldData = SaveLoadManager.instance.GetWorldbyJsonsPath(Application.dataPath + "/SaveGames/Offline/slot" + slot);
 
             LoadButton.transform.GetChild(0).GetComponent<Text>().text = "Slot: " + slot.ToString();//Slot Nr (Child 0)
 
-            if (slotData != null)
+            if (worldData != null)
             {
-                LoadButton.transform.GetChild(1).GetComponent<Text>().text = slotData.lastSave;//last Save (Child 1)
-                LoadButton.transform.GetChild(2).GetComponent<Text>().text = "Day: " + slotData.Day;
+                LoadButton.transform.GetChild(1).GetComponent<Text>().text = worldData.lastSave;//last Save (Child 1)
+                LoadButton.transform.GetChild(2).GetComponent<Text>().text = "Day: " + worldData.Day;
             }
             else
             {
@@ -76,6 +75,11 @@ public class OfflineSelectionManager : MonoBehaviour {
 
     public void OpenGameSceneAndLoad(int slot)//wird von Load button in Menu aufgerufen
     {
+        if (slot == 0)
+        {
+            Debug.LogWarning("Slot == 0, loading stopped!");
+            return;
+        }
         Load = true;
         SaveLoadManager.instance.OpenGameScene();
         SaveLoadManager.instance.currentSlot = slot;

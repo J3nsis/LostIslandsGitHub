@@ -309,7 +309,7 @@ public class InventoryItems : MonoBehaviour {
 
     //############################################# Save/Load
 
-    public InventoryItemsSave SaveInventory()//gibt Class mit allen Slot für SaveLoadManager wieder
+    public string GetInventoryItemsSaveAsString()//gibt Class mit allen Slot für SaveLoadManager wieder
     {
         InventoryItemsSave ItemsSave = new InventoryItemsSave();
 
@@ -338,7 +338,7 @@ public class InventoryItems : MonoBehaviour {
                 ItemsSave.SlotsList.Add(slotData);
             }
         }
-        return ItemsSave;       
+        return JsonUtility.ToJson(ItemsSave, true);              
     }
 
 

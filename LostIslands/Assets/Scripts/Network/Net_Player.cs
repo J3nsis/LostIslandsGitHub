@@ -104,7 +104,7 @@ public class Net_Player : MonoBehaviour {
     [PunRPC]
     void SetPlayerIdentityInSceneRPC()
     {
-        print("SetPlayerIdentityInSceneRPC" + photonView.owner.NickName);
+        //print("SetPlayerIdentityInSceneRPC" + photonView.owner.NickName);
 
         gameObject.name = GetComponent<PhotonView>().owner.NickName;
 

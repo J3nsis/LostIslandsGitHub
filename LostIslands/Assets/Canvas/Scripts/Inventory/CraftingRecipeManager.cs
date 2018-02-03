@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class CraftingRecipeManager : MonoBehaviour {
 
@@ -14,16 +15,17 @@ public class CraftingRecipeManager : MonoBehaviour {
 
         foreach(Recipe recipe in rdb.database)
         {
-            if (AllParent.transform.Find("Level"+recipe.NeedLevel) == null)
+            if (AllParent.transform.Find("Level" + recipe.NeedLevel) == null)
             {
                 GameObject levelColumPrefab = Instantiate(LevelColumPrefab);
                 levelColumPrefab.transform.SetParent(AllParent.transform);
                 levelColumPrefab.name = "Level" + recipe.NeedLevel;
+                levelColumPrefab.transform.Find("LevelText").GetComponent<Text>().text = "Level " + recipe.NeedLevel + ":"; //Level Text über Recipes setzen
             }
             GameObject levelColum = AllParent.transform.Find("Level" + recipe.NeedLevel).gameObject;
 
             GameObject newSlot = Instantiate(SlotPrefab);
-            newSlot.transform.SetParent(levelColum.transform);
+            newSlot.transform.SetParent(levelColum.transform.Find("RecipesParent").transform);
 
 
             GameObject newRecipe = Instantiate(RecipeinSlotPrefab);

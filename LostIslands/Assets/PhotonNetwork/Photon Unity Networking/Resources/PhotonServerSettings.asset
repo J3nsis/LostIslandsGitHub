@@ -61,4 +61,6 @@ MonoBehaviour:
   - InstaniateMessageRPC
   - StartGameforAllRPC
   - SetPlayerIdentityInSceneRPC
+  - SyncCurrentSlotRPC
+  - InstantiateMessageRPC
   DisableAutoOpenWizard: 1

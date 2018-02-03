@@ -33,7 +33,6 @@ public class InventoryManager : MonoBehaviour {
         CloseInventory();
 
         ChestTabButton.SetActive(false);
-        OpenTabCrafting();
         OpenTabPlayer();
     }
 
