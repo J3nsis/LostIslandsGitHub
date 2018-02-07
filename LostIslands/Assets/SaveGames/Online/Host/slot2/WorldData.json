@@ -1,0 +1,30 @@
+{
+    "objectsData": {
+        "SzeneObjectList": [
+            {
+                "id": 114426,
+                "name": "StartBox",
+                "savePosition": true,
+                "saveRotation": true,
+                "position": {
+                    "x": 92.49040985107422,
+                    "y": 0.14649343490600587,
+                    "z": -22.11602783203125
+                },
+                "rotation": {
+                    "x": 270.0,
+                    "y": 320.4735107421875,
+                    "z": 0.0
+                }
+            }
+        ],
+        "DestroyedObjectsName": [
+            "Backpack",
+            "StartAxe"
+        ],
+        "InitPrefabNames": [],
+        "InitNames": []
+    },
+    "lastSave": "2/7/2018 2:31:41 PM",
+    "Day": 1
+}

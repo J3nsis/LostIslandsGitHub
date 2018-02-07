@@ -58,7 +58,10 @@ public class EscMenu : MonoBehaviour {
         
     public void Save()
     {
-        Net_Manager.instance.GetLocalPlayer().GetComponentInChildren<Net_Host>().SaveAll();
+        if (PhotonNetwork.isMasterClient)
+        {
+            Net_Manager.instance.GetLocalPlayer().GetComponentInChildren<Net_Host>().SaveAll();
+        }     
     }
 
     public void ToSettings()

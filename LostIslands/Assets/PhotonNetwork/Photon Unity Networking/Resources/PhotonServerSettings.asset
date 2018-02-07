@@ -63,4 +63,5 @@ MonoBehaviour:
   - SetPlayerIdentityInSceneRPC
   - SyncCurrentSlotRPC
   - InstantiateMessageRPC
+  - RPC_GetWorldDataStringFromHost
   DisableAutoOpenWizard: 1

@@ -20,6 +20,7 @@ public class PlayerStats : MonoBehaviour {
     }
     #endregion
 
+    //###### Variablen ######
     public Text GesundheitText;
     public Text AusdauerText;
     public Text EssenText;
@@ -42,13 +43,14 @@ public class PlayerStats : MonoBehaviour {
         public int Level = 1;
 
         public bool hasBackpack;
+
+        public Vector3 position;//wird in SaveLoadManager beim laden und speichern auf Spieler übertragen!
     }
 
     public bool isRunning;//wird von FPMovement script geändert
-
     public PlayerStatsSave ps; //wird von SaveLoadManager gespechert/geladen
 
-
+    //###### Funktionen ######
 
     void Start ()
     {
@@ -121,6 +123,12 @@ public class PlayerStats : MonoBehaviour {
         ps.Ausdauer = 100;
         ps.Essen = 100;
         ps.Trinken = 100;
+    }
+
+    void OnDeath()
+    {
+        Debug.Log("YOU ARE DEAD!");
+        Net_Manager.instance.GetLocalPlayer().transform.position = Vector3.zero;
     }
 
 

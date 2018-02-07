@@ -6,28 +6,90 @@ public class Net_Host : MonoBehaviour {
 
     private PhotonView photonView;
 
-    string WorldDataString;
+    //string WorldDataString;
 
+    //bool alreadyRanLoadOnStart = false;
 
-    private void Start()//nur MasterClient hat dieses Script hier aktiviert!
+    private void Awake()
     {
         if (!PhotonNetwork.isMasterClient)
         {
-            Debug.LogError("Net_Host is enabled obwohl kein MasterClient! Jetzt deaktiviert!");
+            //Debug.LogError("Net_Host is enabled obwohl kein MasterClient! Jetzt deaktiviert!");
             this.enabled = false;
             return;
         }
+    }
+
+    private void Start()
+    {
+        if (!PhotonNetwork.isMasterClient) { return; }
+
         if (PhotonNetwork.offlineMode)
         {
             SaveLoadManager.instance.Load(Application.dataPath + "/SaveGames/Offline/slot" + SaveLoadManager.instance.currentSlot, true);
         }
-        else //online
+        else
         {
-            Chat.instance.NewInfo("Loading for " + PhotonNetwork.room.PlayerCount + "Player");
-            GetComponent<PhotonView>().RPC("LoadAllRPC", PhotonTargets.All); //später das wenn neuer Spieler connected auch er den aktuellen stand der map läd etc.
-            WorldDataString = SaveLoadManager.instance.GetWorldDataStringFromLocal();
+            //nur beim Host wird beim start alles geladen, die Clients laden wenn sie joinen dann (und bekommen WorldData vom Host)
+            SaveLoadManager.instance.Load(Application.dataPath + "/SaveGames/Online/Host/slot" + SaveLoadManager.instance.currentSlot, true);
+            
+            //LoadOnStart();
+            return;
         }
     }
+
+    private void Update()
+    {
+        if (!PhotonNetwork.isMasterClient || PhotonNetwork.offlineMode) { return; }
+        
+        /*
+        if (!alreadyRanLoadOnStart)
+        {
+            if (PhotonNetwork.countOfPlayers == 1)
+            {
+                LoadOnStart();
+            }
+            else
+            {
+                if (AllJoinedPlayersInitialized())
+                {
+                    LoadOnStart();
+                }
+                else
+                {
+                    print("cannot load because not all ready!");
+                }
+            }
+        }*/
+    }
+
+    /*bool AllJoinedPlayersInitialized()//wenn alle Spieler bereit und gespawnt sind, dann laden
+    {
+        if (GameObject.FindGameObjectsWithTag("Player").Length == 0)
+        {
+            return false;
+        }
+        foreach (GameObject GO in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (GO.GetComponent<Net_Player>().initialized)
+            {
+                continue;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    void LoadOnStart()
+    {
+        alreadyRanLoadOnStart = true;
+        Chat.instance.NewInfo("Loading for " + PhotonNetwork.room.PlayerCount + " Players");
+        GetComponent<PhotonView>().RPC("LoadAllRPC", PhotonTargets.All); //später das wenn neuer Spieler connected auch er den aktuellen stand der map läd etc.
+        WorldDataString = SaveLoadManager.instance.GetWorldDataStringFromLocal();        
+    }*/
 
     public void SaveAll()//wird von Esc Menü Save aufgerufen
     {
@@ -49,7 +111,7 @@ public class Net_Host : MonoBehaviour {
         if (PhotonNetwork.isMasterClient)
         {
             SaveLoadManager.instance.Save(Application.dataPath + "/SaveGames/Online/Host/slot" + SaveLoadManager.instance.currentSlot, true);
-            WorldDataString = SaveLoadManager.instance.GetWorldDataStringFromLocal();
+            //WorldDataString = SaveLoadManager.instance.GetWorldDataStringFromLocal();
         }
         else//only Client
         {
@@ -59,7 +121,7 @@ public class Net_Host : MonoBehaviour {
     }
 
 
-
+    /*
     [PunRPC]
     void LoadAllRPC()
     {       
@@ -76,7 +138,7 @@ public class Net_Host : MonoBehaviour {
             SaveLoadManager.instance.Load(Application.dataPath + "/SaveGames/Online/Join/" + PhotonNetwork.masterClient.NickName + "/slot" + SaveLoadManager.instance.currentSlot, false, WorldDataString);
         }
         
-    }
+    }*/
 
     //### Player Identity
 

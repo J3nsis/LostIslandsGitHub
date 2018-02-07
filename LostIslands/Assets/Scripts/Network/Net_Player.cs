@@ -12,7 +12,8 @@ public class Net_Player : MonoBehaviour {
 
     private PhotonView photonView;
 
-    bool initialized;
+    public bool initialized;
+
 
     private void Awake()
     {
@@ -25,14 +26,14 @@ public class Net_Player : MonoBehaviour {
     void Start()
     {
         photonView = GetComponent<PhotonView>();
-        IntializePlayer();
+        InitializePlayer();
         if (GameObject.Find("Player"))
         {
             Destroy(GameObject.Find("Player"));
         }
     }
 
-    void IntializePlayer()
+    void InitializePlayer()
     {
         if (photonView.isMine)
         {
@@ -94,20 +95,31 @@ public class Net_Player : MonoBehaviour {
             }
         }
 
-        
-        photonView.RPC("SetPlayerIdentityInSceneRPC", PhotonTargets.All);
-        
-        
+        if (photonView.isMine)
+        {
+            photonView.RPC("SetPlayerIdentityInSceneRPC", PhotonTargets.All);
 
+            SaveLoadManager.instance.Load(Application.dataPath + "/SaveGames/Online/Join/" + PhotonNetwork.masterClient.NickName + "/slot" + SaveLoadManager.instance.currentSlot, 
+                                          false, 
+                                          Net_Manager.instance.GetWorldDataStringFromHost());
+        }   
+
+        if (PhotonNetwork.isMasterClient)//nur wenn der lokale Spieler Masterclient ist Net_Host aktivieren! Auch nicht nur bei dem aktivieren der als Host Masterclient ist aber garnicht der lokale spieler ist
+        {
+            GetComponent<Net_Host>().enabled = true;
+        }
+        else
+        {
+            GetComponent<Net_Host>().enabled = false;
+        }
     }
 
     [PunRPC]
     void SetPlayerIdentityInSceneRPC()
     {
-        //print("SetPlayerIdentityInSceneRPC" + photonView.owner.NickName);
+        print("SetPlayerIdentityInSceneRPC" + GetComponent<PhotonView>().owner.NickName);
 
-        gameObject.name = GetComponent<PhotonView>().owner.NickName;
-
+        name = GetComponent<PhotonView>().owner.NickName;
 
         foreach (PhotonPlayer pp in PhotonNetwork.playerList)
         {
@@ -115,7 +127,7 @@ public class Net_Player : MonoBehaviour {
             {
                 if (pp.IsMasterClient)
                 {
-                    tag = "Host";
+                    tag = "Host";                                      
                 }
                 else
                 {
@@ -125,14 +137,7 @@ public class Net_Player : MonoBehaviour {
             continue;
         }
 
-        if (tag == "Host")
-        {
-            GetComponent<Net_Host>().enabled = true;
-        }
-        else
-        {
-            GetComponent<Net_Host>().enabled = false;
-        }
+        initialized = true;
     }
 
 

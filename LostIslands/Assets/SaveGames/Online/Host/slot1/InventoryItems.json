@@ -1,0 +1,37 @@
+{
+    "SlotsList": [
+        {
+            "SlotNr": 1,
+            "inHotbar": false,
+            "ItemDataSave": {
+                "ItemID": 0,
+                "amount": 1,
+                "slot": 1,
+                "inHotbar": false,
+                "currentdurability": 0
+            }
+        },
+        {
+            "SlotNr": 12,
+            "inHotbar": false,
+            "ItemDataSave": {
+                "ItemID": 11,
+                "amount": 1,
+                "slot": 12,
+                "inHotbar": false,
+                "currentdurability": 4
+            }
+        },
+        {
+            "SlotNr": 18,
+            "inHotbar": false,
+            "ItemDataSave": {
+                "ItemID": 2,
+                "amount": 2,
+                "slot": 18,
+                "inHotbar": false,
+                "currentdurability": 0
+            }
+        }
+    ]
+}

@@ -26,6 +26,8 @@ public class Net_Manager : MonoBehaviour {
     [SerializeField]
     GameObject localPlayer;
 
+    string WorldDatafromHost;
+
     //public Dictionary<GameObject, PhotonPlayer> Players = new Dictionary<GameObject, PhotonPlayer>(); //onconnect/disconnect damit alle da sind
 
     void Start()
@@ -78,5 +80,30 @@ public class Net_Manager : MonoBehaviour {
             print("[Net_Manager] local player == null");
         }
         return localPlayer;
+    }
+
+    PhotonPlayer GetPhotonPlayerByNickName(string nickname)
+    {
+        foreach (PhotonPlayer photonPlayer in PhotonNetwork.playerList)
+        {
+            if (photonPlayer.NickName == nickname)
+            {
+                return photonPlayer;
+            }
+        }
+        print("Cannot find PhotonPlayer with NickName " + nickname);
+        return null;
+    }
+
+    public string GetWorldDataStringFromHost()//gibt immer die aktuelle WorldData vom Host zurück! (wird bei join von neuem Spieler gebraucht)
+    {
+        GetComponent<PhotonView>().RPC("RPC_GetWorldDataStringFromHost", PhotonTargets.MasterClient);
+        return WorldDatafromHost;
+    }
+
+    [PunRPC]
+    void RPC_GetWorldDataStringFromHost()
+    {
+        WorldDatafromHost = SaveLoadManager.instance.GetCurrentWorldData();
     }
 }

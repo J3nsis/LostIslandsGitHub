@@ -1,0 +1,15 @@
+{
+    "SlotsList": [
+        {
+            "SlotNr": 19,
+            "inHotbar": false,
+            "ItemDataSave": {
+                "ItemID": 11,
+                "amount": 1,
+                "slot": 19,
+                "inHotbar": false,
+                "currentdurability": 30
+            }
+        }
+    ]
+}

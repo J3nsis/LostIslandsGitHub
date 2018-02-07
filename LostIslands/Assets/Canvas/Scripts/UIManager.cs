@@ -46,8 +46,7 @@ public class UIManager : MonoBehaviour {
     public void HideChat()
     {
         Chat.transform.localPosition = new Vector3(-1317, -95, 0);
-        Chat.SetParent
-            (this.gameObject.transform);
+        Chat.SetParent(this.gameObject.transform);
     }
 
     public void ShowChat()

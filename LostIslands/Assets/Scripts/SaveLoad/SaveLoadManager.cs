@@ -50,26 +50,7 @@ public class SaveLoadManager : MonoBehaviour {
 
     void Update()
     {
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Menu":
-                inGame = false;
-                inMenu = true;
-                alreadyLoaded = false;
-                break;
-
-            case "Game":
-                inGame = true;
-                inMenu = false;
-                if (currentSlot == 0)
-                {
-                    Debug.LogError("[SaveLoadManager] Slot == 0!");
-                }
-                break;
-
-            default:
-                break;
-        }
+        
 
         if (LoadingScreenProzessSlider == null && inMenu)
         {
@@ -81,6 +62,30 @@ public class SaveLoadManager : MonoBehaviour {
     private void LateUpdate()
     {
         print(currentSlot);
+
+        print(SceneManager.GetActiveScene().name);
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Game":
+                inGame = true;
+                inMenu = false;
+                if (currentSlot == 0)
+                {
+                    Debug.LogError("[SaveLoadManager] Slot == 0!");
+                }
+                break;
+
+            case "Menu":
+                inGame = false;
+                inMenu = true;
+                alreadyLoaded = false;
+                break;
+
+
+
+            default:
+                break;
+        }
     }
 
     public void Save(string pathforJsons, bool SaveWorldData)//geladen und gespeichert wird über Net_Host, was am Host hängt
@@ -128,6 +133,7 @@ public class SaveLoadManager : MonoBehaviour {
 
         //### PlayerStats (Health etc.) abspeichern
         CreateFileIfNotExists(pathforJsons + "/PlayerStats.json");
+        PlayerStats.instance.ps.position = Net_Manager.instance.GetLocalPlayer().transform.position;
         File.WriteAllText(pathforJsons + "/PlayerStats.json", JsonUtility.ToJson(PlayerStats.instance.ps, true));
         //###
 
@@ -143,8 +149,8 @@ public class SaveLoadManager : MonoBehaviour {
 
         if (inMenu)
         {
-            print("cannot load in menu!");
-            return;
+            print("cannot load in menu! zum test trotzdem!");
+            //return;
         }
         if (!File.Exists(pathforJsons + "/WorldData.json") && !File.Exists(pathforJsons + "/PlayerStats.json"))//Wenn noch nichts abgespeichert wurde
         {
@@ -166,19 +172,32 @@ public class SaveLoadManager : MonoBehaviour {
             SaveLoadObjects.instance.Load(worldData.objectsData);
             DayNightCircle.instance.Day = worldData.Day;
         }
-        
-        if (WorldDataString != "")
+        else
         {
-            WorldData worldData = JsonUtility.FromJson<WorldData>(WorldDataString);
+            if (WorldDataString != null)
+            {
+                WorldData worldData = JsonUtility.FromJson<WorldData>(WorldDataString);
+                if (worldData == null)
+                {
+                    Debug.LogWarning("something went wrong with loading from WorldDataString:    " + WorldDataString);
+                }
 
-            SaveLoadObjects.instance.Load(worldData.objectsData);
-            DayNightCircle.instance.Day = worldData.Day;
+                SaveLoadObjects.instance.Load(worldData.objectsData);
+                DayNightCircle.instance.Day = worldData.Day;
+            }
+            else
+            {
+                Debug.LogWarning("cannot load worldData with WorldDataString because it is emty!");
+            }
         }
+        
+        
 
 
         //### PlayerStats laden
         if (File.Exists(pathforJsons + "/PlayerStats.json")) print("exists");
         PlayerStats.instance.ps = JsonUtility.FromJson<PlayerStats.PlayerStatsSave>(File.ReadAllText(pathforJsons + "/PlayerStats.json"));
+        Net_Manager.instance.GetLocalPlayer().transform.position = PlayerStats.instance.ps.position;
         //###
 
         //### InventarSlots laden
@@ -275,7 +294,7 @@ public class SaveLoadManager : MonoBehaviour {
         }
     }
 
-    public string GetWorldDataStringFromLocal()
+    public string GetWorldDataStringFromLocal()//only Host!
     {
         if (PhotonNetwork.isMasterClient)
         {
@@ -285,14 +304,31 @@ public class SaveLoadManager : MonoBehaviour {
                 return JsonUtility.ToJson(JsonUtility.FromJson<WorldData>((File.ReadAllText(pathToWorldData))));
             }
             Debug.LogWarning("Cannot get Json of WorldData because the file does not exist: " + pathToWorldData);
-            return null;
-
-            
+            return null;  
         }
         else
         {
-            Debug.LogWarning("Cannot get WorldDataString because you are not the Host/MasterClient!");            
+            Debug.LogWarning("Cannot get WorldDataString because you are not the Host/MasterClient!");
+            return null;
+        }       
+    }
+
+    public string GetCurrentWorldData()//only Host!! (wird für laden von Clients benutzt damit diese die aktuelle Welt laden können)
+    {
+        if (PhotonNetwork.isMasterClient)
+        {
+            WorldData worldData = new WorldData
+            {
+                objectsData = SaveLoadObjects.instance.GetObjectsData(),
+                lastSave = DateTime.Now.ToString(),
+                Day = DayNightCircle.instance.Day //hier später mit Game verbinden
+            };
+            return JsonUtility.ToJson(worldData, true);
         }
-        return null;
+        else
+        {
+            Debug.LogWarning("Cannot get current WorldDataString because you are not the Host/MasterClient!");
+            return null;
+        }  
     }
 }
