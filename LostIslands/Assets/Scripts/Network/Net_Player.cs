@@ -95,7 +95,7 @@ public class Net_Player : MonoBehaviour {
             }
         }
 
-        if (photonView.isMine)
+        if (photonView.isMine && !PhotonNetwork.isMasterClient)//Masterclient läd bei sich alles über Net_Host! Hier nur für Clients
         {
             photonView.RPC("SetPlayerIdentityInSceneRPC", PhotonTargets.All);
 
@@ -103,6 +103,10 @@ public class Net_Player : MonoBehaviour {
                                           false, 
                                           Net_Manager.instance.GetWorldDataStringFromHost());
         }   
+        else if (PhotonNetwork.isMasterClient)
+        {
+            photonView.RPC("SetPlayerIdentityInSceneRPC", PhotonTargets.All);
+        }
 
         if (PhotonNetwork.isMasterClient)//nur wenn der lokale Spieler Masterclient ist Net_Host aktivieren! Auch nicht nur bei dem aktivieren der als Host Masterclient ist aber garnicht der lokale spieler ist
         {

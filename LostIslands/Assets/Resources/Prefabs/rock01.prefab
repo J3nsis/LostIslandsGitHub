@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 64288889986886558}
   - component: {fileID: 114202595633673518}
   - component: {fileID: 114449167457195062}
+  - component: {fileID: 114190976253095360}
+  - component: {fileID: 114388687594577184}
   m_Layer: 0
   m_Name: rock01
   m_TagString: Rock
@@ -38,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1824129211393348}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 104.49498, y: 2.132712, z: -63.149334}
+  m_LocalPosition: {x: 24.103554, y: -5.4690733, z: -33.740555}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,6 +101,32 @@ MeshCollider:
   m_CookingOptions: 15
   m_SkinWidth: 1.00000005e-20
   m_Mesh: {fileID: 4300000, guid: ee4a35261634b924789b289e03b2ad4e, type: 3}
+--- !u!114 &114190976253095360
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1824129211393348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!114 &114202595633673518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -112,6 +140,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   dead: 0
+--- !u!114 &114388687594577184
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1824129211393348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca9b06605630eb14c97aa3142fdf536b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncEnableDisable: 0
+  SyncDestroy: 1
 --- !u!114 &114449167457195062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -125,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SaveInit: 0
   SaveDestroy: 1
-  SavePosition: 0
   SaveRotation: 0
+  SavePosition: 0
   PrefabName: 
   nothingselected: 0

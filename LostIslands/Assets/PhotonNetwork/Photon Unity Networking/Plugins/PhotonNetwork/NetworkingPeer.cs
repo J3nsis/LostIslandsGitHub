@@ -3504,7 +3504,7 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
             // reason: joining players will load the obj and have to destroy it (too)
             options = new RaiseEventOptions();
             options.CachingOption = EventCaching.AddToRoomCacheGlobal;
-            Debug.Log("Destroying GO as global. ID: " + instantiateId);
+            //***Debug.Log("Destroying GO as global. ID: " + instantiateId);
         }
         this.OpRaiseEvent(PunEvent.Destroy, evData, true, options);
     }

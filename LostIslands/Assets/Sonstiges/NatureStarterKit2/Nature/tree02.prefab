@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 114535828659461956}
   - component: {fileID: 114126186347227802}
   - component: {fileID: 114812177441727124}
-  - component: {fileID: 114505226129243794}
+  - component: {fileID: 114749157427524132}
   m_Layer: 0
   m_Name: tree02
   m_TagString: Tree
@@ -146,7 +146,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -10045,17 +10045,6 @@ MonoBehaviour:
   SavePosition: 0
   PrefabName: 
   nothingselected: 0
---- !u!114 &114505226129243794
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 123896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4c0cd8bd040fe44586931c61446f650, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114535828659461956
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10069,6 +10058,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   dead: 0
+--- !u!114 &114749157427524132
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 123896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca9b06605630eb14c97aa3142fdf536b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncEnableDisable: 0
+  SyncDestroy: 1
 --- !u!114 &114812177441727124
 MonoBehaviour:
   m_ObjectHideFlags: 1

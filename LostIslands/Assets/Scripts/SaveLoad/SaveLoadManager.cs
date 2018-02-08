@@ -191,11 +191,9 @@ public class SaveLoadManager : MonoBehaviour {
             }
         }
         
-        
-
+       
 
         //### PlayerStats laden
-        if (File.Exists(pathforJsons + "/PlayerStats.json")) print("exists");
         PlayerStats.instance.ps = JsonUtility.FromJson<PlayerStats.PlayerStatsSave>(File.ReadAllText(pathforJsons + "/PlayerStats.json"));
         Net_Manager.instance.GetLocalPlayer().transform.position = PlayerStats.instance.ps.position;
         //###

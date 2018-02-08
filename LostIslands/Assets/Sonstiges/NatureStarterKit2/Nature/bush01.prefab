@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 3302098}
   - component: {fileID: 2398136}
   - component: {fileID: 114108687373018824}
-  - component: {fileID: 114606596302401700}
   - component: {fileID: 114171329997192274}
   - component: {fileID: 64165671815788424}
+  - component: {fileID: 114787141531401368}
   m_Layer: 0
   m_Name: bush01
   m_TagString: Untagged
@@ -28,8 +28,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 108544}
-  m_LocalRotation: {x: 0, y: 0.5430871, z: 0, w: 0.8396764}
-  m_LocalPosition: {x: 57, y: 0, z: -62.8}
+  m_LocalRotation: {x: 0, y: 0.8660247, z: 0, w: 0.5000014}
+  m_LocalPosition: {x: 67.3, y: 0, z: -7.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -9965,7 +9965,7 @@ MonoBehaviour:
   SavePosition: 0
   PrefabName: 
   nothingselected: 0
---- !u!114 &114606596302401700
+--- !u!114 &114787141531401368
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -9973,6 +9973,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 108544}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4c0cd8bd040fe44586931c61446f650, type: 3}
+  m_Script: {fileID: 11500000, guid: ca9b06605630eb14c97aa3142fdf536b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SyncEnableDisable: 0
+  SyncDestroy: 1

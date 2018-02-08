@@ -32,6 +32,10 @@ public class PlayerStats : MonoBehaviour {
     public GameObject TrinkenProgress;
 
     public GameObject Blood;
+    public GameObject DeadMessage;
+
+    [SerializeField]
+    Transform PlayerSpawn;
 
     [Serializable]
     public class PlayerStatsSave
@@ -50,11 +54,15 @@ public class PlayerStats : MonoBehaviour {
     public bool isRunning;//wird von FPMovement script geändert
     public PlayerStatsSave ps; //wird von SaveLoadManager gespechert/geladen
 
+    int lastLevel = 1;//um zu checken ob Level sich geändert hat!
+
     //###### Funktionen ######
 
     void Start ()
     {
         Blood.SetActive(false);
+        DeadMessage.SetActive(false);
+        lastLevel = ps.Level;
     }
 
     public void OnSwing()//wird von ToolController bei Swing ausgeführt
@@ -65,6 +73,18 @@ public class PlayerStats : MonoBehaviour {
 
     void FixedUpdate ()
     {
+        if (ps.Level != lastLevel)
+        {
+            Chat.instance.NewInfo("Congratulations! You are now Level " + ps.Level + "!");
+            lastLevel = ps.Level;
+        }
+
+        if (ps.Gesundheit < 1)
+        {
+            KillPlayer();
+            return;
+        }
+
         if (isRunning) //Sprinten = ausdauer runter, nicht sprinten = ausdauer hoch
         {
             ps.Ausdauer -= 0.1f;     
@@ -82,15 +102,14 @@ public class PlayerStats : MonoBehaviour {
 
         if (ps.Essen <= 1 || ps.Trinken <= 1) //Essen/Trinken niedrig =  Gesundheit runter
         {
-            ps.Gesundheit -= 0.02f;
+            ps.Gesundheit -= 0.025f;
         }
 
         if (ps.Gesundheit <= 10)
         {
-            Blood.SetActive(true);
-            
+            Blood.SetActive(true);            
         }
-        else
+        if (ps.Gesundheit > 10)
         {
             Blood.SetActive(false);
         }
@@ -125,11 +144,26 @@ public class PlayerStats : MonoBehaviour {
         ps.Trinken = 100;
     }
 
-    void OnDeath()
+    public void KillPlayer()
+    {        
+        Net_Manager.instance.GetLocalPlayer().transform.position = PlayerSpawn.position;
+        ps.Gesundheit = 50;
+        ps.Ausdauer = 50;
+        ps.Essen = 50;
+        ps.Trinken = 50;
+        StartCoroutine(ShowDeadMessage(2.5f));       
+    }
+
+    public void SetLevel(int level)
     {
-        Debug.Log("YOU ARE DEAD!");
-        Net_Manager.instance.GetLocalPlayer().transform.position = Vector3.zero;
+        ps.Level = level;
     }
 
 
+    IEnumerator ShowDeadMessage(float time)
+    {
+        DeadMessage.SetActive(true);
+        yield return new WaitForSeconds(time);
+        DeadMessage.SetActive(false);
+    }
 }

@@ -116,6 +116,21 @@ public class Chat : MonoBehaviour{
                     case "/help":
                         NewInfo("This is not implemented yet");
                         break;
+                    case "/kill":
+                        PlayerStats.instance.KillPlayer();
+                        break;
+                    case "/setlevel":
+                        if (inputArray.Length == 2)
+                        {
+                            parameter1 = inputArray[1];
+                        }
+                        else
+                        {
+                            Error();
+                            return;
+                        }
+                        PlayerStats.instance.SetLevel(int.Parse(parameter1));
+                        break;
 
                     default:
                         NewWarning("Unknown command, type /help for all commands");
@@ -181,11 +196,6 @@ public class Chat : MonoBehaviour{
         
     }
 
-    [PunRPC]
-    void InstantiateMessageRPC()
-    {
-
-    }
 
     public void NewInfo(string info)
     {

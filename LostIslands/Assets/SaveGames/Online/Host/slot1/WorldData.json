@@ -2,7 +2,7 @@
     "objectsData": {
         "SzeneObjectList": [
             {
-                "id": 640342,
+                "id": 36128,
                 "name": "StartBox",
                 "savePosition": true,
                 "saveRotation": true,
@@ -19,43 +19,14 @@
             }
         ],
         "DestroyedObjectsName": [
-            "Backpack",
-            "StartAxe",
-            "bush03 (26)",
-            "bush03 (99)",
-            "bush02 (143)",
-            "bush02 (144)",
-            "bush03 (97)",
-            "bush03 (98)",
-            "bush03 (7)",
-            "bush03 (75)",
-            "bush02 (37)",
-            "bush02 (7)",
-            "bush03 (32)",
-            "bush02 (22)",
             "bush03 (27)",
-            "bush02 (142)",
-            "bush02 (66)",
-            "bush03 (61)",
-            "bush02 (63)",
-            "bush02 (64)",
-            "bush03 (74)",
-            "bush02 (119)",
-            "bush02 (118)",
-            "bush03 (83)",
-            "bush03 (67)",
-            "bush02 (121)",
-            "bush03 (82)",
-            "bush02 (120)",
-            "bush03 (72)",
-            "bush03 (69)",
-            "bush02 (107)",
-            "bush03 (73)",
-            "bush02 (97)"
+            "bush03 (26)",
+            "StartAxe",
+            "Backpack"
         ],
         "InitPrefabNames": [],
         "InitNames": []
     },
-    "lastSave": "2/7/2018 6:06:41 PM",
-    "Day": 4
+    "lastSave": "2/8/2018 8:50:01 PM",
+    "Day": 1
 }

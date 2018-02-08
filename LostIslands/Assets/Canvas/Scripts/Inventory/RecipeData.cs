@@ -32,6 +32,13 @@ public class RecipeData : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnClick()
     {
+        if (PlayerStats.instance.ps.Level < recipeData.NeedLevel)
+        {
+            Chat.instance.NewWarning("You have to be Level " + recipeData.NeedLevel + " to craft this item!");
+            return;
+        }
+
+
         if (InventoryItems.instance.GetAmountofItem(ItemDatabase.instance.GetItemBySlug(recipeData.NeedItem1_Slug).ID) >= recipeData.NeedItem1_Amount)//wenn genug im Inventar
         {
             if (recipeData.NeedItem2_Amount != 0 || recipeData.NeedItem2_Slug != "")//wenn man zweites Item braucht

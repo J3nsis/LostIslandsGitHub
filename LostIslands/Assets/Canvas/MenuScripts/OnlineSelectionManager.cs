@@ -72,6 +72,12 @@ public class OnlineSelectionManager : MonoBehaviour {
     public void OnClearSlotPressed(int slot)
     {
         clear += 1; //dann muss man zweimal zum löschen drücken
-        if (clear == 2)SaveLoadManager.instance.ClearSlot(slot, false); clear = 0; print("Slot " + slot + " cleared!");
+        if (clear == 2)
+        {
+            SaveLoadManager.instance.ClearSlot(slot, false);
+            clear = 0;
+            print("Slot " + slot + " cleared!");
+        }
+        
     }
 }

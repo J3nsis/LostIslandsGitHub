@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2319546}
   - component: {fileID: 114238441726754494}
   - component: {fileID: 114295804944093632}
-  - component: {fileID: 114324156186620428}
   - component: {fileID: 64668925504779108}
+  - component: {fileID: 114233844331500006}
   m_Layer: 0
   m_Name: bush02
   m_TagString: Bush
@@ -28,8 +28,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 199470}
-  m_LocalRotation: {x: 0, y: -0.5017089, z: 0, w: 0.86503655}
-  m_LocalPosition: {x: 31.32, y: -1.1312, z: -30.34}
+  m_LocalRotation: {x: 0, y: 0.23405239, z: 0, w: 0.97222406}
+  m_LocalPosition: {x: -66.1, y: -1.6099997, z: -56.3}
   m_LocalScale: {x: 1.7526152, y: 1.2145327, z: 1.3471143}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2843,6 +2843,19 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4310090}
+--- !u!114 &114233844331500006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca9b06605630eb14c97aa3142fdf536b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncEnableDisable: 0
+  SyncDestroy: 1
 --- !u!114 &114238441726754494
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2886,14 +2899,3 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
---- !u!114 &114324156186620428
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 199470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4c0cd8bd040fe44586931c61446f650, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
