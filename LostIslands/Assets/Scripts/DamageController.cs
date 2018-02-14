@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Net_ObjectsSyncHandler))]
 public class  DamageController : MonoBehaviour {
 
 
-    public int health; //später adden das health auch gespeuchert wird und nicht immer beim neuladen wiede voll ist
+    public int health; //später adden das health auch gespeuchert wird und nicht immer beim neuladen wieder voll ist
     public bool dead;
 
     public enum Name { Tree, Rock, Wall }; //Der Name hier drin muss auch Tag sein
@@ -36,23 +37,13 @@ public class  DamageController : MonoBehaviour {
         if (health <= 0)
         {
             dead = true;
-            if (Object != Name.Tree)//wenn nicht Baum
-            {
-                Destroy(this.gameObject, 0.25f);//normal zerstören
-            }
-            else //Baum umfallen etc.
-            {
-                if (!GetComponent<Rigidbody>())
-                {
-                    this.gameObject.AddComponent(typeof(Rigidbody));
-                }
-                
-                this.gameObject.GetComponent<Rigidbody>().AddForce(transform.rotation.eulerAngles);
-                Destroy(this.gameObject, 3f);
-            }
-            
-        }
 
+            if (!GetComponent<Net_ObjectsSyncHandler>())
+            {
+                gameObject.AddComponent(typeof(Net_ObjectsSyncHandler));                   
+            }
+            GetComponent<Net_ObjectsSyncHandler>().Net_DestroyMe(0, true);
+        }
     }
 
     public void DamageMe(int damage)//wird von Tool ausgeführt wenn Tool erkennt das anderes Object dieses Script hat (int damage = Stärke von Tool)
@@ -63,18 +54,18 @@ public class  DamageController : MonoBehaviour {
             if (r >= 3)
             {
                 int rw = Random.Range(1, 3);
-                InventoryItems.instance.AddItembySlug("Wood", rw);
+                InventoryItems.instance.AddItembySlugorID("Wood", rw);
             }
             else
             {
                 int rs = Random.Range(2, 4);
-                InventoryItems.instance.AddItembySlug("Stick", rs);
+                InventoryItems.instance.AddItembySlugorID("Stick", rs);
             }            
         }
         else if (Object == Name.Rock && dead == false) 
         {
             int rs = Random.Range(1, 3);
-            InventoryItems.instance.AddItembySlug("Stone", rs);
+            InventoryItems.instance.AddItembySlugorID("Stone", rs);
         }
 
         health -= damage;

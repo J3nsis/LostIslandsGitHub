@@ -14,6 +14,8 @@ public class Net_Player : MonoBehaviour {
 
     public bool initialized;
 
+    string WorldDatafromHost;
+
 
     private void Awake()
     {
@@ -31,6 +33,19 @@ public class Net_Player : MonoBehaviour {
         {
             Destroy(GameObject.Find("Player"));
         }
+
+        if (photonView.isMine)
+        {
+            if (!PhotonNetwork.isMasterClient)//Masterclient läd bei sich alles über Net_Host! Hier nur für Clients
+            {
+                WorldDatafromHost = Net_Manager.instance.GetWorldDataStringFromHost();
+            }
+        }
+    }
+
+    private void Update()
+    {
+        print(WorldDatafromHost);
     }
 
     void InitializePlayer()
@@ -79,9 +94,9 @@ public class Net_Player : MonoBehaviour {
             {
                 tool.enabled = false;
             }
-            foreach (ToolController toolController in Hand.transform.GetComponentsInChildren<ToolController>())
+            foreach (ToolSwinging toolSwinging in Hand.transform.GetComponentsInChildren<ToolSwinging>())
             {
-                toolController.enabled = false;
+                toolSwinging.enabled = false;
             }
             foreach (Animator animator in Hand.transform.GetComponentsInChildren<Animator>())
             {
@@ -95,27 +110,21 @@ public class Net_Player : MonoBehaviour {
             }
         }
 
-        if (photonView.isMine && !PhotonNetwork.isMasterClient)//Masterclient läd bei sich alles über Net_Host! Hier nur für Clients
+        if (photonView.isMine)
         {
-            photonView.RPC("SetPlayerIdentityInSceneRPC", PhotonTargets.All);
-
-            SaveLoadManager.instance.Load(Application.dataPath + "/SaveGames/Online/Join/" + PhotonNetwork.masterClient.NickName + "/slot" + SaveLoadManager.instance.currentSlot, 
-                                          false, 
-                                          Net_Manager.instance.GetWorldDataStringFromHost());
-        }   
-        else if (PhotonNetwork.isMasterClient)
-        {
-            photonView.RPC("SetPlayerIdentityInSceneRPC", PhotonTargets.All);
+            if (!PhotonNetwork.isMasterClient)//Masterclient läd bei sich alles über Net_Host! Hier nur für Clients
+            {
+                SaveLoadManager.instance.Load(Application.dataPath + "/SaveGames/Online/Join/" + PhotonNetwork.masterClient.NickName + "/slot" + SaveLoadManager.instance.currentSlot,
+                                              false,
+                                              WorldDatafromHost);
+            }
+            else
+            {
+                GetComponent<Net_Host>().enabled = true;
+            }
         }
 
-        if (PhotonNetwork.isMasterClient)//nur wenn der lokale Spieler Masterclient ist Net_Host aktivieren! Auch nicht nur bei dem aktivieren der als Host Masterclient ist aber garnicht der lokale spieler ist
-        {
-            GetComponent<Net_Host>().enabled = true;
-        }
-        else
-        {
-            GetComponent<Net_Host>().enabled = false;
-        }
+        photonView.RPC("SetPlayerIdentityInSceneRPC", PhotonTargets.All);
     }
 
     [PunRPC]
@@ -131,11 +140,13 @@ public class Net_Player : MonoBehaviour {
             {
                 if (pp.IsMasterClient)
                 {
-                    tag = "Host";                                      
+                    tag = "Host";
+                    GetComponent<Net_Host>().enabled = false; //immer false (nur wenn der lokale Client masterclient und der Spieler)
                 }
                 else
                 {
                     tag = "Player";
+                    GetComponent<Net_Host>().enabled = false;
                 }
             }
             continue;

@@ -35,6 +35,12 @@ public class MainSelection : MonoBehaviour {
             HostButton.interactable = true;
             DevQuickJoin.interactable = true;
         }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            SaveLoadManager.instance.OpenGameScene();
+            SaveLoadManager.instance.currentSlot = 6;
+        }
     }
 
     void OnJoinedLobby()

@@ -26,9 +26,8 @@ public class Net_Manager : MonoBehaviour {
     [SerializeField]
     GameObject localPlayer;
 
+    [SerializeField]
     string WorldDatafromHost;
-
-    //public Dictionary<GameObject, PhotonPlayer> Players = new Dictionary<GameObject, PhotonPlayer>(); //onconnect/disconnect damit alle da sind
 
     void Start()
     {
@@ -47,8 +46,7 @@ public class Net_Manager : MonoBehaviour {
         Player.SetActive(true);
         Player.name = "NetworkPlayer";
         Player.GetComponentInChildren<Camera>().gameObject.tag = "MainCamera";
-        localPlayer = Player;
-        //Players.Add(Player, PhotonNetwork.player);        
+        localPlayer = Player;       
     }
 
     void OnMasterClientSwitched()
@@ -61,14 +59,14 @@ public class Net_Manager : MonoBehaviour {
     {
         if (stream.isWriting)
         {
-            // We own this player: send the others our data
-            //stream.SendNext(Players);
-
+           /* if (PhotonNetwork.isMasterClient)
+            {
+               stream.SendNext(SaveLoadManager.instance.GetCurrentWorldData());
+            }*/
         }
         else
         {
-            // Network player, receive data
-           // this.Players = (Dictionary<GameObject, PhotonPlayer>)stream.ReceiveNext();
+            //WorldDatafromHost = (string)stream.ReceiveNext();
 
         }
     }
@@ -78,6 +76,10 @@ public class Net_Manager : MonoBehaviour {
         if (localPlayer == null)
         {
             print("[Net_Manager] local player == null");
+        }
+        if (localPlayer.GetComponent<PhotonView>().isMine == false && PhotonNetwork.connected)
+        {
+            print("[Net_Manager] local players Photon view isnt mine!");
         }
         return localPlayer;
     }
@@ -98,12 +100,21 @@ public class Net_Manager : MonoBehaviour {
     public string GetWorldDataStringFromHost()//gibt immer die aktuelle WorldData vom Host zurück! (wird bei join von neuem Spieler gebraucht)
     {
         GetComponent<PhotonView>().RPC("RPC_GetWorldDataStringFromHost", PhotonTargets.MasterClient);
+        
+        if (WorldDatafromHost == null)//** FEHLER HIER!!!
+        {
+            Debug.LogWarning("WorldDatafromHost == null:" + WorldDatafromHost);
+        }
         return WorldDatafromHost;
     }
+
+
 
     [PunRPC]
     void RPC_GetWorldDataStringFromHost()
     {
         WorldDatafromHost = SaveLoadManager.instance.GetCurrentWorldData();
     }
+
+    
 }

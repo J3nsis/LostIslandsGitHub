@@ -1,40 +1,45 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-[RequireComponent(typeof(ToolController))]
+[RequireComponent(typeof(ToolSwinging))]
 public class Tool : MonoBehaviour {
 
-    //public Item thisItem; //damage dura etc.                //wird bei drücken auf das Item in Inventory befüllt
+    //wird bei drücken auf das Item in Inventory befüllt
     public ItemData.ThisItemData data;//current dura etc.
     public Item item;
-    public int slot;
-    public bool inHotbar;
-   
-    public bool Swinging = false; //wird von ToolController geändert
 
-    void Start()
+
+
+    //WICHTIG: Tool name im Inspector muss einem Item insprechen!
+
+    private void Start()
     {
-        item = ItemDatabase.instance.FetchItemByID(data.ItemID);//wirlich bei start?
+        if (ItemDatabase.instance.GetItemBySlug(this.name) == null)
+        {
+            Debug.LogWarning("Tool Item not found in db!!");
+        }
+
     }
+
 
 
     private void Update()
     {
-        if (InventoryItems.instance.GetItembySlot(slot, inHotbar) == null || InventoryItems.instance.GetItembySlot(slot, inHotbar).ID != data.ItemID)//erkennt ob Slot von dem aus dieses Item benutzt wird sich veändert/leer wird
+        if (data.slot == -1)//wenn gedropped wird
         {
             HandManager.instance.DisableAll();
+            data = new ItemData.ThisItemData();
+            item = new Item();
+            return;
         }
-    }
 
-    void OnCollisionEnter(UnityEngine.Collision other)
-    {       
-        if (Swinging == true)//nur wenn wirklich im Schwung und nicht wenn man dagegen läuft mit Axt
+        if ( InventoryItems.instance.GetItembySlot(data.slot, data.inHotbar) == null 
+            || InventoryItems.instance.GetItembySlot(data.slot, data.inHotbar).ID != data.ItemID)//wenn Item in Slots verschoben oder gelöscht wurde
         {
-            if (other.gameObject.GetComponent<DamageController>() != null)//Wenn Damage Controller hat
-            {
-                other.gameObject.GetComponent<DamageController>().DamageMe(item.Damage);
-            }
+            HandManager.instance.DisableAll();
+            data = new ItemData.ThisItemData();
+            item = new Item();
         }
-        data.currentdurability -= 1;
     }
 
 }

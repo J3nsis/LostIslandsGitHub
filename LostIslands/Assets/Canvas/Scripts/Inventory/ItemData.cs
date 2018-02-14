@@ -17,7 +17,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         public int amount;
         public int slot;
         public bool inHotbar;
-        public int currentdurability;       
+        public int currentdurability = -1;       
     }
     public ThisItemData data;//wird über InventoryItems und dann über SaveLoadManager gespeichert/geladen
 
@@ -27,7 +27,11 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private InventoryItems inv;
     private ItemsTooltip tooltip;
     private Vector2 offset;
-    
+
+    [SerializeField]
+    GameObject ItemPackagePrefab;
+
+
     void Start()
     {
         inv = GameObject.Find("Inventory").GetComponent<InventoryItems>();
@@ -35,7 +39,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
         if (newAdded)//newaddd wird auf true gesetzt (von Inventory) wenn man manuell Item Hinzufügt
         {
-            if (item.Type == "tool")//Haltbarkeit zu standarthaltbarkeit setzen
+            if (item.Type == "tool" && data.currentdurability == -1)//Haltbarkeit zu standarthaltbarkeit setzen, aber nur wenn -1 (wegen ItemPackages)
             {
                 data.currentdurability = item.Durability;
                 newAdded = false;
@@ -53,15 +57,21 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     void LateUpdate()
     {
-        if ((item.Stackable && data.amount <= 0) || (item.Type == "tool" && data.currentdurability == 0))
+        if ((item.Stackable && data.amount <= 0))
         {
             DeleteSlot();
+        }
+
+        if (item.Type == "tool" && data.currentdurability == 0)
+        {
+            DeleteSlot();
+
         }
     }
 
     void DeleteSlot()
     {
-        print("Deleted slot:" + data.slot);       
+        //print("Deleted slot:" + data.slot);       
         InventoryItems.instance.items[data.slot] = new Item();
         tooltip.Deactivate();
 
@@ -78,11 +88,31 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void DropItem()
     {
-        //drop Item in ItemPackage on Ground
-        //initialise Itempackage
-        //ItemPackage.Item = this.Item
-        //etc.
-        print("drop Item");
+        GameObject LocalPlayer = Net_Manager.instance.GetLocalPlayer();
+
+        Vector3 playerPos = LocalPlayer.transform.position;
+        Vector3 playerDirection = LocalPlayer.transform.forward;
+        Quaternion playerRotation = LocalPlayer.transform.rotation;
+        float spawnDistance = 2;
+
+        Vector3 spawnPos = playerPos + playerDirection * spawnDistance;
+
+        if (PhotonNetwork.offlineMode)
+        {
+            GameObject ItemPackage = Instantiate(ItemPackagePrefab);
+            ItemPackage.transform.position = spawnPos;
+            ItemPackage.transform.rotation = new Quaternion(playerRotation.x, playerRotation.y + 90, playerRotation.z, playerRotation.w);
+            ItemPackage.GetComponent<ItemPackage>().item = item;
+            ItemPackage.GetComponent<ItemPackage>().itemData = data;           
+        }
+        else
+        {
+            GameObject ItemPackage = PhotonNetwork.Instantiate("ItemPackage", spawnPos, new Quaternion(playerRotation.x, playerRotation.y + 90, playerRotation.z, playerRotation.w), 0);
+            ItemPackage.GetComponent<ItemPackage>().item = item;
+            ItemPackage.GetComponent<ItemPackage>().itemData = data;
+            DeleteSlot();
+        }
+        DeleteSlot();
     }
 
 

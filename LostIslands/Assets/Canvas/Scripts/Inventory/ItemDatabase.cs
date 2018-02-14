@@ -2,6 +2,7 @@
 using LitJson;
 using System.Collections.Generic;
 using System.IO;
+using System;
 
 public class ItemDatabase : MonoBehaviour {
 
@@ -54,6 +55,7 @@ public class ItemDatabase : MonoBehaviour {
 
 }
 
+[Serializable]
 public class Item
 {
     public int ID { get; set; }
@@ -65,6 +67,7 @@ public class Item
     public string Type { get; set; }
     public int Durability { get; set;}
     public int Damage { get; set; }
+
 
     public Item(int id, string name, string slug, bool stackable, string description, string type, int durability, int damage)
     {

@@ -13,6 +13,7 @@ TagManager:
   - Slot
   - Beam
   - Host
+  - ChatMessage
   layers:
   - Default
   - TransparentFX

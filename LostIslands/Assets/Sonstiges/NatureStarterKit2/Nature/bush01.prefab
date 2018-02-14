@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 114787141531401368}
   m_Layer: 0
   m_Name: bush01
-  m_TagString: Untagged
+  m_TagString: Bush
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -145,7 +145,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -159,7 +159,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 108544}
-  m_Mesh: {fileID: 4397260}
+  m_Mesh: {fileID: 0}
 --- !u!43 &4397260
 Mesh:
   m_ObjectHideFlags: 0
@@ -9976,5 +9976,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca9b06605630eb14c97aa3142fdf536b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SyncEnableDisable: 0
+  SyncDisable: 0
   SyncDestroy: 1

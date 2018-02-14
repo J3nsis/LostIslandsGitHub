@@ -375,6 +375,8 @@ MonoBehaviour:
     inHotbar: 0
     currentdurability: 0
   newAdded: 0
+  ItemPackagePrefab: {fileID: 1217179101824450, guid: 42415b54db4f5de4eabe22c2d2d95e04,
+    type: 2}
 --- !u!212 &212578585221981770
 SpriteRenderer:
   m_ObjectHideFlags: 1

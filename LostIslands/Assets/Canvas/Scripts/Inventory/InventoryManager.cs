@@ -10,7 +10,7 @@ public class InventoryManager : MonoBehaviour {
     {
         if (instance != null)
         {
-            Debug.LogWarning("More than one instance of InventoryController found!");
+            Debug.LogWarning("More than one instance of" + this + " found!");
             return;
         }
         instance = this;
@@ -27,13 +27,17 @@ public class InventoryManager : MonoBehaviour {
 
     public InputField ChatInputField;
 
+    FirstPersonPlayerMovement fppm;
+
 
     void Start () 
 	{
+        fppm = Net_Manager.instance.GetLocalPlayer().GetComponent<FirstPersonPlayerMovement>();
+
         CloseInventory();
 
         ChestTabButton.SetActive(false);
-        OpenTabPlayer();
+        OpenTabPlayer();       
     }
 
 
@@ -41,7 +45,7 @@ public class InventoryManager : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.I) && !ChatInputField.GetComponent<InputField>().isFocused)
         {
-            if (PlayerStats.instance.ps.hasBackpack) //nur wenn Rucksack vorhanden
+            if (PlayerStats.instance.hasBackpack) //nur wenn Rucksack vorhanden
             {
                 if (inInventory == false) //rein
                 {
@@ -66,7 +70,7 @@ public class InventoryManager : MonoBehaviour {
         UIManager.instance.HideCrosshair();
         UIManager.instance.HideMiddleinfo();
         InventoryPanel.transform.localPosition= new Vector3(0, 0);
-        PlayerController.instance.Pause = true;
+        fppm.Pause = true;
         Cursor.lockState = CursorLockMode.None;
         inInventory = true;
     }
@@ -78,7 +82,7 @@ public class InventoryManager : MonoBehaviour {
         UIManager.instance.ShowCrosshair();
         UIManager.instance.ShowMiddleinfo();
         InventoryPanel.transform.localPosition = new Vector3(0, 1250);
-        PlayerController.instance.Pause = false;
+        fppm.Pause = false;
         Cursor.lockState = CursorLockMode.Locked;
         inInventory = false;
     }

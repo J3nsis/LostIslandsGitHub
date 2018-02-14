@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114449167457195062}
   - component: {fileID: 114190976253095360}
   - component: {fileID: 114388687594577184}
+  - component: {fileID: 114546173888600230}
   m_Layer: 0
   m_Name: rock01
   m_TagString: Rock
@@ -40,7 +41,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1824129211393348}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 24.103554, y: -5.4690733, z: -33.740555}
+  m_LocalPosition: {x: 26.276222, y: -5.4690733, z: -29.692152}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -151,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca9b06605630eb14c97aa3142fdf536b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SyncEnableDisable: 0
+  SyncDisable: 0
   SyncDestroy: 1
 --- !u!114 &114449167457195062
 MonoBehaviour:
@@ -170,3 +171,18 @@ MonoBehaviour:
   SavePosition: 0
   PrefabName: 
   nothingselected: 0
+--- !u!114 &114546173888600230
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1824129211393348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3af87dc2168584048b7cac877cd518d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDelay: 0
+  fadeTime: 0.5
+  fadeInOnStart: 0
+  fadeOutOnStart: 0

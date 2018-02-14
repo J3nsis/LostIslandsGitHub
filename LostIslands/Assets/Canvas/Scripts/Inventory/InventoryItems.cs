@@ -68,13 +68,21 @@ public class InventoryItems : MonoBehaviour {
     }
 
 
-    public void AddItembySlug(string slug, int amount = 1)//für von außer übersichtlicher als mit IDs
-    {
+    public void AddItembySlugorID<T>(T SlugOrID, int amount = 1, int CurrentDurabilty = -1)//für von außer übersichtlicher als mit IDs
+    {       
         //hinzufügen das überprüft ob überhaupt da, also den namen den man eigibt
         if (Slotfree()) //nur adden wenn nicht voll
         {
-            AddItem(database.GetItemBySlug(slug).ID, amount);
-            Chat.instance.NewInfo(amount + " " + database.GetItemBySlug(slug).Name + " added!");
+            if (typeof(T) == typeof(int))//if id
+            {
+                AddItem(Convert.ToInt32(SlugOrID), amount, CurrentDurabilty);
+                Chat.instance.NewInfo(amount + " " + database.FetchItemByID(Convert.ToInt32(SlugOrID)).Name + " added!");
+            }
+            else if (typeof(T) == typeof(string))//if slug
+            {
+                AddItem(database.GetItemBySlug(SlugOrID.ToString()).ID, amount, CurrentDurabilty);
+                Chat.instance.NewInfo(amount + " " + database.GetItemBySlug(SlugOrID.ToString()).Name + " added!");
+            }       
         }
         else
         {
@@ -90,7 +98,7 @@ public class InventoryItems : MonoBehaviour {
         }           
     }
 
-    private void AddItem(int id, int amount = 1)//für neue Items ohne vorhandene data wie z.B. durability
+    private void AddItem(int id, int amount = 1, int CurrentDurabilty = -1)//für neue Items ohne vorhandene data wie z.B. durability
     {
         Item ItemToAdd = database.FetchItemByID(id); 
         if (ItemToAdd.Stackable && CheckIfItemIsInInventory(ItemToAdd))//wenn schon drin und stackable
@@ -101,6 +109,8 @@ public class InventoryItems : MonoBehaviour {
                 {
                     ItemData.ThisItemData data = slots[i].transform.GetChild(0).GetComponent<ItemData>().data; //data = ItemData.ThisItemDate klasse aus script an Item auf Slot
                     data.amount += amount;
+                    data.currentdurability = CurrentDurabilty;
+
                     break;
                 }
             }
@@ -124,13 +134,15 @@ public class InventoryItems : MonoBehaviour {
                     itemObj.GetComponent<Image>().sprite = ItemToAdd.Sprite;
                     itemObj.transform.localPosition = new Vector2(0, 0);
                     itemObj.name = ItemToAdd.Name;
+                    itemObjdata.data.currentdurability = CurrentDurabilty;
+
                     break;
                 }
             }
         }
     }
 
-    private void AddItemWithData(int ItemId, ItemData.ThisItemData data)//für schon vorhandenes/aus Load importiertes Item mit ItemData
+    private void AddItemWithData(int ItemId, ItemData.ThisItemData data)//nur für schon vorhandenes/aus Load importiertes Item mit ItemData!
 	{
         Item ItemToAdd = database.FetchItemByID(ItemId);
 
@@ -151,7 +163,7 @@ public class InventoryItems : MonoBehaviour {
         itemObjData.newAdded = false;            
         itemObj.GetComponent<Image>().sprite = ItemToAdd.Sprite;
         itemObj.transform.localPosition = new Vector2(0, 0);
-        itemObj.name = ItemToAdd.Name;          
+        itemObj.name = ItemToAdd.Name;   
     }
 
 
@@ -235,11 +247,9 @@ public class InventoryItems : MonoBehaviour {
             return 0;
         }
         throw new InvalidOperationException("Cant get Amount or not in inv!");
-
-
     }
 
-    bool Slotfree()
+    public bool Slotfree()
     {
         for (int i = 0; i < items.Count; i++)
         {
@@ -290,16 +300,37 @@ public class InventoryItems : MonoBehaviour {
         
     }
 
-    public ItemData GetItemDatabySlot(int slotId)//wird z.B. in Tooltip für Infos benötigt wie currentDurability
+    public ItemData GetItemDatabySlot(int slotId, bool Hotbar = false)//wird z.B. in Tooltip für Infos benötigt wie currentDurability
     {
-        return slots[slotId].transform.GetChild(0).GetComponent<ItemData>();
+        if (!Hotbar)
+        {
+            if (slots[slotId].transform.childCount == 1)
+            {
+                return slots[slotId].transform.GetChild(0).GetComponent<ItemData>();
+            }
+            else
+            {
+                return null;
+            }
+        }
+        else
+        {
+            if (HotbarSlots[slotId].transform.childCount == 1)
+            {
+                return HotbarSlots[slotId].transform.GetChild(0).GetComponent<ItemData>();
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 
-    public int GetSlotWhereItemisInInventory(int id)
+    public int GetSlotWhereItemisInInventory(int Itemid)//ohne Hotbar
     {
         for (int i = 0; i < slots.Count; i++)
         {
-            if (slots[i].gameObject.transform.GetChild(0).GetComponent<ItemData>().item.ID == id)
+            if (slots[i].gameObject.transform.GetChild(0).GetComponent<ItemData>().item.ID == Itemid)
             {
                 return i;
             }
@@ -357,6 +388,8 @@ public class InventoryItems : MonoBehaviour {
         }
     }
 
+    //### end
+
     void ClearInventory()//alle Slots etc. löschen
     {
         items.Clear();
@@ -390,25 +423,28 @@ public class InventoryItems : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (!Net_Manager.instance.GetLocalPlayer().GetComponent<FirstPersonPlayerMovement>().Pause)
         {
-            HandManager.instance.DisableAll();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            UseToolFromHotbar(0);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            UseToolFromHotbar(1);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            UseToolFromHotbar(2);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            UseToolFromHotbar(3);
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                HandManager.instance.DisableAll();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                UseToolFromHotbar(0);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                UseToolFromHotbar(1);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                UseToolFromHotbar(2);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                UseToolFromHotbar(3);
+            }
         }
     }
 

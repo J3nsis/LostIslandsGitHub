@@ -46,9 +46,11 @@ public class PlayerStats : MonoBehaviour {
         public float Trinken = 50;
         public int Level = 1;
 
-        public bool hasBackpack;
+        public List<string> CollectedObjectNames; //z.B. Backpack oder StartAxe, die ja nicht in World Data gespeichert werden soll sondern bei jedem Spieler selbst
+                                                  //werden in SaveLoadManager dann gelöscht
 
         public Vector3 position;//wird in SaveLoadManager beim laden und speichern auf Spieler übertragen!
+        public Vector3 rotation;
     }
 
     public bool isRunning;//wird von FPMovement script geändert
@@ -56,18 +58,33 @@ public class PlayerStats : MonoBehaviour {
 
     int lastLevel = 1;//um zu checken ob Level sich geändert hat!
 
+    public bool hasBackpack;
+
     //###### Funktionen ######
 
     void Start ()
     {
         Blood.SetActive(false);
         DeadMessage.SetActive(false);
-        lastLevel = ps.Level;
+        lastLevel = ps.Level;  
+    }
+    private void Update()
+    {
+        if (!hasBackpack)
+        {
+            foreach (string GON in ps.CollectedObjectNames)
+            {
+                if (GON == "Backpack")
+                {
+                    hasBackpack = true;
+                }
+            }
+        }      
     }
 
     public void OnSwing()//wird von ToolController bei Swing ausgeführt
     {
-        ps.Ausdauer -= 10f; //ca. -10
+        ps.Ausdauer -= 7f; //ca. -10
     }
 
 

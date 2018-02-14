@@ -27,20 +27,8 @@ public class HumanHandController : MonoBehaviour {
     {
         if ((animator) && (m_RightHandObj != null))
         {
-            if (ikActive)
+            if (ikActive)//wenn true dann ist Hand an Axt (Anchor) dran
             {
-                // Set the look target position, if one has been assigned
-                if (headTracking)
-                {
-                    // Set our Look Weights
-                    // m_LookWeight, m_BodyWeight, m_HeadWeight, m_EyesWeight, m_ClampWeight
-                    Vector3 targetForward = m_HeadBone.position + m_fppm.m_CurrentCameraLookDirection * 1.0f;
-                    Debug.DrawLine(m_HeadBone.position, targetForward, Color.red, 0.1f);
-
-                    animator.SetLookAtWeight(1.0f, 0.5f, headTrackingWeight, 1.0f, 1.0f);
-                    animator.SetLookAtPosition(targetForward);
-                }
-
                 // Set the right hand target position and rotation, if one has been assigned
                 animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1.0f);
                 animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1.0f);
@@ -54,5 +42,18 @@ public class HumanHandController : MonoBehaviour {
                 animator.SetLookAtWeight(0);
             }
         }
+
+        if (animator && headTracking)
+        {
+            // Set the look target position, if one has been assigned
+            // Set our Look Weights
+            // m_LookWeight, m_BodyWeight, m_HeadWeight, m_EyesWeight, m_ClampWeight
+            Vector3 targetForward = m_HeadBone.position + m_fppm.m_CurrentCameraLookDirection * 1.0f;
+            Debug.DrawLine(m_HeadBone.position, targetForward, Color.red, 0.1f);
+
+            animator.SetLookAtWeight(1.0f, 0.5f, headTrackingWeight, 1.0f, 1.0f);
+            animator.SetLookAtPosition(targetForward);
+        }
     }
+
 }

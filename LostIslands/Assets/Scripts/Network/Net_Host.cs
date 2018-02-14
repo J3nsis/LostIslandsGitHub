@@ -7,28 +7,47 @@ public class Net_Host : MonoBehaviour {
 
     private void Awake()
     {
-        if (!PhotonNetwork.isMasterClient)
+        /*if (!PhotonNetwork.isMasterClient)
         {
-            //Debug.LogError("Net_Host is enabled obwohl kein MasterClient! Jetzt deaktiviert!");
+            Debug.LogError("Net_Host is enabled obwohl kein MasterClient! Jetzt deaktiviert!");
             this.enabled = false;
             return;
-        }
+        }*/
     }
 
     private void Start()
     {
-        if (!PhotonNetwork.isMasterClient) { return; }
+        /*if (!PhotonNetwork.isMasterClient && GetComponentInParent<FirstPersonPlayerMovement>().gameObject.tag == "Host")
+        {
+            Debug.LogError("Net_Host is enabled obwohl kein MasterClient! Jetzt deaktiviert!");
+            this.enabled = false;
+            return;
+        }
 
-        if (PhotonNetwork.offlineMode)
+        if (!PhotonNetwork.isMasterClient) { return; }
+   */
+
+        if (PhotonNetwork.offlineMode && PhotonNetwork.isMasterClient)
         {
             SaveLoadManager.instance.Load(Application.dataPath + "/SaveGames/Offline/slot" + SaveLoadManager.instance.currentSlot, true);
         }
-        else
+        else if ((!PhotonNetwork.offlineMode) && PhotonNetwork.isMasterClient)
         {
             //nur beim Host wird beim start alles geladen, die Clients laden wenn sie joinen dann (und bekommen WorldData vom Host)
-            SaveLoadManager.instance.Load(Application.dataPath + "/SaveGames/Online/Host/slot" + SaveLoadManager.instance.currentSlot, true);  
+            SaveLoadManager.instance.Load(Application.dataPath + "/SaveGames/Online/Host/slot" + SaveLoadManager.instance.currentSlot, true);
+            print("now time for loading!");
             return;
         }
+    }
+
+    private void Update()
+    {
+        /*if (!PhotonNetwork.isMasterClient)
+        {
+            Debug.LogError("Net_Host is enabled obwohl kein MasterClient! Jetzt deaktiviert!");
+            this.enabled = false;
+            return;
+        }*/
     }
 
 
@@ -59,5 +78,15 @@ public class Net_Host : MonoBehaviour {
         }
        
     }
- 
+
+    private void OnPlayerConnected(NetworkPlayer player)
+    {
+        Chat.instance.NewMessage("New player connected!", "Server", true);
+    }
+
+    private void OnPlayerDisconnected(NetworkPlayer player)
+    {
+        Chat.instance.NewMessage("A player disconnected!", "Server", true);
+    }
+
 }

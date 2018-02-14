@@ -17,8 +17,12 @@ public class EscMenu : MonoBehaviour {
 
     public AudioMixer audioMixer;
     public GameObject directionalLight;
+    FirstPersonPlayerMovement fppm;
 
-	void Start () {
+	void Start ()
+    {
+        fppm = Net_Manager.instance.GetLocalPlayer().GetComponent<FirstPersonPlayerMovement>();
+
         CloseEsc();
         LoadSettings();
 
@@ -26,6 +30,7 @@ public class EscMenu : MonoBehaviour {
         {
             SaveButton.interactable = false;
         }
+        
     }
 
     void Update()
@@ -96,7 +101,7 @@ public class EscMenu : MonoBehaviour {
         UIManager.instance.HideCrosshair();
         UIManager.instance.HideMiddleinfo();      
         Cursor.lockState = CursorLockMode.None;
-        PlayerController.instance.Pause = true;
+        fppm.Pause = true;
         inEsc = true;
         EscPanel.SetActive(true);
         NormalEsc.SetActive(true);
@@ -113,7 +118,7 @@ public class EscMenu : MonoBehaviour {
         UIManager.instance.ShowChat();
         UIManager.instance.ShowCrosshair();
         UIManager.instance.ShowMiddleinfo();
-        PlayerController.instance.Pause = false;
+        fppm.Pause = false;
         inEsc = false;
         EscPanel.SetActive(false);
         NormalEsc.SetActive(true);

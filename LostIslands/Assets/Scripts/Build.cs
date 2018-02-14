@@ -53,7 +53,7 @@ public class Build : MonoBehaviour {
 
         if (BuildState == State.Placing)
         {
-            PlayerController.instance.onlyBlockMoving = true;
+            //PlayerController.instance.onlyBlockMoving = true;
 
             if (ausgerichtet == false)
             {
@@ -118,10 +118,10 @@ public class Build : MonoBehaviour {
             blocked = !Structure.GetComponent<TriggerTest>().Trigger; //von Trigger Checker script nehmen
         }
 
-        if ((PlayerController.instance.Pause == true && BuildState == State.Placing) || PlayerController.instance.onlyBlockMoving == false)
+        /*if ((PlayerController.instance.Pause == true && BuildState == State.Placing))// || PlayerController.instance.onlyBlockMoving == false)
         {
             CancleBuild();
-        }
+        }*/
 
         
 
@@ -154,7 +154,7 @@ public class Build : MonoBehaviour {
         {
             if (blocked == false)
             {
-                PlayerController.instance.onlyBlockMoving = false;
+                //PlayerController.instance.onlyBlockMoving = false;
                 Structure.name = StructureName + "*" + Time.time; //damit identifizierbar, * damit später getrennt werden kann nur und nur Richtiger Name zum Prefab laden bnutzt wird also nicht die Zeit
 
                 Structure.GetComponent<Renderer>().material.color = normalcolor;
@@ -178,7 +178,7 @@ public class Build : MonoBehaviour {
             BuildState = State.none;
             if (Structure != null) { Destroy(Structure.gameObject); }
             currentStructureName = "";
-            PlayerController.instance.onlyBlockMoving = false;
+            //PlayerController.instance.onlyBlockMoving = false;
             ausgerichtet = false;
         }           
     }

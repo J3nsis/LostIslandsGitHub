@@ -21,7 +21,7 @@ public class Chat : MonoBehaviour{
     }
     #endregion
 
-    public Transform ParentRect;
+    public Transform ParentRect;//Messages Parent
     public GameObject TextPrefab;
     public GameObject WarningPrefab;
     public GameObject MessagePrefab;
@@ -30,6 +30,16 @@ public class Chat : MonoBehaviour{
 
     string lastInput;
 
+    public bool inChat;
+
+    FirstPersonPlayerMovement fppm;
+
+
+    private void Start()
+    {
+        fppm = Net_Manager.instance.GetLocalPlayer().GetComponent<FirstPersonPlayerMovement>();
+    }
+
 
     void Update()
     {
@@ -37,7 +47,7 @@ public class Chat : MonoBehaviour{
         {
             inputField.ActivateInputField();
             Cursor.lockState = CursorLockMode.None;
-            PlayerController.instance.Pause = true;
+            fppm.Pause = true;
         }
 
         if (Input.GetKey(KeyCode.Return) && inputField.text != "")//Wenn Enter
@@ -66,43 +76,43 @@ public class Chat : MonoBehaviour{
                 string parameter1 = "";
                 string parameter2 = "";
 
-                inputArray = input.Split(' ');
+                inputArray = input.Split(' ');               
 
                 if (inputArray.Length >= 1)
                 {
                     command = inputArray[0];
                 }
-                else
+                if(inputArray.Length >= 2)
+                {
+                    parameter1 = inputArray[1];
+                }
+                if (inputArray.Length == 3)
+                {
+                    parameter2 = inputArray[2];
+                }
+                if (inputArray.Length <= 0 || inputArray.Length > 3)
                 {
                     Error();
                     return;
                 }
 
-                 //alle commands hier müssen klein geschrieben sein, in Chat ist es egal
-                command.ToLowerInvariant();//geht nicht???!!
-                switch (command)
+                command = command.Replace("/", "");
+                command = command.ToLower();
+                command = "/" + command;
+
+                switch (command)//alle commands klein!
                 {
                     case "/add":
-                        if (inputArray.Length >= 3)
-                        {
-                            parameter1 = inputArray[1];
-                            parameter2 = inputArray[2];
-                        }
-                        else
+                        if (parameter1 == "" || parameter2 == "")
                         {
                             Error();
                             return;
                         }
-                        InventoryItems.instance.AddItembySlug(parameter1, int.Parse(parameter2));
+                        InventoryItems.instance.AddItembySlugorID(parameter1, int.Parse(parameter2));
                         break;
 
                     case "/remove":
-                        if (inputArray.Length >= 3)
-                        {
-                            parameter1 = inputArray[1];
-                            parameter2 = inputArray[2];
-                        }
-                        else
+                        if (parameter1 == "" || parameter2 == "")
                         {
                             Error();
                             return;
@@ -120,11 +130,7 @@ public class Chat : MonoBehaviour{
                         PlayerStats.instance.KillPlayer();
                         break;
                     case "/setlevel":
-                        if (inputArray.Length == 2)
-                        {
-                            parameter1 = inputArray[1];
-                        }
-                        else
+                        if (parameter1 == "")
                         {
                             Error();
                             return;
@@ -138,10 +144,10 @@ public class Chat : MonoBehaviour{
                 }
             }
 
-            if (InventoryManager.instance.inInventory == false)//nur wenn nicht im Inventar
+            if (InventoryManager.instance.inInventory == false)//wenn enter und nicht im Inventar
             {
                 Cursor.lockState = CursorLockMode.Locked;
-                PlayerController.instance.Pause = false;
+                fppm.Pause = false;
             }
             inputField.text = "";
         }
@@ -149,6 +155,14 @@ public class Chat : MonoBehaviour{
         if (Input.GetKey(KeyCode.UpArrow))//letzen Command wiederholen
         {
             inputField.text = lastInput;
+        }
+
+        foreach (GameObject Go in GameObject.FindGameObjectsWithTag("ChatMessage"))//damit Messages von anderen Spielern auch richtigen Parent haben weil dieser beim Message Instatiate nicht sync wird!
+        {
+            if (Go.transform.parent != ParentRect)
+            {
+                Go.transform.SetParent(ParentRect);
+            }
         }
     }
 
@@ -158,13 +172,12 @@ public class Chat : MonoBehaviour{
         inputField.text = "";
     }
 
-    void NewMessage(string info, string PlayerName = "", bool Online = false)
+    public void NewMessage(string info, string PlayerName = "", bool Online = false)
     {
         if (Online)
         {
             GameObject Message = PhotonNetwork.Instantiate("ChatMessage", Vector3.zero, Quaternion.identity,0);//geht noch nicht Online, weil Nachricht Parent und Text nicht sync werden!!!
             Message.transform.SetParent(ParentRect);
-            Message.GetComponent<Net_SyncMessage>().MessageParent = ParentRect;
             
             if (PlayerName == null)
             {
@@ -175,7 +188,7 @@ public class Chat : MonoBehaviour{
                 Message.GetComponent<Text>().text = "[" + PlayerName + "]: " + info;
             }
             Message.GetComponent<Net_SyncMessage>().MessageText = Message.GetComponent<Text>().text;
-            Message.GetComponent<DestroyMe>().Destroy(20f, true);
+            Message.GetComponent<Net_ObjectsSyncHandler>().Net_DestroyMe(20f);
         }
         else
         {
@@ -190,7 +203,7 @@ public class Chat : MonoBehaviour{
                 Message.GetComponent<Text>().text = "[" + PlayerName + "]: " + info;
             }
 
-            Message.GetComponent<DestroyMe>().Destroy(20f, false);
+            Message.GetComponent<Net_ObjectsSyncHandler>().Net_DestroyMe(20f);
         }
 
         
@@ -203,7 +216,7 @@ public class Chat : MonoBehaviour{
         Info.transform.SetParent(ParentRect);
         Info.GetComponent<Text>().text = info;
 
-        Info.GetComponent<DestroyMe>().Destroy(20f, false);
+        Info.GetComponent<Net_ObjectsSyncHandler>().DestroyMe(20f); 
     }
 
     public void NewWarning(string info)
@@ -212,7 +225,7 @@ public class Chat : MonoBehaviour{
         InfoW.transform.SetParent(ParentRect);
         InfoW.GetComponent<Text>().text = info;
 
-        InfoW.GetComponent<DestroyMe>().Destroy(20f, false);
+        InfoW.GetComponent<Net_ObjectsSyncHandler>().DestroyMe(20f);
     }
 
 

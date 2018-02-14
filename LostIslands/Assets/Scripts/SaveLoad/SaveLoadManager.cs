@@ -25,7 +25,7 @@ public class SaveLoadManager : MonoBehaviour {
 
     bool inMenu;
     bool inGame;
-    bool alreadyLoaded;
+    bool alreadyLoaded = false;
 
     public int currentSlot;//wird von Button in Menu gesetzt (bei Host), 
 
@@ -50,8 +50,6 @@ public class SaveLoadManager : MonoBehaviour {
 
     void Update()
     {
-        
-
         if (LoadingScreenProzessSlider == null && inMenu)
         {
             LoadingScreenProzessSlider = MainMenuManager.instance.LoadingProzess;
@@ -61,18 +59,11 @@ public class SaveLoadManager : MonoBehaviour {
 
     private void LateUpdate()
     {
-        print(currentSlot);
-
-        print(SceneManager.GetActiveScene().name);
         switch (SceneManager.GetActiveScene().name)
         {
             case "Game":
                 inGame = true;
                 inMenu = false;
-                if (currentSlot == 0)
-                {
-                    Debug.LogError("[SaveLoadManager] Slot == 0!");
-                }
                 break;
 
             case "Menu":
@@ -80,9 +71,6 @@ public class SaveLoadManager : MonoBehaviour {
                 inMenu = true;
                 alreadyLoaded = false;
                 break;
-
-
-
             default:
                 break;
         }
@@ -134,6 +122,7 @@ public class SaveLoadManager : MonoBehaviour {
         //### PlayerStats (Health etc.) abspeichern
         CreateFileIfNotExists(pathforJsons + "/PlayerStats.json");
         PlayerStats.instance.ps.position = Net_Manager.instance.GetLocalPlayer().transform.position;
+        PlayerStats.instance.ps.rotation = Net_Manager.instance.GetLocalPlayer().transform.eulerAngles;
         File.WriteAllText(pathforJsons + "/PlayerStats.json", JsonUtility.ToJson(PlayerStats.instance.ps, true));
         //###
 
@@ -145,13 +134,9 @@ public class SaveLoadManager : MonoBehaviour {
 
     public void Load(string pathforJsons, bool LoadWorldDataFromLocal, string WorldDataString = "")//geladen und gespeichert wird über Net_Host, was am Host hängt
     {
-        alreadyLoaded = true;
+        if (alreadyLoaded) print("loading 2nd time!");
+        alreadyLoaded = true;        
 
-        if (inMenu)
-        {
-            print("cannot load in menu! zum test trotzdem!");
-            //return;
-        }
         if (!File.Exists(pathforJsons + "/WorldData.json") && !File.Exists(pathforJsons + "/PlayerStats.json"))//Wenn noch nichts abgespeichert wurde
         {
             print("no saveGame to load in Directory: " + pathforJsons);
@@ -174,12 +159,12 @@ public class SaveLoadManager : MonoBehaviour {
         }
         else
         {
-            if (WorldDataString != null)
+            if (WorldDataString != "")
             {
                 WorldData worldData = JsonUtility.FromJson<WorldData>(WorldDataString);
                 if (worldData == null)
                 {
-                    Debug.LogWarning("something went wrong with loading from WorldDataString:    " + WorldDataString);
+                    Debug.LogWarning("something went wrong with loading from WorldDataString: " + WorldDataString);
                 }
 
                 SaveLoadObjects.instance.Load(worldData.objectsData);
@@ -187,15 +172,19 @@ public class SaveLoadManager : MonoBehaviour {
             }
             else
             {
-                Debug.LogWarning("cannot load worldData with WorldDataString because it is emty!");
+                Debug.LogWarning("cannot load worldData with WorldDataString because it is emty!: " + WorldDataString);
             }
         }
         
-       
-
+      
         //### PlayerStats laden
         PlayerStats.instance.ps = JsonUtility.FromJson<PlayerStats.PlayerStatsSave>(File.ReadAllText(pathforJsons + "/PlayerStats.json"));
         Net_Manager.instance.GetLocalPlayer().transform.position = PlayerStats.instance.ps.position;
+        Net_Manager.instance.GetLocalPlayer().transform.Rotate(PlayerStats.instance.ps.rotation);
+        foreach (string GON in PlayerStats.instance.ps.CollectedObjectNames)
+        {
+            Destroy(GameObject.Find(GON));
+        }
         //###
 
         //### InventarSlots laden

@@ -71,7 +71,7 @@ public class CreateRoom : MonoBehaviour {
         }
         else
         {
-            print("Room sucessfully created");
+            //print("Room sucessfully created");
         }
     }
 

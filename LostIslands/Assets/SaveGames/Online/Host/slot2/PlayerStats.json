@@ -1,8 +1,20 @@
 {
     "Gesundheit": 50.0,
     "Ausdauer": 100.0,
-    "Essen": 45.41851806640625,
-    "Trinken": 38.53755187988281,
+    "Essen": 95.07670593261719,
+    "Trinken": 17.473594665527345,
     "Level": 1,
-    "hasBackpack": true
+    "CollectedObjectNames": [
+        "Backpack"
+    ],
+    "position": {
+        "x": 85.23843383789063,
+        "y": 2.465965509414673,
+        "z": -23.3428955078125
+    },
+    "rotation": {
+        "x": 0.0,
+        "y": 158.6000213623047,
+        "z": 0.0
+    }
 }

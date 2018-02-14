@@ -28,40 +28,21 @@ MonoBehaviour:
   RunInBackground: 1
   RpcList:
   - Chat
-  - ColorRpc
   - DestroyRpc
-  - DoJump
-  - Flash
   - InstantiateRpc
-  - Marco
+  - OnGUI
   - PickupItemInit
-  - Polo
   - PunPickup
   - PunPickupSimple
   - PunRespawn
   - RequestForPickupItems
   - RequestForPickupTimes
-  - TaggedPlayer
-  - UseTool2
-  - JoinGame2
-  - JoinGameRPC
-  - AddPlayerToList
-  - SetPlayerIdentityInScene
-  - OnGUI
-  - UseToolRPC
-  - enableStoneAxe
-  - RPCDisableAll
-  - Destroy
-  - EnableDisable
-  - LoadAll
-  - SaveAll
-  - SaveAllRPC
-  - LoadAllRPC
-  - DestroyRPC
-  - InstaniateMessageRPC
-  - StartGameforAllRPC
-  - SetPlayerIdentityInSceneRPC
-  - SyncCurrentSlotRPC
-  - InstantiateMessageRPC
+  - RPC_Destroy
+  - RPC_Disable
   - RPC_GetWorldDataStringFromHost
+  - SaveAllRPC
+  - SetPlayerIdentityInSceneRPC
+  - StartGameforAllRPC
+  - RPC_Enable
+  - RPC_EnableDisable
   DisableAutoOpenWizard: 1

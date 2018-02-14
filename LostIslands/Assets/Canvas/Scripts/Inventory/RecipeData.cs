@@ -53,7 +53,7 @@ public class RecipeData : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
             InventoryItems.instance.RemoveItembySlug(recipeData.NeedItem1_Slug, recipeData.NeedItem1_Amount);//entferne 1.
 
-            InventoryItems.instance.AddItembySlug(recipeData.GetItem_Slug, recipeData.GetItem_Amount);//füge neues hinzu
+            InventoryItems.instance.AddItembySlugorID(recipeData.GetItem_Slug, recipeData.GetItem_Amount);//füge neues hinzu
         }
         else
         {

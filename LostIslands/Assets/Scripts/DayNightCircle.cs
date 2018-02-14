@@ -25,14 +25,14 @@ public class DayNightCircle : MonoBehaviour {
 
     float lastChange = 0.0f;
 
-    int hour = 12;
     int minutes = 00;
+    int hour = 12;   
     string minutesnew;
-    public int Day; //wird über SaveLoad gespeichert/geladen
+    public int Day = 1; //wird über SaveLoad gespeichert/geladen
 
     void Update()
     {
-        if (Time.time - lastChange > 0.00003) //eine Sekunde 4 InGame Minuten
+        if (Time.time - lastChange > 5 * Time.deltaTime) //eine Sekunde == 2.4 minuten in game
         {
             minutes++;
             if (minutes == 60)
